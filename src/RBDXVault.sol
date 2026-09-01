@@ -16,8 +16,7 @@ import {AssetRegistry} from "./AssetRegistry.sol";
 /// mint/redeem at a weight-deviation-adjusted price. See docs/DESIGN.md for the
 /// full mechanism writeup; this contract implements §1-§5 of it.
 ///
-/// SOLVENCY INVARIANT (the answer to "can this be drained by depositing A and
-/// farming B"): rebates (bonus RBDX on mint / bonus token on redeem, for trades
+/// SOLVENCY INVARIANT: rebates (bonus RBDX on mint / bonus token on redeem, for trades
 /// that move the basket toward its target weight) are paid ONLY out of
 /// `rebateReserve`, a USD-denominated ledger funded exclusively by (a) penalty fees
 /// collected from trades that move AWAY from target weight, and (b) the
@@ -61,9 +60,7 @@ contract RBDXVault is AccessControl, ReentrancyGuard, Pausable {
     EnumerableSet.AddressSet private heldTokens;
 
     event Minted(address indexed user, address indexed token, uint256 amountIn, uint256 rbdxOut, int256 weightFeeBps);
-    event Redeemed(
-        address indexed user, address indexed token, uint256 rbdxIn, uint256 amountOut, int256 weightFeeBps
-    );
+    event Redeemed(address indexed user, address indexed token, uint256 rbdxIn, uint256 amountOut, int256 weightFeeBps);
     event ParamsUpdated();
 
     error ZeroAddress();
@@ -91,7 +88,12 @@ contract RBDXVault is AccessControl, ReentrancyGuard, Pausable {
 
     /// @notice Deposit `amount` of `token` (must be listed) to mint RBDX.
     /// @param minRbdxOut Slippage guard — revert if computed output is less.
-    function mint(address token, uint256 amount, uint256 minRbdxOut) external nonReentrant whenNotPaused returns (uint256 rbdxOut) {
+    function mint(address token, uint256 amount, uint256 minRbdxOut)
+        external
+        nonReentrant
+        whenNotPaused
+        returns (uint256 rbdxOut)
+    {
         if (!registry.isListed(token)) revert AssetNotListed(token);
         if (amount == 0) revert ZeroAmount();
 
@@ -240,16 +242,24 @@ contract RBDXVault is AccessControl, ReentrancyGuard, Pausable {
         uint256 magnitudeBps = (devAfter * maxWeightFeeBps) / referenceWeight;
         if (magnitudeBps > maxWeightFeeBps) magnitudeBps = maxWeightFeeBps;
 
-        feeBps = devAfter <= devBefore ? -int256(magnitudeBps) : int256(magnitudeBps);
+        // Exact ties (e.g. topping up the sole asset in a single-asset vault,
+        // whose weight is pinned at 100% either side of the trade) are neutral —
+        // the trade didn't change relative alignment, so it earns neither a
+        // rebate nor a penalty. Only a strict improvement/worsening does.
+        if (devAfter == devBefore) {
+            feeBps = 0;
+        } else {
+            feeBps = devAfter < devBefore ? -int256(magnitudeBps) : int256(magnitudeBps);
+        }
     }
 
-    function _nav() internal view returns (uint256 nav) {
+    function _nav() internal view returns (uint256 total) {
         uint256 len = heldTokens.length();
         for (uint256 i = 0; i < len; i++) {
             address t = heldTokens.at(i);
             uint256 bal = IERC20(t).balanceOf(address(this));
             if (bal == 0) continue;
-            nav += (bal * registry.priceOf(t)) / 1e18;
+            total += (bal * registry.priceOf(t)) / 1e18;
         }
     }
 
