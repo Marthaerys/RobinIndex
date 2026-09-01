@@ -2,46 +2,63 @@
 
 ## 1. What this is
 
-RBDX is a market-cap-weighted index token backed by Robinhood Chain Stock Tokens
-(tokenized equities — NVDA, etc.). Users mint RBDX by depositing a single stock
-token, and redeem RBDX for a single stock token of their choice. The price they get
-is nudged by how much that trade moves the basket toward or away from its
-market-cap target weight: a **rebate** for improving alignment, a **penalty** for
-worsening it. This both (a) turns ordinary users/arbitrageurs into the rebalancing
-mechanism — no active management needed — and (b) automatically shrinks a token's
-influence on the index if its market cap collapses, which is the built-in defense
-against one holding "depegging" the whole basket.
+RBDX is an index token backed by Robinhood Chain Stock Tokens (tokenized equities —
+NVDA, SpaceX, etc.). Users mint RBDX by depositing a single stock token, and redeem
+RBDX for a single stock token of their choice. The price they get is nudged by how
+much that trade moves the basket toward or away from its target weight: a
+**rebate** for improving alignment, a **penalty** for worsening it. This both (a)
+turns ordinary users/arbitrageurs into the rebalancing mechanism — no active
+management needed — and (b) automatically shrinks a token's influence on the index
+if its weight collapses, which is the built-in defense against one holding
+"depegging" the whole basket.
 
 This is the same class of problem GMX's GLP vault solved for its multi-asset LP
 token, and the design below deliberately follows that proven pattern rather than
 inventing a new one.
+
+**What "target weight" tracks — a deliberate product decision, not a limitation:**
+RBDX is *not* trying to mirror a real-world index like the S&P 500. Target weight is
+driven by each Stock Token's own **on-chain circulating supply** (`totalSupply() *
+Chainlink price`) — i.e. how much of that tokenized asset actually exists on
+Robinhood Chain right now. Minting a Stock Token isn't a free/permissionless action
+(only Robinhood's Authorized Participant can do it, against real underlying value —
+see §2), so circulating supply is an honest signal of real capital deployed into
+that asset on-chain. The result is an **AUM/adoption-weighted index of Robinhood
+Chain's tokenized-equity ecosystem** — something like a tokenized SpaceX can
+legitimately carry a large weight here despite not appearing in a real-world index
+at all. A useful side effect: target weight is fully computed on-chain, live, from
+data nobody has to curate — see §3 and §6.
 
 ## 2. What Robinhood Chain actually gives us (researched, not assumed)
 
 - Stock Tokens are plain ERC-20 (18 decimals), **freely transferable with no
   whitelist for secondary holders** — a vault contract can hold/mint/burn against
   them and they're DEX-composable. Only *primary issuance* is KYB-gated (to BBVI as
-  Authorized Participant) — irrelevant to us, since users deposit already-issued
-  tokens. ([Stock Tokens spec](https://docs.robinhood.com/chain/stock-tokens/))
+  Authorized Participant) — irrelevant to holding/depositing already-issued tokens,
+  but directly relevant to §1's weighting decision: nobody can inflate a token's
+  `totalSupply()` for free, it costs real capital via that AP flow.
+  ([Stock Tokens spec](https://docs.robinhood.com/chain/stock-tokens/))
 - Each Stock Token has a Chainlink feed (`AggregatorV3Interface`, `latestRoundData`),
   updating **24/5 during market hours only**. The reported price already bakes in
   the ERC-8056 corporate-action multiplier (dividends/splits), so `rawBalance *
   chainlinkPrice` is a correct fair USD value with no extra multiplier math needed.
   ([Oracles & Price Feeds](https://docs.robinhood.com/chain/oracles-and-price-feeds/))
-- **Market cap is NOT available on-chain** — only price per token. Shares
-  outstanding has to come from somewhere else. Per the user's decision, v1 sources
-  this via an admin-updated registry (`AssetRegistry.sol`), not a fully trustless
-  on-chain feed.
+- **Real-world market cap (shares outstanding) is NOT available on-chain** — only
+  price per token and each token's own `totalSupply()`. This is exactly why §1's
+  weighting is defined off `totalSupply()` rather than real market cap: it's the
+  only version of "how big is this position" that Robinhood Chain actually exposes
+  trustlessly.
 
 ## 3. The math
 
-Target weight (`i` ranges over listed assets):
+Target weight (`i` ranges over listed assets) — fully on-chain, no admin input:
 ```
-marketCap_i    = sharesOutstanding_i * chainlinkPrice_i
-targetWeight_i = marketCap_i / Σ_j marketCap_j
+circulatingValue_i = totalSupply(token_i) * chainlinkPrice_i
+targetWeight_i      = circulatingValue_i / Σ_j circulatingValue_j
 ```
 
-NAV and current weight:
+NAV and current weight (based on what the *vault* holds, separate from the
+totalSupply-based target above):
 ```
 NAV               = Σ_i (balance_i * chainlinkPrice_i)
 currentWeight_i   = (balance_i * chainlinkPrice_i) / NAV
@@ -59,9 +76,17 @@ from how much the deposit moves `currentWeight_i` toward or away from
 **underweight** one moves away (penalty). Same ±1% cap, same 0.1% dev fee taken
 from the payout.
 
-Worked example matching the user's own numbers: 100 stocks, $100M total market cap,
-NVDA at $12M → `targetWeight_NVDA = 12%` — this is asserted directly in
-`test_TargetWeights_Match12PercentExample`.
+Worked example matching the user's own numbers: 100 tokens, $100M total on-chain
+circulating value, NVDAx at $12M → `targetWeight_NVDAx = 12%` — asserted directly in
+`test_TargetWeights_Match12PercentExample`, and `test_TargetWeight_TracksOnchainSupplyChanges_Live`
+confirms weight shifts immediately when supply changes, no admin call involved.
+
+**On the residual manipulation angle** (raised and correctly reasoned through by
+the user): someone could buy up real exposure to a small token via Robinhood to
+grow its on-chain supply and thus its target weight. This is real but structurally
+self-limiting — it costs genuine 1:1 capital through the AP flow (not a cheap
+exploit), and the only thing it buys is eligibility for a **rebate capped at 1% of
+a single trade's value**. The cost of the "attack" dwarfs the capped reward.
 
 ## 4. The anti-drain guarantee ("deposit A, farm B" — the user's original worry)
 
@@ -81,20 +106,24 @@ construction** — enforced in `RBDXVault._applyFee`, not argued informally. No
 sequence of mints/redeems, however cleverly routed across assets, can extract more
 USD value than was deposited plus what other users' penalties funded.
 
-Two more layers, defense-in-depth beyond the reserve clamp:
+One more layer, defense-in-depth beyond the reserve clamp:
 - **Weights recompute every transaction** — an immediate reversal already faces a
   worse price before the reserve limit even matters.
-- **Mint→transfer/redeem cooldown** (default 15 min, GMX/GLP precedent): a wallet
-  that just minted cannot transfer *or* redeem for the cooldown window. This closes
-  a hole a naive "only gate `redeem()`" design leaves open — a same-block
-  mint-then-handoff-to-a-fresh-wallet-then-redeem round trip — see
-  `test_Transfer_CooldownCannotBeBypassedViaFreshWallet`. **This was a genuine
-  refinement made during implementation**: the original plan said only the
-  vault-redemption path would be gated and the token would stay unrestricted; that
-  turned out to be bypassable, so `RBDXToken._update` now also gates ordinary
-  transfers from a recently-minted wallet. Net effect: a freshly-minted balance
-  can't be flipped on a DEX for the first 15 minutes either — an accepted,
-  deliberate trade-off, not a bug.
+
+**RBDX itself is always freely, immediately transferable — including tokens
+someone just minted.** No cooldown ever touches a DEX trade. This was revisited
+mid-build: an earlier version also gated ordinary transfers on a mint-cooldown
+(mirroring GMX's GLP) to close a "mint on wallet A, hand off to fresh wallet B, B
+redeems instantly" loophole. On reflection that loophole doesn't need closing —
+the `rebateReserve` clamp above already bounds what *any* redemption can extract,
+regardless of which wallet calls it or how fast, so gating transfers bought no real
+safety margin while directly working against the goal of letting arbitrageurs react
+instantly to a DEX-price/NAV gap. `test_FreshWalletRedeem_BypassesCooldown_
+ButStaysReserveBounded` exercises exactly this pattern and confirms it stays
+bounded. `RBDXVault.redeem()` keeps its own optional per-wallet cooldown
+(`mintRedeemCooldown`, governance-configurable, can be set to 0) as a minor speed
+bump against same-wallet round-trips through the vault specifically — it cannot
+and does not touch transfers/DEX trading.
 
 **Also caught during implementation** (see `test_Mint_OverweightAsset_GetsPenalty`
 and the fix in `_weightFeeBps`): topping up the *sole* asset in a single-asset
@@ -113,28 +142,33 @@ are governance-adjustable within hard caps baked into the contract (`devFeeBps` 
 
 ## 6. Governance / trust surface
 
+Deliberately minimal, now that target weight is 100% on-chain data (§1, §3):
+
 - `AssetRegistry`: `DEFAULT_ADMIN_ROLE` (intended: Gnosis Safe + timelock, never an
-  EOA) lists/delists assets. `ASSET_MANAGER_ROLE` updates `sharesOutstanding`, capped
-  at ±10% per call (`maxUpdateChangeBps`) so a compromised operational key can nudge
-  weights, not instantly reweight the index.
+  EOA) is the *only* trust surface here — it decides which assets are listed
+  (`addAsset`/`delistAsset`, i.e. which Chainlink feed to trust for a given token).
+  There is no data-update role at all: no shares-outstanding to keep fresh, no
+  keeper bot, no staleness-of-curation risk.
 - `RBDXVault`: `DEFAULT_ADMIN_ROLE` sets `devTreasury`, pauses/unpauses.
-  `PARAM_ADMIN_ROLE` tunes fee/cooldown parameters, all hard-capped as above.
-- These are genuine, disclosed trust assumptions (matching the fact that most index
-  providers today also curate constituents/weights) — not trustlessness claims.
+  `PARAM_ADMIN_ROLE` tunes fee/cooldown parameters, all hard-capped in the contract
+  (`devFeeBps` ≤ 1%, `maxWeightFeeBps` ≤ 5%, `mintRedeemCooldown` ≤ 1 day).
+- These are genuine, disclosed trust assumptions (which assets are even eligible)
+  — not trustlessness claims — but they're materially smaller than a typical index
+  provider's curation surface, since weights themselves need no curation.
 
 ## 7. Contracts
 
 | File | Role |
 |---|---|
-| `src/RBDXToken.sol` | ERC-20 share token; mint/burn restricted to the vault; transfer gated by mint-cooldown (§4). |
+| `src/RBDXToken.sol` | Plain ERC-20 share token; mint/burn restricted to the vault. No transfer restrictions (§4). |
 | `src/RBDXVault.sol` | Core: holds the basket, `mint()`/`redeem()`, NAV/weight math, fee + rebate-reserve accounting. |
-| `src/AssetRegistry.sol` | Governance-controlled asset list, Chainlink feed addresses, shares-outstanding. |
+| `src/AssetRegistry.sol` | Governance-controlled asset list + Chainlink feed addresses; target weight computed live from on-chain `totalSupply()` (§1, §3) — no admin-fed data. |
 | `src/libraries/OracleLib.sol` | Shared Chainlink read + staleness check + 18-decimal normalization. |
 | `src/interfaces/` | `AggregatorV3Interface` (vendored), `IStockToken`. |
-| `test/RBDXVault.t.sol` | Unit tests incl. the anti-drain scenario and the two bugs caught above. |
+| `test/RBDXVault.t.sol` | Unit tests incl. the anti-drain scenario and the bugs caught along the way (§4). |
 
 All builds/tests verified locally: `forge build` and `forge test` both pass
-(12/12) as of this writeup — see §9.
+(11/11) as of this writeup — see §9.
 
 ## 8. Open questions (flagged, not blocking a testnet iteration)
 
@@ -157,7 +191,7 @@ All builds/tests verified locally: `forge build` and `forge test` both pass
 ```
 forge build   → Compiler run successful (via-ir enabled; RBDXVault.mint/redeem
                  have too many locals for the legacy codegen otherwise)
-forge test    → 12 passed; 0 failed
+forge test    → 11 passed; 0 failed
 ```
 
 Run locally:

@@ -1,8 +1,11 @@
 # RobinIndex ($RBDX)
 
-A market-cap-weighted index token backed by Robinhood Chain Stock Tokens, with
-single-asset mint/redeem priced by a weight-deviation rebate/penalty (up to ±1%)
-that incentivizes arbitrageurs to keep the basket at its target weights.
+An index token backed by Robinhood Chain Stock Tokens, weighted by each token's own
+on-chain circulating supply (not real-world market cap — see docs/DESIGN.md §1) —
+an AUM/adoption-weighted index of Robinhood Chain's tokenized-equity ecosystem.
+Single-asset mint/redeem is priced by a weight-deviation rebate/penalty (up to ±1%)
+that incentivizes arbitrageurs to keep the basket at its target weights, computed
+live on-chain with no admin-fed data.
 
 See [docs/DESIGN.md](docs/DESIGN.md) for the full mechanism spec, the researched
 Robinhood Chain constraints it's built on, and the anti-drain guarantee.
@@ -13,7 +16,8 @@ Robinhood Chain constraints it's built on, and the anti-drain guarantee.
 src/
   RBDXToken.sol       ERC-20 share token (mint/burn restricted to the vault)
   RBDXVault.sol        Core: holds the basket, mint()/redeem(), fee + rebate logic
-  AssetRegistry.sol    Governance-controlled asset list + shares-outstanding
+  AssetRegistry.sol    Governance-controlled asset list; target weight computed
+                        live from each token's on-chain totalSupply()
   libraries/OracleLib.sol   Chainlink read + staleness check
   interfaces/          AggregatorV3Interface, IStockToken
 test/
@@ -43,5 +47,5 @@ forge build
 forge test -vv
 ```
 
-Status: 12/12 tests passing. No deployment scripts or frontend yet — see
+Status: 11/11 tests passing. No deployment scripts or frontend yet — see
 docs/DESIGN.md §8 for open items before mainnet.

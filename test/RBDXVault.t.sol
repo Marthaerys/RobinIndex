@@ -23,6 +23,11 @@ contract RBDXVaultTest is Test {
     address user1 = makeAddr("user1");
     address user2 = makeAddr("user2");
     address user3 = makeAddr("user3");
+    // Holds the bulk of each Stock Token's on-chain supply that ISN'T deposited
+    // into the vault by the test users — i.e. "the rest of Robinhood Chain",
+    // standing in for real holders/exchanges elsewhere. Target weight is driven by
+    // *total* on-chain supply (see AssetRegistry.sol), not just what the vault holds.
+    address floatHolder = makeAddr("floatHolder");
 
     uint256 constant PRICE_8DEC = 10e8; // $10.00, 8-decimal Chainlink-style feed
     uint256 constant MAX_STALENESS = 1 days;
@@ -40,10 +45,8 @@ contract RBDXVaultTest is Test {
         vault = new RBDXVault(rbdx, registry, devTreasury, admin);
         rbdx.setVault(address(vault));
 
-        // marketCap A = 12,000,000 * $10 = 120,000,000 -> weight 12%
-        // marketCap B = 88,000,000 * $10 = 880,000,000 -> weight 88%
-        registry.addAsset(address(tokenA), address(feedA), 12_000_000e18, MAX_STALENESS);
-        registry.addAsset(address(tokenB), address(feedB), 88_000_000e18, MAX_STALENESS);
+        registry.addAsset(address(tokenA), address(feedA), MAX_STALENESS);
+        registry.addAsset(address(tokenB), address(feedB), MAX_STALENESS);
         vm.stopPrank();
 
         tokenA.mint(user1, 1_000_000e18);
@@ -52,6 +55,13 @@ contract RBDXVaultTest is Test {
         tokenB.mint(user1, 1_000_000e18);
         tokenB.mint(user2, 1_000_000e18);
         tokenB.mint(user3, 1_000_000e18);
+
+        // Circulating supply A = 12,000,000 * $10 = $120,000,000 -> weight 12%
+        // Circulating supply B = 88,000,000 * $10 = $880,000,000 -> weight 88%
+        // (3,000,000 of each is already with user1/2/3 above; the rest sits with
+        // floatHolder, standing in for the rest of Robinhood Chain's holders.)
+        tokenA.mint(floatHolder, 9_000_000e18);
+        tokenB.mint(floatHolder, 85_000_000e18);
 
         vm.prank(user1);
         tokenA.approve(address(vault), type(uint256).max);
@@ -169,31 +179,57 @@ contract RBDXVaultTest is Test {
         vm.stopPrank();
     }
 
-    function test_Transfer_RevertsDuringCooldown_ThenAllowed() public {
+    /// @notice RBDX must be immediately, freely tradable after minting — that's
+    /// what lets DEX arbitrageurs react instantly to correct a price/NAV gap. Only
+    /// vault.redeem() (burning RBDX back for a stock token) is ever cooldown-gated,
+    /// never a plain transfer/DEX swap.
+    function test_Transfer_NeverGated_EvenImmediatelyAfterMint() public {
         vm.startPrank(user1);
         vault.mint(address(tokenA), 10_000e18, 0);
         uint256 bal = rbdx.balanceOf(user1);
 
-        vm.expectRevert();
-        rbdx.transfer(user2, bal / 2);
-
-        vm.warp(block.timestamp + vault.mintRedeemCooldown() + 1);
-        rbdx.transfer(user2, bal / 2);
+        rbdx.transfer(user2, bal / 2); // must NOT revert, no warp needed
         vm.stopPrank();
 
         assertEq(rbdx.balanceOf(user2), bal / 2);
     }
 
-    function test_Transfer_CooldownCannotBeBypassedViaFreshWallet() public {
-        // The exact hole a naive "only gate vault.redeem()" design leaves open:
-        // mint, hand off to a wallet that never minted, try to redeem immediately
-        // from there. Must still revert.
+    /// @notice A wallet that receives freshly-minted RBDX from someone else can
+    /// also redeem right away via the vault (its OWN lastMintTimestamp is zero) —
+    /// this reopens the "mint on A, hand to fresh wallet B, B redeems" pattern by
+    /// design (see RBDXToken.sol's header comment for the reasoning), and it must
+    /// stay harmless: whatever B extracts is still bounded by rebateReserve, never
+    /// by the vault's real (non-rebate) holdings.
+    function test_FreshWalletRedeem_BypassesCooldown_ButStaysReserveBounded() public {
         vm.prank(user1);
-        vault.mint(address(tokenA), 10_000e18, 0);
+        vault.mint(address(tokenA), 500_000e18, 0); // bootstrap, 100% A
 
-        vm.prank(user1);
-        vm.expectRevert(); // the transfer itself is blocked during cooldown
-        rbdx.transfer(user3, 1e18);
+        vm.prank(user2);
+        vault.mint(address(tokenB), 50_000e18, 0); // underweight B -> rebate, funds nothing yet but shifts weight
+
+        uint256 user2Bal = rbdx.balanceOf(user2);
+        vm.prank(user2);
+        rbdx.transfer(user3, user2Bal); // hand off to a wallet that never minted
+
+        uint256 reserveBefore = vault.rebateReserve();
+        uint256 user3Bal = rbdx.balanceOf(user3);
+        uint256 rbdxBurned = user3Bal / 4;
+        uint256 priceA = registry.priceOf(address(tokenA));
+        uint256 indexPricePre = vault.indexPrice();
+        // "Fair" token amount at pre-trade index price, ignoring the weight fee
+        // entirely — i.e. what user3 would get with zero rebate.
+        uint256 fairUsd = (rbdxBurned * indexPricePre) / 1e18;
+        uint256 fairTokenOut = (fairUsd * 1e18) / priceA;
+        // Reserve, converted to units of tokenA, is the maximum extra it could add.
+        uint256 reserveInTokenA = (reserveBefore * 1e18) / priceA;
+
+        vm.prank(user3); // never minted -> its own cooldown is already elapsed
+        uint256 amountOut = vault.redeem(address(tokenA), rbdxBurned, 0);
+
+        // The call succeeds (the "bypass" works, as expected/accepted) but the
+        // payout is bounded by fair-value-plus-whatever-the-reserve-could-fund —
+        // never more, regardless of routing through a fresh wallet.
+        assertLe(amountOut, fairTokenOut + reserveInTokenA + 1); // +1 for rounding
     }
 
     // ── The core anti-drain guarantee ─────────────────────────────────────
@@ -245,18 +281,25 @@ contract RBDXVaultTest is Test {
         assertGe(tokenA.balanceOf(address(vault)) + tokenB.balanceOf(address(vault)), 0);
     }
 
-    // ── Registry: bounded shares-outstanding updates ────────────────────────
+    // ── Registry: target weight is live on-chain data, no admin involved ────
 
-    function test_AssetRegistry_RejectsOversizedShareUpdate() public {
-        vm.prank(admin);
-        vm.expectRevert();
-        registry.updateSharesOutstanding(address(tokenA), 12_000_000e18 * 3); // +200%, over the 10% default cap
-    }
+    /// @notice Target weight tracks Robinhood Chain's own circulating supply of
+    /// each Stock Token directly — by product decision, NOT the underlying
+    /// company's real-world market cap (see AssetRegistry.sol header). Anyone
+    /// (here: floatHolder receiving a fresh Authorized-Participant issuance,
+    /// simulated by minting) growing a token's real on-chain supply immediately
+    /// shifts its target weight, with no admin/oracle update required.
+    function test_TargetWeight_TracksOnchainSupplyChanges_Live() public {
+        assertEq(registry.targetWeightOf(address(tokenB)), 0.88e18);
 
-    function test_AssetRegistry_AllowsBoundedShareUpdate() public {
-        vm.prank(admin);
-        registry.updateSharesOutstanding(address(tokenA), 12_500_000e18); // +~4%
-        (, uint256 sharesOutstanding,,) = registry.assets(address(tokenA));
-        assertEq(sharesOutstanding, 12_500_000e18);
+        // tokenB's circulating supply grows by 50% (88M -> 132M) with no admin
+        // action at all — target weight must update on the very next read.
+        tokenB.mint(floatHolder, 44_000_000e18);
+
+        // New total value: A=120,000,000, B=1,320,000,000 -> weight_B = 1320/1440
+        uint256 valueB = 1_320_000_000e18;
+        uint256 valueTotal = 1_440_000_000e18;
+        uint256 expected = (valueB * 1e18) / valueTotal;
+        assertEq(registry.targetWeightOf(address(tokenB)), expected);
     }
 }
