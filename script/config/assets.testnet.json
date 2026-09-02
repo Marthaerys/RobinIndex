@@ -1,17 +1,10 @@
 {
-  "_instructions": "Fill in `token` and `feed` for each row from https://docs.robinhood.com/chain/contracts (Robinhood Chain Testnet, chain ID 46630) — that page renders its address table client-side from a live registry, so there is no static list to copy here in advance. Grab testnet ETH + testnet Stock Tokens from https://faucet.testnet.chain.robinhood.com first. `maxStaleness` is in seconds (86400 = 24h) — a conservative testnet default per DESIGN.md §8's still-open after-hours-oracle question; tighten it once that's decided. Rows with a zero `token` or `feed` address are skipped by the deploy script, so you can add/remove rows freely.",
+  "_instructions": "Robinhood Chain Testnet has real faucet-issued Stock Tokens, but Chainlink price feeds for them exist on MAINNET ONLY (confirmed via the Arbitrum Foundation's Robinhood Chain dapp tutorial and its example repo, github.com/hummusonrails/robinhood-chain-dapp-example, which does the same thing). So the deploy script deploys its own MockAggregator (test/mocks/MockAggregator.sol, already used in our own test suite) per asset, seeded with `initialPriceUsd8` (8-decimal Chainlink convention, e.g. 42000000000 = $420.00), and registers AssetRegistry against that mock instead of a real feed. Prices below are illustrative placeholders, not live quotes — adjust freely, or call MockAggregator.setAnswer(...) later to move a price and test rebalancing behavior. `maxStaleness` is in seconds (86400 = 24h) — generous since these are mocks, not subject to the real off-hours-staleness question in DESIGN.md §8. Rows with a zero `token` address are skipped by the deploy script.",
   "assets": [
-    {
-      "symbol": "REPLACE_ME_1",
-      "token": "0x0000000000000000000000000000000000000000",
-      "feed": "0x0000000000000000000000000000000000000000",
-      "maxStaleness": 86400
-    },
-    {
-      "symbol": "REPLACE_ME_2",
-      "token": "0x0000000000000000000000000000000000000000",
-      "feed": "0x0000000000000000000000000000000000000000",
-      "maxStaleness": 86400
-    }
+    { "symbol": "TSLA", "token": "0xC9f9c86933092BbbfFF3CCb4b105A4A94bf3Bd4E", "initialPriceUsd8": 42000000000, "maxStaleness": 86400 },
+    { "symbol": "AMZN", "token": "0x5884aD2f920c162CFBbACc88C9C51AA75eC09E02", "initialPriceUsd8": 22500000000, "maxStaleness": 86400 },
+    { "symbol": "PLTR", "token": "0x1FBE1a0e43594b3455993B5dE5Fd0A7A266298d0", "initialPriceUsd8": 18000000000, "maxStaleness": 86400 },
+    { "symbol": "NFLX", "token": "0x3b8262A63d25f0477c4DDE23F83cfe22Cb768C93", "initialPriceUsd8": 120000000000, "maxStaleness": 86400 },
+    { "symbol": "AMD",  "token": "0x71178BAc73cBeb415514eB542a8995b82669778d", "initialPriceUsd8": 17000000000, "maxStaleness": 86400 }
   ]
 }

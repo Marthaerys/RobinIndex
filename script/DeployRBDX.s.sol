@@ -5,17 +5,23 @@ import {Script, console2} from "forge-std/Script.sol";
 import {RBDXToken} from "../src/RBDXToken.sol";
 import {AssetRegistry} from "../src/AssetRegistry.sol";
 import {RBDXVault} from "../src/RBDXVault.sol";
+import {MockAggregator} from "../test/mocks/MockAggregator.sol";
 
 /// @notice Deploys RBDXToken + AssetRegistry + RBDXVault, wires them together
 /// (token.setVault), and lists whatever assets are defined in the JSON config at
 /// `ASSETS_CONFIG` (defaults to script/config/assets.testnet.json).
 ///
-/// Deliberately does NOT hardcode any Stock Token / Chainlink feed addresses —
-/// Robinhood Chain's token-contracts page renders its list client-side (from a
-/// live on-chain registry), so there's no static address list to safely bake into
-/// this repo. Fill in the JSON config yourself from
-/// https://docs.robinhood.com/chain/contracts (testnet) before running this, per
-/// AssetRegistry's own "researched, not assumed" principle (see DESIGN.md §2).
+/// Stock Token addresses in the config are real (faucet-issued, verified on-chain
+/// via Blockscout's token API — see script/config/assets.testnet.json for how).
+/// Their Chainlink price feeds are NOT real, though: Robinhood Chain's production
+/// Stock Token feeds exist on MAINNET ONLY — confirmed via the Arbitrum
+/// Foundation's Robinhood Chain dapp tutorial (blog.arbitrum.foundation) and its
+/// linked example repo (github.com/hummusonrails/robinhood-chain-dapp-example),
+/// which deploys its own mock feeds for exactly this reason. So this script
+/// deploys a `MockAggregator` (test/mocks/MockAggregator.sol, already used by our
+/// own test suite) per configured asset, seeded at `initialPriceUsd8`, and
+/// registers AssetRegistry against that instead of a real feed. Swap this for real
+/// feed addresses when deploying to mainnet.
 ///
 /// Usage:
 ///   cp .env.example .env               # fill in PRIVATE_KEY etc.
@@ -35,10 +41,10 @@ import {RBDXVault} from "../src/RBDXVault.sol";
 ///                    script/config/assets.testnet.json.
 contract DeployRBDX is Script {
     // Struct field order must match the JSON object's keys sorted alphabetically
-    // (feed, maxStaleness, symbol, token) — that's how forge-std's vm.parseJson
-    // struct decoding works.
+    // (initialPriceUsd8, maxStaleness, symbol, token) — that's how forge-std's
+    // vm.parseJson struct decoding works.
     struct AssetConfig {
-        address feed;
+        int256 initialPriceUsd8;
         uint256 maxStaleness;
         string symbol;
         address token;
@@ -84,12 +90,14 @@ contract DeployRBDX is Script {
         AssetConfig[] memory assets = abi.decode(vm.parseJson(json, ".assets"), (AssetConfig[]));
         for (uint256 i = 0; i < assets.length; i++) {
             AssetConfig memory a = assets[i];
-            if (a.token == address(0) || a.feed == address(0)) {
+            if (a.token == address(0)) {
                 console2.log("Skipping unset placeholder entry:", a.symbol);
                 continue;
             }
-            registry.addAsset(a.token, a.feed, a.maxStaleness);
+            MockAggregator feed = new MockAggregator(8, a.initialPriceUsd8);
+            registry.addAsset(a.token, address(feed), a.maxStaleness);
             console2.log("Listed", a.symbol, a.token);
+            console2.log("  mock feed:", address(feed));
         }
     }
 }
