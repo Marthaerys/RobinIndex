@@ -19,3 +19,9 @@ runs = 512
 runs = 128
 depth = 64
 fail_on_revert = false
+
+[rpc_endpoints]
+robinhood_testnet = "${ROBINHOOD_TESTNET_RPC_URL}"
+
+[etherscan]
+robinhood_testnet = { key = "${BLOCKSCOUT_API_KEY:-}", url = "https://explorer.testnet.chain.robinhood.com/api", chain = 46630 }

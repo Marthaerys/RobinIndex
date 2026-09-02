@@ -1,0 +1,17 @@
+{
+  "_instructions": "Fill in `token` and `feed` for each row from https://docs.robinhood.com/chain/contracts (Robinhood Chain Testnet, chain ID 46630) — that page renders its address table client-side from a live registry, so there is no static list to copy here in advance. Grab testnet ETH + testnet Stock Tokens from https://faucet.testnet.chain.robinhood.com first. `maxStaleness` is in seconds (86400 = 24h) — a conservative testnet default per DESIGN.md §8's still-open after-hours-oracle question; tighten it once that's decided. Rows with a zero `token` or `feed` address are skipped by the deploy script, so you can add/remove rows freely.",
+  "assets": [
+    {
+      "symbol": "REPLACE_ME_1",
+      "token": "0x0000000000000000000000000000000000000000",
+      "feed": "0x0000000000000000000000000000000000000000",
+      "maxStaleness": 86400
+    },
+    {
+      "symbol": "REPLACE_ME_2",
+      "token": "0x0000000000000000000000000000000000000000",
+      "feed": "0x0000000000000000000000000000000000000000",
+      "maxStaleness": 86400
+    }
+  ]
+}
