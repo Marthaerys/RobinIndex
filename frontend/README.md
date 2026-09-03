@@ -1,5 +1,7 @@
 # RobinIndex frontend
 
+Live at **https://marthaerys.github.io/RobinIndex/**.
+
 Vite + React + TypeScript, wired via wagmi/viem directly to the RBDX
 contracts on **Robinhood Chain Testnet** (chain id 46630). No backend — the
 dapp reads/writes the chain straight from the browser. Deployed to GitHub
