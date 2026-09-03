@@ -25,6 +25,9 @@ test/
   mocks/                MockStockToken, MockAggregator
 docs/
   DESIGN.md             Full spec
+frontend/
+  (Vite + React + wagmi/viem dapp — holdings table + mint/redeem UI,
+   deployed to GitHub Pages on every push to main, see frontend/README.md)
 ```
 
 ## Setup
@@ -47,5 +50,6 @@ forge build
 forge test -vv
 ```
 
-Status: 11/11 tests passing. No deployment scripts or frontend yet — see
-docs/DESIGN.md §8 for open items before mainnet.
+Status: 11/11 tests passing. Deployed to Robinhood Chain Testnet (chain id
+46630) with a live frontend on GitHub Pages — see docs/DESIGN.md §8 for open
+items before mainnet.
