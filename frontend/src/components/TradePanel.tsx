@@ -254,7 +254,9 @@ function PreviewBody({
       </div>
       {rebateClamped && <div className="preview-note">Discount capped by the current rebate reserve.</div>}
       <div className="preview-row preview-row-total">
-        <span>You receive (est., incl. 0.1% protocol fee)</span>
+        <span>
+          You receive <span className="fee-note-inline">(est., incl. 0.1% protocol fee)</span>
+        </span>
         <span className="mono">
           {fmtToken(outAmount)} {outSymbol}
         </span>
