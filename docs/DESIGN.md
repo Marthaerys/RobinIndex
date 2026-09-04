@@ -95,8 +95,9 @@ This was the central design constraint, so it's worth stating precisely:
 **Rebates are only ever paid out of `rebateReserve`**, a USD-1e18 accounting ledger
 — *not* a segregated pool, just a spending cap — funded exclusively by:
 1. Penalty fees from trades that move the basket **away** from target weight, and
-2. The `rebateFundingBps` slice (default 50%) of the 0.1% dev fee, which is
-   deliberately **left in the vault's token balance** (never sent to
+2. Optionally, the `rebateFundingBps` slice (default **0%** — the reserve is
+   funded entirely by penalties by default) of the 0.1% dev fee, which if
+   nonzero is **left in the vault's token balance** (never sent to
    `devTreasury`) specifically to physically back the reserve credit it generates.
 
 Every rebate computation is clamped: `actualRebate = min(wantedRebate,
@@ -135,8 +136,10 @@ rebate, which the original `<=` comparison silently did.
 ## 5. Fees
 
 Flat **0.1% in-kind** fee on every mint (from the deposit) and every redeem (from
-the payout), split by `rebateFundingBps` (default 50/50) between `devTreasury`
-(paid out immediately) and `rebateReserve` (retained in-vault, see §4). Both knobs
+the payout), split by `rebateFundingBps` (default **0%**, i.e. all of it goes to
+`devTreasury`) between `devTreasury` (paid out immediately) and `rebateReserve`
+(retained in-vault, see §4 — funded entirely by penalties in the default config).
+Both knobs
 are governance-adjustable within hard caps baked into the contract (`devFeeBps` ≤
 1%, `maxWeightFeeBps` ≤ 5%) so misconfiguration can't turn the fee path into a rug.
 

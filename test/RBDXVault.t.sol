@@ -114,9 +114,23 @@ contract RBDXVaultTest is Test {
         vm.prank(user1);
         vault.mint(address(tokenA), 10_000e18, 0);
 
-        // Depositing B (currently 0%, far under its 88% target) should move the
-        // basket toward target and thus earn a rebate: more RBDX than the
-        // "no-fee" fair amount.
+        // rebateFundingBps defaults to 0 (the whole dev fee goes to devTreasury,
+        // see RBDXVault.sol), so rebateReserve starts at zero and must be funded
+        // by an actual penalty before any rebate can be paid out. A small B
+        // deposit here would itself be rebate-direction but gets clamped to fair
+        // value (empty reserve). Topping up A again, now that the vault holds a
+        // second asset, is no longer the single-asset tie case (see
+        // test_Mint_OverweightAsset_GetsPenalty) -- it genuinely pushes A's
+        // weight further from its 12% target, i.e. a real penalty.
+        vm.prank(user2);
+        vault.mint(address(tokenB), 100e18, 0);
+        vm.prank(user1);
+        vault.mint(address(tokenA), 5_000e18, 0);
+        assertGt(vault.rebateReserve(), 0, "penalty should have funded the reserve");
+
+        // Depositing B (still far under its 88% target) should now move the
+        // basket toward target and earn a real, reserve-funded rebate: more
+        // RBDX than the "no-fee" fair amount.
         uint256 navBefore = vault.nav();
         uint256 supplyBefore = rbdx.totalSupply();
         uint256 indexPriceBefore = (navBefore * 1e18) / supplyBefore;

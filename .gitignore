@@ -1,6 +1,7 @@
 out/
 cache/
 broadcast/
+snapshots/
 .env
 *.log
 

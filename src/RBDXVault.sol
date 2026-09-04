@@ -39,7 +39,7 @@ contract RBDXVault is AccessControl, ReentrancyGuard, Pausable {
 
     uint256 public constant BPS_DENOMINATOR = 10_000;
     uint256 public devFeeBps = 10; // 0.1%, per the approved plan
-    uint256 public rebateFundingBps = 5_000; // 50% of the dev fee stays in-vault to back rebateReserve
+    uint256 public rebateFundingBps = 0; // 0% of the dev fee stays in-vault; all of it goes to devTreasury (the reserve is funded entirely by penalties, see the solvency invariant doc comment above)
     uint256 public maxWeightFeeBps = 100; // ±1% cap on the weight-deviation fee/rebate
     uint256 public mintRedeemCooldown = 15 minutes; // see RBDXToken._update for why
 
