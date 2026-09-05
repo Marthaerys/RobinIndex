@@ -1,0 +1,1941 @@
+{
+  "_tokenSource": "https://api.robinhood.com/rhj/assets (Robinhood Chain official asset registry API) -- canonical Stock Token ERC-20 addresses.",
+  "_chainlinkFeedSource": "Classic feeds: https://docs.chain.link/data-feeds/price-feeds/addresses?network=robinhood . Data Streams: same docs.chain.link dataset (generic tokenized-equity streams) + https://docs.robinhood.com/chain/data-streams/ for the Robinhood Chain Verifier Proxy address + https://docs.chain.link/data-streams/reference/data-streams-api/onchain-verification for the verify() contract flow + https://docs.chain.link/data-streams/sign-up for API access/pricing.",
+  "_fetchedAt": "2026-09-05",
+  "_chainId": 4663,
+  "_chainName": "Robinhood Chain (mainnet)",
+  "_note": "\"Top 100 most popular\" is a manual curation by real-world recognizability (mega-caps, well-known large caps, popular retail/meme names, space/defense, quantum/nuclear speculative favorites, AI/cloud software, semis), nudged toward tickers that already have a live Chainlink price feed (see _chainlinkFeedNote) where two picks were close calls -- Robinhood's API exposes no trading-volume/popularity signal, and ranking off a public DEX aggregator (tried DexScreener) turned out to be unsafe: unrelated pools using colliding ticker symbols (fake NVDA/TSLA pools, etc.) show up mixed in with the genuine Robinhood tokens. Reorder/replace freely -- the full 194-token registry is included as top100 + remaining94.",
+  "_chainlinkFeedNote": "FULL PICTURE as of 2026-09-05, checked per-asset for all 194 Robinhood Stock Tokens: only 43 of 194 have ANY Chainlink price signal at all -- 32 have the Robinhood-branded classic Data Feeds push proxy (chainlinkFeed.product===\"DataFeeds\": free to read on-chain, already bakes in the ERC-8056 corporate-action multiplier, exactly what OracleLib/RBDXVault is built to consume today), 11 more have ONLY a generic Data Streams equity-price feed (chainlinkFeed.product===\"DataStreams\": no Robinhood branding, no multiplier baked in, requires a paid subscription + off-chain report fetch + an on-chain verify() call + a contract/frontend architecture change -- see integrationNote on each such row), and the remaining 151 have NEITHER -- not oracle-ready by either product yet. chainlinkFeed is null for those. RECOMMENDATION: ship the 32 free DataFeeds-covered tickers as the v1 mainnet asset universe (matches current contract design exactly, zero extra infra/cost); treat the 11 DataStreams-only tickers as a deliberate, paid fast-follow only if wanted (needs a backend, since the static GH-Pages frontend cannot hold Data Streams API secrets); treat the other 151 as blocked on Chainlink adding coverage, not on anything this project controls.",
+  "top100": [
+    {
+      "symbol": "AAPL",
+      "name": "Apple",
+      "address": "0xaF3D76f1834A1d425780943C99Ea8A608f8a93f9",
+      "decimals": 18,
+      "isin": "US0378331005",
+      "chainlinkFeed": {
+        "product": "DataFeeds",
+        "proxyAddress": "0x6B22A786bAa607d76728168703a39Ea9C99f2cD0",
+        "secondaryProxyAddress": "0x4bDbb3150014c6Ab2C6D9347B0779c49015a2f3f",
+        "decimals": 8,
+        "heartbeatSeconds": 86400,
+        "deviationThresholdPct": 0.5,
+        "assetName": "Apple (Robinhood Tokenized Equity)",
+        "includesCorporateActionMultiplier": true
+      }
+    },
+    {
+      "symbol": "MSFT",
+      "name": "Microsoft",
+      "address": "0xe93237C50D904957Cf27E7B1133b510C669c2e74",
+      "decimals": 18,
+      "isin": "US5949181045",
+      "chainlinkFeed": {
+        "product": "DataFeeds",
+        "proxyAddress": "0x45C3C877C15E6BA2EBB19eA114Ea508d14C1Af2E",
+        "secondaryProxyAddress": "0xaD6D88eab22aa4867Efe807a5311Ed64962f740D",
+        "decimals": 8,
+        "heartbeatSeconds": 86400,
+        "deviationThresholdPct": 0.5,
+        "assetName": "Microsoft (Robinhood Tokenized Equity)",
+        "includesCorporateActionMultiplier": true
+      }
+    },
+    {
+      "symbol": "GOOGL",
+      "name": "Alphabet Class A",
+      "address": "0x2e0847E8910a9732eB3fb1bb4b70a580ADAD4FE3",
+      "decimals": 18,
+      "isin": "US02079K3059",
+      "chainlinkFeed": {
+        "product": "DataFeeds",
+        "proxyAddress": "0xF6f373a037c30F0e5010d854385cA89185AE638b",
+        "secondaryProxyAddress": "0xA04EE5c4c8827F17e82f93bE9e19DeA221A749a8",
+        "decimals": 8,
+        "heartbeatSeconds": 86400,
+        "deviationThresholdPct": 0.5,
+        "assetName": "Alphabet (Robinhood Tokenized Equity)",
+        "includesCorporateActionMultiplier": true
+      }
+    },
+    {
+      "symbol": "AMZN",
+      "name": "Amazon",
+      "address": "0x12f190a9F9d7D37a250758b26824B97CE941bF54",
+      "decimals": 18,
+      "isin": "US0231351067",
+      "chainlinkFeed": {
+        "product": "DataFeeds",
+        "proxyAddress": "0xD5a1508ceD74c084eBf3cBe853e2C968fB2a651C",
+        "secondaryProxyAddress": "0x9244830430bC7D9C9A48dd47603F24AD61f7c56e",
+        "decimals": 8,
+        "heartbeatSeconds": 86400,
+        "deviationThresholdPct": 0.5,
+        "assetName": "Amazon (Robinhood Tokenized Equity)",
+        "includesCorporateActionMultiplier": true
+      }
+    },
+    {
+      "symbol": "META",
+      "name": "Meta Platforms",
+      "address": "0xc0D6457C16Cc70d6790Dd43521C899C87ce02f35",
+      "decimals": 18,
+      "isin": "US30303M1027",
+      "chainlinkFeed": {
+        "product": "DataFeeds",
+        "proxyAddress": "0x7C38C00C30BEe9378381E7B6135d7283356D71b1",
+        "secondaryProxyAddress": "0x5cBC53D382E56cBb223f118CF8Eefb6c9c2759f5",
+        "decimals": 8,
+        "heartbeatSeconds": 86400,
+        "deviationThresholdPct": 0.5,
+        "assetName": "Meta (Robinhood Tokenized Equity)",
+        "includesCorporateActionMultiplier": true
+      }
+    },
+    {
+      "symbol": "NVDA",
+      "name": "NVIDIA",
+      "address": "0xd0601CE157Db5bdC3162BbaC2a2C8aF5320D9EEC",
+      "decimals": 18,
+      "isin": "US67066G1040",
+      "chainlinkFeed": {
+        "product": "DataFeeds",
+        "proxyAddress": "0x379EC4f7C378F34a1B47E4F3cbeBCbAC3E8E9F15",
+        "secondaryProxyAddress": "0xCF169363636D73dbBf77733629CB38919d14232d",
+        "decimals": 8,
+        "heartbeatSeconds": 86400,
+        "deviationThresholdPct": 0.5,
+        "assetName": "Nvidia (Robinhood Tokenized Equity)",
+        "includesCorporateActionMultiplier": true
+      }
+    },
+    {
+      "symbol": "TSLA",
+      "name": "Tesla",
+      "address": "0x322F0929c4625eD5bAd873c95208D54E1c003b2d",
+      "decimals": 18,
+      "isin": "US88160R1014",
+      "chainlinkFeed": {
+        "product": "DataFeeds",
+        "proxyAddress": "0x4A1166a659A55625345e9515b32adECea5547C38",
+        "secondaryProxyAddress": "0xE4479F01738B4e8C428CD8eB72D47AB9BC3c7de6",
+        "decimals": 8,
+        "heartbeatSeconds": 86400,
+        "deviationThresholdPct": 0.5,
+        "assetName": "Tesla (Robinhood Tokenized Equity)",
+        "includesCorporateActionMultiplier": true
+      }
+    },
+    {
+      "symbol": "AVGO",
+      "name": "Broadcom",
+      "address": "0x156E175DD063a8cE274C50654eF40e0032b3fbcF",
+      "decimals": 18,
+      "isin": "US11135F1012",
+      "chainlinkFeed": {
+        "product": "DataStreams",
+        "feedId": "0x0008d359fc8ab7c6fd7e2d0ae118650a378980a8762b74de2b354ac60bbd3ddc",
+        "hasOvernightHoursVariant": false,
+        "includesCorporateActionMultiplier": false,
+        "requiresPaidSubscription": true,
+        "verifierProxyAddress": "0xcE73c8ad08CBDEaCa6078BF0627C8fe0a9a536E7",
+        "integrationNote": "Generic Chainlink equity-price stream, not Robinhood-branded -- does NOT bake in the ERC-8056 corporate-action multiplier the way the DataFeeds product does, so consuming this correctly means separately reading/applying currentMultiplier (see api.robinhood.com/rhj/assets) or an on-chain equivalent. Needs: (1) a paid Chainlink Data Streams subscription (self-serve at app.chain.link, from $150/mo per feed, HMAC-authenticated REST/WebSocket API) to fetch the signed report off-chain before each use: (2) passing that report as calldata into IVerifierProxy.verify() on Robinhood Chain (address above) to get a verified ReportV3 (feedId, price int192, timestamps) -- no LINK/native fee needed for verify() itself, billing is subscription-based; (3) a contract-side change since OracleLib currently expects a push feed with latestRoundData(), not a per-call report payload -- mint()/redeem() would need to accept the report bytes as an argument; (4) since the report must be fetched via an authenticated off-chain API call, the current pure-static GH-Pages frontend cannot do this safely client-side (would leak the API secret) -- a small backend/relayer becomes necessary just for these assets."
+      }
+    },
+    {
+      "symbol": "TSM",
+      "name": "Taiwan Semiconductor Manufacturing",
+      "address": "0x58FfE4a942d3885bAa22D7520691F611EF09e7AA",
+      "decimals": 18,
+      "isin": "US8740391003",
+      "chainlinkFeed": {
+        "product": "DataFeeds",
+        "proxyAddress": "0x874cF94aa8eC88Fd9560094dD065f2fB3E41Fc2F",
+        "secondaryProxyAddress": "0xB48D6D5729Ca032ca43729F4b605bBf9f257A84d",
+        "decimals": 8,
+        "heartbeatSeconds": 86400,
+        "deviationThresholdPct": 0.5,
+        "assetName": "Taiwan Semiconductor (Robinhood Tokenized Equity)",
+        "includesCorporateActionMultiplier": true
+      }
+    },
+    {
+      "symbol": "ORCL",
+      "name": "Oracle",
+      "address": "0xb0992820E760d836549ba69BC7598b4af75dEE03",
+      "decimals": 18,
+      "isin": "US68389X1054",
+      "chainlinkFeed": {
+        "product": "DataFeeds",
+        "proxyAddress": "0x0e6a64a2B58A6693a531E6c555f3A5d042eEA844",
+        "secondaryProxyAddress": "0x2a07f8d87d369Bd8Bc36472337ae02d512a7b5e5",
+        "decimals": 8,
+        "heartbeatSeconds": 86400,
+        "deviationThresholdPct": 0.5,
+        "assetName": "Oracle Corp (Robinhood Tokenized Equity)",
+        "includesCorporateActionMultiplier": true
+      }
+    },
+    {
+      "symbol": "CRM",
+      "name": "Salesforce",
+      "address": "0xd95B44124e475743a7589e68F3D74008A5536D44",
+      "decimals": 18,
+      "isin": "US79466L3024",
+      "chainlinkFeed": {
+        "product": "DataStreams",
+        "feedId": "0x0008adddea16efa6de1ef23a735e4b104d88ee6f08fa8b06d49693320be44b2d",
+        "hasOvernightHoursVariant": false,
+        "includesCorporateActionMultiplier": false,
+        "requiresPaidSubscription": true,
+        "verifierProxyAddress": "0xcE73c8ad08CBDEaCa6078BF0627C8fe0a9a536E7",
+        "integrationNote": "Generic Chainlink equity-price stream, not Robinhood-branded -- does NOT bake in the ERC-8056 corporate-action multiplier the way the DataFeeds product does, so consuming this correctly means separately reading/applying currentMultiplier (see api.robinhood.com/rhj/assets) or an on-chain equivalent. Needs: (1) a paid Chainlink Data Streams subscription (self-serve at app.chain.link, from $150/mo per feed, HMAC-authenticated REST/WebSocket API) to fetch the signed report off-chain before each use: (2) passing that report as calldata into IVerifierProxy.verify() on Robinhood Chain (address above) to get a verified ReportV3 (feedId, price int192, timestamps) -- no LINK/native fee needed for verify() itself, billing is subscription-based; (3) a contract-side change since OracleLib currently expects a push feed with latestRoundData(), not a per-call report payload -- mint()/redeem() would need to accept the report bytes as an argument; (4) since the report must be fetched via an authenticated off-chain API call, the current pure-static GH-Pages frontend cannot do this safely client-side (would leak the API secret) -- a small backend/relayer becomes necessary just for these assets."
+      }
+    },
+    {
+      "symbol": "ADBE",
+      "name": "Adobe",
+      "address": "0x232B8ed6377BE97813853B0Ac104c4Cda8378d1B",
+      "decimals": 18,
+      "isin": "US00724F1012",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "NFLX",
+      "name": "Netflix",
+      "address": "0xE0444EF8BF4eD74f74FD73686e2ddF4C1c5591E8",
+      "decimals": 18,
+      "isin": "US64110L1061",
+      "chainlinkFeed": {
+        "product": "DataStreams",
+        "feedId": "0x0008e9aa2aebbb1aa92cfa0494db3e0451859a97ed94edabdcb7a09d384c8a06",
+        "hasOvernightHoursVariant": true,
+        "includesCorporateActionMultiplier": false,
+        "requiresPaidSubscription": true,
+        "verifierProxyAddress": "0xcE73c8ad08CBDEaCa6078BF0627C8fe0a9a536E7",
+        "integrationNote": "Generic Chainlink equity-price stream, not Robinhood-branded -- does NOT bake in the ERC-8056 corporate-action multiplier the way the DataFeeds product does, so consuming this correctly means separately reading/applying currentMultiplier (see api.robinhood.com/rhj/assets) or an on-chain equivalent. Needs: (1) a paid Chainlink Data Streams subscription (self-serve at app.chain.link, from $150/mo per feed, HMAC-authenticated REST/WebSocket API) to fetch the signed report off-chain before each use: (2) passing that report as calldata into IVerifierProxy.verify() on Robinhood Chain (address above) to get a verified ReportV3 (feedId, price int192, timestamps) -- no LINK/native fee needed for verify() itself, billing is subscription-based; (3) a contract-side change since OracleLib currently expects a push feed with latestRoundData(), not a per-call report payload -- mint()/redeem() would need to accept the report bytes as an argument; (4) since the report must be fetched via an authenticated off-chain API call, the current pure-static GH-Pages frontend cannot do this safely client-side (would leak the API secret) -- a small backend/relayer becomes necessary just for these assets."
+      }
+    },
+    {
+      "symbol": "AMD",
+      "name": "AMD",
+      "address": "0x86923f96303D656E4aa86D9d42D1e57ad2023fdC",
+      "decimals": 18,
+      "isin": "US0079031078",
+      "chainlinkFeed": {
+        "product": "DataFeeds",
+        "proxyAddress": "0x943A29E7ae51A4798823ca9eEd2ed533B2A22C72",
+        "secondaryProxyAddress": "0xF6d57763DFa625F4A413485261Ab2E71Ff4304CF",
+        "decimals": 8,
+        "heartbeatSeconds": 86400,
+        "deviationThresholdPct": 0.5,
+        "assetName": "Advanced Micro Devices / AMD (Robinhood Tokenized Equity)",
+        "includesCorporateActionMultiplier": true
+      }
+    },
+    {
+      "symbol": "INTC",
+      "name": "Intel",
+      "address": "0xc72b96e0E48ecd4DC75E1e45396e26300BC39681",
+      "decimals": 18,
+      "isin": "US4581401001",
+      "chainlinkFeed": {
+        "product": "DataFeeds",
+        "proxyAddress": "0x3f390C5C24628Ac7C489515402235FeAD71D1913",
+        "secondaryProxyAddress": "0x127B1DeDeE6269E962a59E6C1295b4002c56c403",
+        "decimals": 8,
+        "heartbeatSeconds": 86400,
+        "deviationThresholdPct": 0.5,
+        "assetName": "Intel Corp (Robinhood Tokenized Equity)",
+        "includesCorporateActionMultiplier": true
+      }
+    },
+    {
+      "symbol": "QCOM",
+      "name": "Qualcomm",
+      "address": "0x0f17206447090e464C277571124dD2688E48AEA9",
+      "decimals": 18,
+      "isin": "US7475251036",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "CSCO",
+      "name": "Cisco Systems",
+      "address": "0xF543967EEBB6f1917992eF0E68De63ab07a5a0dA",
+      "decimals": 18,
+      "isin": "US17275R1023",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "IBM",
+      "name": "IBM",
+      "address": "0x980dcf6766FA79f5Cf0c4AAdb3ab477ff15a9619",
+      "decimals": 18,
+      "isin": "US4592001014",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "NOW",
+      "name": "ServiceNow",
+      "address": "0x0C3260aF4B8f13a69c4c2dFb84fD667890CDFa14",
+      "decimals": 18,
+      "isin": "US81762P1021",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "INTU",
+      "name": "Intuit",
+      "address": "0x56d23beE5f41A7120170b0c603Dae30128e460e9",
+      "decimals": 18,
+      "isin": "US4612021034",
+      "chainlinkFeed": {
+        "product": "DataStreams",
+        "feedId": "0x0008f22aabc3a99e8ca82e63abb91cb72f50cff49c2f396e215c80f661ab0890",
+        "hasOvernightHoursVariant": false,
+        "includesCorporateActionMultiplier": false,
+        "requiresPaidSubscription": true,
+        "verifierProxyAddress": "0xcE73c8ad08CBDEaCa6078BF0627C8fe0a9a536E7",
+        "integrationNote": "Generic Chainlink equity-price stream, not Robinhood-branded -- does NOT bake in the ERC-8056 corporate-action multiplier the way the DataFeeds product does, so consuming this correctly means separately reading/applying currentMultiplier (see api.robinhood.com/rhj/assets) or an on-chain equivalent. Needs: (1) a paid Chainlink Data Streams subscription (self-serve at app.chain.link, from $150/mo per feed, HMAC-authenticated REST/WebSocket API) to fetch the signed report off-chain before each use: (2) passing that report as calldata into IVerifierProxy.verify() on Robinhood Chain (address above) to get a verified ReportV3 (feedId, price int192, timestamps) -- no LINK/native fee needed for verify() itself, billing is subscription-based; (3) a contract-side change since OracleLib currently expects a push feed with latestRoundData(), not a per-call report payload -- mint()/redeem() would need to accept the report bytes as an argument; (4) since the report must be fetched via an authenticated off-chain API call, the current pure-static GH-Pages frontend cannot do this safely client-side (would leak the API secret) -- a small backend/relayer becomes necessary just for these assets."
+      }
+    },
+    {
+      "symbol": "COST",
+      "name": "Costco",
+      "address": "0x4EA005168D7F09a7A0Ba9D1DEf21a479950E44C2",
+      "decimals": 18,
+      "isin": "US22160K1051",
+      "chainlinkFeed": {
+        "product": "DataStreams",
+        "feedId": "0x0008bc069ce02daf358e485a89201f01e6bf84aefdfeadde76aea9e32ef48f39",
+        "hasOvernightHoursVariant": true,
+        "includesCorporateActionMultiplier": false,
+        "requiresPaidSubscription": true,
+        "verifierProxyAddress": "0xcE73c8ad08CBDEaCa6078BF0627C8fe0a9a536E7",
+        "integrationNote": "Generic Chainlink equity-price stream, not Robinhood-branded -- does NOT bake in the ERC-8056 corporate-action multiplier the way the DataFeeds product does, so consuming this correctly means separately reading/applying currentMultiplier (see api.robinhood.com/rhj/assets) or an on-chain equivalent. Needs: (1) a paid Chainlink Data Streams subscription (self-serve at app.chain.link, from $150/mo per feed, HMAC-authenticated REST/WebSocket API) to fetch the signed report off-chain before each use: (2) passing that report as calldata into IVerifierProxy.verify() on Robinhood Chain (address above) to get a verified ReportV3 (feedId, price int192, timestamps) -- no LINK/native fee needed for verify() itself, billing is subscription-based; (3) a contract-side change since OracleLib currently expects a push feed with latestRoundData(), not a per-call report payload -- mint()/redeem() would need to accept the report bytes as an argument; (4) since the report must be fetched via an authenticated off-chain API call, the current pure-static GH-Pages frontend cannot do this safely client-side (would leak the API secret) -- a small backend/relayer becomes necessary just for these assets."
+      }
+    },
+    {
+      "symbol": "JNJ",
+      "name": "Johnson & Johnson",
+      "address": "0x03DfbBE0AC4E7bCDaFd08eD41A400326B77D8c80",
+      "decimals": 18,
+      "isin": "US4781601046",
+      "chainlinkFeed": {
+        "product": "DataStreams",
+        "feedId": "0x0008f8c604467223de57ce15bd517225902d305848d0cecc0577b73622232d0f",
+        "hasOvernightHoursVariant": false,
+        "includesCorporateActionMultiplier": false,
+        "requiresPaidSubscription": true,
+        "verifierProxyAddress": "0xcE73c8ad08CBDEaCa6078BF0627C8fe0a9a536E7",
+        "integrationNote": "Generic Chainlink equity-price stream, not Robinhood-branded -- does NOT bake in the ERC-8056 corporate-action multiplier the way the DataFeeds product does, so consuming this correctly means separately reading/applying currentMultiplier (see api.robinhood.com/rhj/assets) or an on-chain equivalent. Needs: (1) a paid Chainlink Data Streams subscription (self-serve at app.chain.link, from $150/mo per feed, HMAC-authenticated REST/WebSocket API) to fetch the signed report off-chain before each use: (2) passing that report as calldata into IVerifierProxy.verify() on Robinhood Chain (address above) to get a verified ReportV3 (feedId, price int192, timestamps) -- no LINK/native fee needed for verify() itself, billing is subscription-based; (3) a contract-side change since OracleLib currently expects a push feed with latestRoundData(), not a per-call report payload -- mint()/redeem() would need to accept the report bytes as an argument; (4) since the report must be fetched via an authenticated off-chain API call, the current pure-static GH-Pages frontend cannot do this safely client-side (would leak the API secret) -- a small backend/relayer becomes necessary just for these assets."
+      }
+    },
+    {
+      "symbol": "UNH",
+      "name": "UnitedHealth",
+      "address": "0xcF364ea52787e289De6F32077834056E3E70D6A8",
+      "decimals": 18,
+      "isin": "US91324P1021",
+      "chainlinkFeed": {
+        "product": "DataStreams",
+        "feedId": "0x0008a4024288f44e446b2011564794e21358d736fdae1eb615724c42b3dbea25",
+        "hasOvernightHoursVariant": true,
+        "includesCorporateActionMultiplier": false,
+        "requiresPaidSubscription": true,
+        "verifierProxyAddress": "0xcE73c8ad08CBDEaCa6078BF0627C8fe0a9a536E7",
+        "integrationNote": "Generic Chainlink equity-price stream, not Robinhood-branded -- does NOT bake in the ERC-8056 corporate-action multiplier the way the DataFeeds product does, so consuming this correctly means separately reading/applying currentMultiplier (see api.robinhood.com/rhj/assets) or an on-chain equivalent. Needs: (1) a paid Chainlink Data Streams subscription (self-serve at app.chain.link, from $150/mo per feed, HMAC-authenticated REST/WebSocket API) to fetch the signed report off-chain before each use: (2) passing that report as calldata into IVerifierProxy.verify() on Robinhood Chain (address above) to get a verified ReportV3 (feedId, price int192, timestamps) -- no LINK/native fee needed for verify() itself, billing is subscription-based; (3) a contract-side change since OracleLib currently expects a push feed with latestRoundData(), not a per-call report payload -- mint()/redeem() would need to accept the report bytes as an argument; (4) since the report must be fetched via an authenticated off-chain API call, the current pure-static GH-Pages frontend cannot do this safely client-side (would leak the API secret) -- a small backend/relayer becomes necessary just for these assets."
+      }
+    },
+    {
+      "symbol": "XOM",
+      "name": "ExxonMobil Holdings Corporation",
+      "address": "0xf9B46d3D1B22199D4D1025a9cEDB540A33F1a2d5",
+      "decimals": 18,
+      "isin": "US30233Q1085",
+      "chainlinkFeed": {
+        "product": "DataStreams",
+        "feedId": "0x0008952e6784f1c5f0d02c64b6c42f02dbd065ac684d7fd38eb4f7b3dc736a91",
+        "hasOvernightHoursVariant": false,
+        "includesCorporateActionMultiplier": false,
+        "requiresPaidSubscription": true,
+        "verifierProxyAddress": "0xcE73c8ad08CBDEaCa6078BF0627C8fe0a9a536E7",
+        "integrationNote": "Generic Chainlink equity-price stream, not Robinhood-branded -- does NOT bake in the ERC-8056 corporate-action multiplier the way the DataFeeds product does, so consuming this correctly means separately reading/applying currentMultiplier (see api.robinhood.com/rhj/assets) or an on-chain equivalent. Needs: (1) a paid Chainlink Data Streams subscription (self-serve at app.chain.link, from $150/mo per feed, HMAC-authenticated REST/WebSocket API) to fetch the signed report off-chain before each use: (2) passing that report as calldata into IVerifierProxy.verify() on Robinhood Chain (address above) to get a verified ReportV3 (feedId, price int192, timestamps) -- no LINK/native fee needed for verify() itself, billing is subscription-based; (3) a contract-side change since OracleLib currently expects a push feed with latestRoundData(), not a per-call report payload -- mint()/redeem() would need to accept the report bytes as an argument; (4) since the report must be fetched via an authenticated off-chain API call, the current pure-static GH-Pages frontend cannot do this safely client-side (would leak the API secret) -- a small backend/relayer becomes necessary just for these assets."
+      }
+    },
+    {
+      "symbol": "PFE",
+      "name": "Pfizer",
+      "address": "0x7066A64c24e4206CD62E83bf198c1E7EB361F51e",
+      "decimals": 18,
+      "isin": "US7170811035",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "LLY",
+      "name": "Eli Lilly",
+      "address": "0x8005d266423c7ea827372c9c864491e5786600ea",
+      "decimals": 18,
+      "isin": "US5324571083",
+      "chainlinkFeed": {
+        "product": "DataStreams",
+        "feedId": "0x000827a1df383f7dc07b69296e8b1dad2d99ec5449a4d79f607d57322506931e",
+        "hasOvernightHoursVariant": true,
+        "includesCorporateActionMultiplier": false,
+        "requiresPaidSubscription": true,
+        "verifierProxyAddress": "0xcE73c8ad08CBDEaCa6078BF0627C8fe0a9a536E7",
+        "integrationNote": "Generic Chainlink equity-price stream, not Robinhood-branded -- does NOT bake in the ERC-8056 corporate-action multiplier the way the DataFeeds product does, so consuming this correctly means separately reading/applying currentMultiplier (see api.robinhood.com/rhj/assets) or an on-chain equivalent. Needs: (1) a paid Chainlink Data Streams subscription (self-serve at app.chain.link, from $150/mo per feed, HMAC-authenticated REST/WebSocket API) to fetch the signed report off-chain before each use: (2) passing that report as calldata into IVerifierProxy.verify() on Robinhood Chain (address above) to get a verified ReportV3 (feedId, price int192, timestamps) -- no LINK/native fee needed for verify() itself, billing is subscription-based; (3) a contract-side change since OracleLib currently expects a push feed with latestRoundData(), not a per-call report payload -- mint()/redeem() would need to accept the report bytes as an argument; (4) since the report must be fetched via an authenticated off-chain API call, the current pure-static GH-Pages frontend cannot do this safely client-side (would leak the API secret) -- a small backend/relayer becomes necessary just for these assets."
+      }
+    },
+    {
+      "symbol": "GE",
+      "name": "General Electric",
+      "address": "0x63b814DDBd6BF339f25Fed8c36158a008D5B373e",
+      "decimals": 18,
+      "isin": "US3696043013",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "BA",
+      "name": "Boeing",
+      "address": "0x4D21483a44Bf67a86b77E3dA301411880797D452",
+      "decimals": 18,
+      "isin": "US0970231058",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "F",
+      "name": "Ford Motor",
+      "address": "0x25C288E6D899b9BC30160965aD9644c67e73bE0C",
+      "decimals": 18,
+      "isin": "US3453708600",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "UPS",
+      "name": "UPS",
+      "address": "0xf23250dac154D05Bb671CB0d0eBEf3c635c79CE2",
+      "decimals": 18,
+      "isin": "US9113121068",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "LMT",
+      "name": "Lockheed",
+      "address": "0x329fcACEb9AD6F9580DD5F643fed0646900D043c",
+      "decimals": 18,
+      "isin": "US5398301094",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "LHX",
+      "name": "L3Harris",
+      "address": "0x48d60243c66437c6ac3c2495Be94747aEd5Dfe25",
+      "decimals": 18,
+      "isin": "US5024311095",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "KLAC",
+      "name": "KLA",
+      "address": "0x96b933C74eCB4A0926b9210cef7b743EF46be2E9",
+      "decimals": 18,
+      "isin": "US4824801009",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "LRCX",
+      "name": "Lam Research Corp",
+      "address": "0x57b0030166DB0C31690d1A5aA167e2e26e2C29a4",
+      "decimals": 18,
+      "isin": "US5128073062",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "AMAT",
+      "name": "Applied Materials",
+      "address": "0x36046893810a7E7fCE501229d57dc3FC8c8716d0",
+      "decimals": 18,
+      "isin": "US0382221051",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "MU",
+      "name": "Micron Technology",
+      "address": "0xfF080c8ce2E5feadaCa0Da81314Ae59D232d4afD",
+      "decimals": 18,
+      "isin": "US5951121038",
+      "chainlinkFeed": {
+        "product": "DataFeeds",
+        "proxyAddress": "0x425EEFdCf05ed6526C3cE61Af99429A228a6d596",
+        "secondaryProxyAddress": "0x5b40F4E78FA58B60a4F59b8cc8cB8d2Fb0690467",
+        "decimals": 8,
+        "heartbeatSeconds": 86400,
+        "deviationThresholdPct": 0.5,
+        "assetName": "Micron Technology Inc (Robinhood Tokenized Equity)",
+        "includesCorporateActionMultiplier": true
+      }
+    },
+    {
+      "symbol": "ON",
+      "name": "ON Semiconductor",
+      "address": "0xbBD09F72b025360FeE5C928053Dca6248d35be54",
+      "decimals": 18,
+      "isin": "US6821891057",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "GLW",
+      "name": "Corning",
+      "address": "0x7c04E6A3368F2A1DE3874f0e80d2e0A1a9915da6",
+      "decimals": 18,
+      "isin": "US2193501051",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "HPE",
+      "name": "HP Enterprise",
+      "address": "0x59dd09d4900C2E4B5F75b7c0d4E6796fcc234Cb1",
+      "decimals": 18,
+      "isin": "US42824C1099",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "HWM",
+      "name": "Howmet Aerospace",
+      "address": "0xAEa445c5F3DB1a462998ccC422A875A361ee5d99",
+      "decimals": 18,
+      "isin": "US4432011082",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "BABA",
+      "name": "Alibaba",
+      "address": "0xad25Ac6C84D497db898fa1E8387bf6Af3532a1c4",
+      "decimals": 18,
+      "isin": "US01609W1027",
+      "chainlinkFeed": {
+        "product": "DataFeeds",
+        "proxyAddress": "0x62Cc8F9b5f56a33c9C8A60c8B92779f523c4E984",
+        "secondaryProxyAddress": "0xDB69948B26050818E8c9f43300F78b2582e67260",
+        "decimals": 8,
+        "heartbeatSeconds": 86400,
+        "deviationThresholdPct": 0.5,
+        "assetName": "Alibaba Group Holding Ltd (ADRs) (Robinhood Tokenized Equity)",
+        "includesCorporateActionMultiplier": true
+      }
+    },
+    {
+      "symbol": "SHOP",
+      "name": "Shopify",
+      "address": "0xF53F66751B1Eff985311b693531E3290F600c410",
+      "decimals": 18,
+      "isin": "CA82509L1076",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "NU",
+      "name": "Nu",
+      "address": "0x408c14038a04f7bD235329E26d2bf569ee20e250",
+      "decimals": 18,
+      "isin": "KYG6683N1034",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "FUTU",
+      "name": "Futu Holdings",
+      "address": "0xeB30663bDFf0622Ef4e4E5cBb4E975F19f33f51D",
+      "decimals": 18,
+      "isin": "US36118L1061",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "CELH",
+      "name": "Celsius",
+      "address": "0x8cF07C5A878945185d327aAa6e33FAa95F95e7bF",
+      "decimals": 18,
+      "isin": "US15118V2079",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "ELF",
+      "name": "e.l.f. Beauty",
+      "address": "0x39EC44Bee4F6A116c6F9B8De566848a985C53C60",
+      "decimals": 18,
+      "isin": "US26856L1035",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "LULU",
+      "name": "Lululemon",
+      "address": "0x4e62068525Ab11FE768e29dfD00ef909B9803016",
+      "decimals": 18,
+      "isin": "US5500211090",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "TTWO",
+      "name": "Take-Two Interactive Software",
+      "address": "0x5e81213613b6B86EaB4c6c50d718d34359459786",
+      "decimals": 18,
+      "isin": "US8740541094",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "GME",
+      "name": "GameStop",
+      "address": "0x1b0E319c6A659F002271B69dB8A7df2F911c153E",
+      "decimals": 18,
+      "isin": "US36467W1099",
+      "chainlinkFeed": {
+        "product": "DataFeeds",
+        "proxyAddress": "0x27C71df6A64fB476468EdF256CF72c038baB5B67",
+        "secondaryProxyAddress": "0x42A4652D447A5B0bccF3B265bE8530b85A33b3A2",
+        "decimals": 8,
+        "heartbeatSeconds": 86400,
+        "deviationThresholdPct": 0.5,
+        "assetName": "Gamestop (Robinhood Tokenized Equity)",
+        "includesCorporateActionMultiplier": true
+      }
+    },
+    {
+      "symbol": "AMC",
+      "name": "AMC Entertainment",
+      "address": "0x05a3d1Cd21d0C88145E82600E62e7E496e0F222B",
+      "decimals": 18,
+      "isin": "US00165C3025",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "PLTR",
+      "name": "Palantir Technologies",
+      "address": "0x894E1EC2D74FFE5AEF8Dc8A9e84686acCB964F2A",
+      "decimals": 18,
+      "isin": "US69608A1088",
+      "chainlinkFeed": {
+        "product": "DataFeeds",
+        "proxyAddress": "0x820ABedFF239034956B7A9d2F0a331f9F075eB4c",
+        "secondaryProxyAddress": "0x8cd1DFC0fc61fcA55FA77b37e008A90f13364Fce",
+        "decimals": 8,
+        "heartbeatSeconds": 86400,
+        "deviationThresholdPct": 0.5,
+        "assetName": "Palantir Technologies Inc (Robinhood Tokenized Equity)",
+        "includesCorporateActionMultiplier": true
+      }
+    },
+    {
+      "symbol": "COIN",
+      "name": "Coinbase",
+      "address": "0x6330D8C3178a418788dF01a47479c0ce7CCF450b",
+      "decimals": 18,
+      "isin": "US19260Q1076",
+      "chainlinkFeed": {
+        "product": "DataFeeds",
+        "proxyAddress": "0xA3a468A452940B7D6b69991207B508c609a98Ef2",
+        "secondaryProxyAddress": "0xA7F7D79D578fb007384BaDF42c8E1D76a6a63bBD",
+        "decimals": 8,
+        "heartbeatSeconds": 86400,
+        "deviationThresholdPct": 0.5,
+        "assetName": "Coinbase (Robinhood Tokenized Equity)",
+        "includesCorporateActionMultiplier": true
+      }
+    },
+    {
+      "symbol": "RIVN",
+      "name": "Rivian Automotive",
+      "address": "0xB1BF26c1D20ff267A4f93550d1E0d06ac40a114B",
+      "decimals": 18,
+      "isin": "US76954A1034",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "SOFI",
+      "name": "SoFi Technologies",
+      "address": "0x98E75885157C80992A8D41b696D8c9C6Fb30A926",
+      "decimals": 18,
+      "isin": "US83406F1021",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "RDDT",
+      "name": "Reddit",
+      "address": "0x05b37Fb53A299a1b874A619e1c4C404D52C36F4C",
+      "decimals": 18,
+      "isin": "US75734B1008",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "DJT",
+      "name": "Trump Media & Technology Group",
+      "address": "0x1D11f0496982706C5e14A514D4E79F2e6BdE4516",
+      "decimals": 18,
+      "isin": "US25400Q1058",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "HIMS",
+      "name": "Hims & Hers Health",
+      "address": "0xCceE82fE024c36fA15E1005edE3E9e4787e23D09",
+      "decimals": 18,
+      "isin": "US4330001060",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "SNAP",
+      "name": "Snap",
+      "address": "0xF6589F11Bc40b669e584073F428B05562F568733",
+      "decimals": 18,
+      "isin": "US83304A1060",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "RBLX",
+      "name": "Roblox",
+      "address": "0xF0C4BF4C582cb3836e98394b1d4e7B7281101bE8",
+      "decimals": 18,
+      "isin": "US7710491033",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "CVNA",
+      "name": "Carvana",
+      "address": "0xa4f319104089FE321dc8093C6E707d4fE190A988",
+      "decimals": 18,
+      "isin": "US1468691027",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "MSTR",
+      "name": "Strategy Inc.",
+      "address": "0xec262a75e413fAfD0dF80480274532C79D42da09",
+      "decimals": 18,
+      "isin": "US5949724083",
+      "chainlinkFeed": {
+        "product": "DataFeeds",
+        "proxyAddress": "0x396118bdFB181e6240E74D243F266B061c0edc3D",
+        "secondaryProxyAddress": "0x2521a77F42098357e83bDea7fBb2A38745bf9280",
+        "decimals": 8,
+        "heartbeatSeconds": 86400,
+        "deviationThresholdPct": 0.5,
+        "assetName": "Microstrategy Inc Class A (Robinhood Tokenized Equity",
+        "includesCorporateActionMultiplier": true
+      }
+    },
+    {
+      "symbol": "CLSK",
+      "name": "CleanSpark",
+      "address": "0xcBB95BBF36099d34dA091dc6Fa6F49EfA257Cee3",
+      "decimals": 18,
+      "isin": "US18452B2097",
+      "chainlinkFeed": {
+        "product": "DataFeeds",
+        "proxyAddress": "0x810c12D3a554Bc47fd39597Fe3b3AAC4941F50eF",
+        "secondaryProxyAddress": "0x951C5E9a2a065053035D4B812b1f6cA7e64c5102",
+        "decimals": 8,
+        "heartbeatSeconds": 86400,
+        "deviationThresholdPct": 0.5,
+        "assetName": "CleanSpark Inc (Robinhood Tokenized Equity)",
+        "includesCorporateActionMultiplier": true
+      }
+    },
+    {
+      "symbol": "WULF",
+      "name": "TeraWulf",
+      "address": "0x348Be1A8663f15edDe5CDf8A96BB69078f7aB6Fd",
+      "decimals": 18,
+      "isin": "US88080T1043",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "IREN",
+      "name": "IREN Limited",
+      "address": "0xF0AB0c93bE6F41369d302e55db1A96b3c430212D",
+      "decimals": 18,
+      "isin": "AU0000185993",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "BULL",
+      "name": "Webull",
+      "address": "0xceF9027c7d6985b85f0BA431125073529A947A68",
+      "decimals": 18,
+      "isin": "KYG9572D1034",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "GLXY",
+      "name": "Galaxy Digital Inc.",
+      "address": "0x2D427692E928fa156ec22acfaBaFA0447C5805B7",
+      "decimals": 18,
+      "isin": "US36317J2096",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "CRCL",
+      "name": "Circle Internet Group",
+      "address": "0xdF0992E440dD0be65BD8439b609d6D4366bf1CB5",
+      "decimals": 18,
+      "isin": "US1725731079",
+      "chainlinkFeed": {
+        "product": "DataFeeds",
+        "proxyAddress": "0x6652eDf64bA3731C4F2D3ce821A0Fb1f1f6b482a",
+        "secondaryProxyAddress": "0x025Ba3B3569Ca7d15Da7BFC1648F13F06A072851",
+        "decimals": 8,
+        "heartbeatSeconds": 86400,
+        "deviationThresholdPct": 0.5,
+        "assetName": "Circle Internet Group Inc (Robinhood Tokenized Equity)",
+        "includesCorporateActionMultiplier": true
+      }
+    },
+    {
+      "symbol": "FIG",
+      "name": "Figma",
+      "address": "0x41F4267525a8AFf329540eF24fD83d9044758B33",
+      "decimals": 18,
+      "isin": "US3168411052",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "APP",
+      "name": "AppLovin",
+      "address": "0xA249BAF1063Af884807C1E1400AEf7784836917E",
+      "decimals": 18,
+      "isin": "US03831W1080",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "SPCX",
+      "name": "Space Exploration Technologies Corp. Class A Common Stock",
+      "address": "0x4a0E65A3EcceC6dBe60AE065F2e7bb85Fae35eEa",
+      "decimals": 18,
+      "isin": "US84615Q1031",
+      "chainlinkFeed": {
+        "product": "DataFeeds",
+        "proxyAddress": "0xB265810950ba6c5C0Ff821c9963014a56fD8Bffb",
+        "secondaryProxyAddress": "0x42a95341ff361e81fd934F39943c5C98F6991844",
+        "decimals": 8,
+        "heartbeatSeconds": 86400,
+        "deviationThresholdPct": 0.5,
+        "assetName": "Space Exploration Technologies Corp. (Robinhood Tokenized Equity)",
+        "includesCorporateActionMultiplier": true
+      }
+    },
+    {
+      "symbol": "AXON",
+      "name": "Axon",
+      "address": "0xC27dBD474aF5181c5A8777903690D8D262D12648",
+      "decimals": 18,
+      "isin": "US05464C1018",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "KTOS",
+      "name": "Kratos Defense & Security Solutions",
+      "address": "0x7FD06a4d81cCfA3F351394E144d5191874C31313",
+      "decimals": 18,
+      "isin": "US50077B2079",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "RCAT",
+      "name": "Red Cat",
+      "address": "0xFDE6b5d9BB419B10C23268c74e369AbFF39C0460",
+      "decimals": 18,
+      "isin": "US75644T1007",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "HII",
+      "name": "Huntington Ingalls",
+      "address": "0xEB61c0Ed490A367d4E3631cCf8a74B3bfc7E775D",
+      "decimals": 18,
+      "isin": "US4464131063",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "AVAV",
+      "name": "AeroVironment",
+      "address": "0xF6290b5e7C26502e2dA514C31509849718EA76A5",
+      "decimals": 18,
+      "isin": "US0080731088",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "RDW",
+      "name": "Redwire",
+      "address": "0x92Ef19E82bD8fF36661DE838D5eaE7e5CEF0EfFE",
+      "decimals": 18,
+      "isin": "US75776W1036",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "ASTS",
+      "name": "AST SpaceMobile",
+      "address": "0x1AF6446f07eb1d97c546AFC8c9544cBDF3AD5137",
+      "decimals": 18,
+      "isin": "US00217D1000",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "LUNR",
+      "name": "Intuitive Machines",
+      "address": "0xa5D4968421bA94814Be3B136b15cf422101aC1a3",
+      "decimals": 18,
+      "isin": "US46125A1007",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "RKLB",
+      "name": "Rocket Lab Corporation",
+      "address": "0x3b14C39E89D60D627b42a1A4CA45b5bb45Fc12e2",
+      "decimals": 18,
+      "isin": "US7731211089",
+      "chainlinkFeed": {
+        "product": "DataFeeds",
+        "proxyAddress": "0x045477BF65Aef6f4F2386ad0164579e48381CC74",
+        "secondaryProxyAddress": "0x955c60932E517B36be137Eee78E65343cBFC9D29",
+        "decimals": 8,
+        "heartbeatSeconds": 86400,
+        "deviationThresholdPct": 0.5,
+        "assetName": "Rocket Lab Corp (Robinhood Tokenized Equity)",
+        "includesCorporateActionMultiplier": true
+      }
+    },
+    {
+      "symbol": "JOBY",
+      "name": "Joby Aviation",
+      "address": "0xb334C5cE741B80B5B671F47F5C269Cb193fe8E24",
+      "decimals": 18,
+      "isin": "KYG651631007",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "OKLO",
+      "name": "Oklo",
+      "address": "0x8B2f88497f15A18E9D4FFa1a8fFB8538399aE774",
+      "decimals": 18,
+      "isin": "US02156V1098",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "SMR",
+      "name": "NuScale Power",
+      "address": "0x1Eebee7F74517e0279dFb09d25B0407bEEc3FDd6",
+      "decimals": 18,
+      "isin": "US67079K1007",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "NNE",
+      "name": "Nano Nuclear Energy",
+      "address": "0xBEF75684C43c4ea7BD18Dd532a2244674Ee8b926",
+      "decimals": 18,
+      "isin": "US63010H1086",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "QBTS",
+      "name": "D-Wave Quantum Inc. Common Stock",
+      "address": "0xC583c60aeF9Dc401Da72cEC1B404743a93cea1Cc",
+      "decimals": 18,
+      "isin": "US26740W1099",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "RGTI",
+      "name": "Rigetti Computing",
+      "address": "0x284358abc07F9359f19f4b5b4aC91901Be2597Ba",
+      "decimals": 18,
+      "isin": "US76655K1034",
+      "chainlinkFeed": {
+        "product": "DataFeeds",
+        "proxyAddress": "0x2A045cF1C49c61c166C036d2f06FA2D2d984f765",
+        "secondaryProxyAddress": "0xC9C477AEfF7eD1BB89B84F7907E2e11707491466",
+        "decimals": 8,
+        "heartbeatSeconds": 86400,
+        "deviationThresholdPct": 0.5,
+        "assetName": "Rigetti Computing Inc (Robinhood Tokenized Equity)",
+        "includesCorporateActionMultiplier": true
+      }
+    },
+    {
+      "symbol": "IONQ",
+      "name": "IonQ",
+      "address": "0x558378E000D634A36593E338eBacdd6207640EfE",
+      "decimals": 18,
+      "isin": "US46222L1089",
+      "chainlinkFeed": {
+        "product": "DataFeeds",
+        "proxyAddress": "0x22EfeC4919baf55F360E0EDee4AbEB26DE4971eb",
+        "secondaryProxyAddress": "0x926D7D95E554D1e671EB2C0d238fe37a2C23A64E",
+        "decimals": 8,
+        "heartbeatSeconds": 86400,
+        "deviationThresholdPct": 0.5,
+        "assetName": "IonQ, Inc. (Robinhood Tokenized Equity)",
+        "includesCorporateActionMultiplier": true
+      }
+    },
+    {
+      "symbol": "QUBT",
+      "name": "Quantum Computing",
+      "address": "0x59818904ab4cE163b3cE4FfB64f2D6Ca02c434B4",
+      "decimals": 18,
+      "isin": "US74766W1080",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "SMCI",
+      "name": "Super Micro Computer",
+      "address": "0xc01aA1fECeC0605b13bc84874ff7256C0f5F562a",
+      "decimals": 18,
+      "isin": "US86800U3023",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "CRWV",
+      "name": "CoreWeave",
+      "address": "0x5f10A1C971B69e47e059e1dC91901B59b3fB49C3",
+      "decimals": 18,
+      "isin": "US21873S1087",
+      "chainlinkFeed": {
+        "product": "DataFeeds",
+        "proxyAddress": "0xe1b3aABCAFAd1c94708dc1367dcfF8Aa4407487C",
+        "secondaryProxyAddress": "0x288b837A17fED1aa00c1df832ef79D0C77336c10",
+        "decimals": 8,
+        "heartbeatSeconds": 86400,
+        "deviationThresholdPct": 0.5,
+        "assetName": "CoreWeave Inc (Robinhood Tokenized Equity)",
+        "includesCorporateActionMultiplier": true
+      }
+    },
+    {
+      "symbol": "NBIS",
+      "name": "Nebius Group",
+      "address": "0x9D9c6684F596F66a64C030B93A886D51Fd4D7931",
+      "decimals": 18,
+      "isin": "NL0009805522",
+      "chainlinkFeed": {
+        "product": "DataFeeds",
+        "proxyAddress": "0xE1D87B116Ba0fe898998f1D140339D1fA1E09705",
+        "secondaryProxyAddress": "0xCa59A8F53bf4E0628CC0b1BD3a2216F2F8E04770",
+        "decimals": 8,
+        "heartbeatSeconds": 86400,
+        "deviationThresholdPct": 0.5,
+        "assetName": "Nebius Group (Robinhood Tokenized Equity)",
+        "includesCorporateActionMultiplier": true
+      }
+    },
+    {
+      "symbol": "DDOG",
+      "name": "Datadog",
+      "address": "0x27c99fBde9D0d2AA4f4Bfb4943f237843DdF6958",
+      "decimals": 18,
+      "isin": "US23804L1035",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "SNOW",
+      "name": "Snowflake",
+      "address": "0xBa0CAB75495255d0cB58E22B648bFED4ECD1F47E",
+      "decimals": 18,
+      "isin": "US8334451098",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "MDB",
+      "name": "MongoDB",
+      "address": "0xDdf2266b79abf0B48898959B0ed6E6adf512be74",
+      "decimals": 18,
+      "isin": "US60937P1066",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "NET",
+      "name": "Cloudflare, Inc. Class A common stock",
+      "address": "0x116F00968269B7bfbaD4109cE591d6E74c0601d4",
+      "decimals": 18,
+      "isin": "US18915M1071",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "CRWD",
+      "name": "CrowdStrike Holdings",
+      "address": "0xea72Ecca2d0f6bFA1394DBBCff85b52CD4233931",
+      "decimals": 18,
+      "isin": "US22788C1053",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "PANW",
+      "name": "Palo Alto Networks",
+      "address": "0xB039597eD45CBa7B6E2fb9E8BE51802969CEe5Be",
+      "decimals": 18,
+      "isin": "US6974351057",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "FTNT",
+      "name": "Fortinet",
+      "address": "0x3FB8976980d486084b2eb4a404BD12e72823958f",
+      "decimals": 18,
+      "isin": "US34959E1091",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "TEAM",
+      "name": "Atlassian Corporation",
+      "address": "0x5B97476b922F3305131B8f0B9D333172E87f4aaE",
+      "decimals": 18,
+      "isin": "US0494681010",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "ASML",
+      "name": "ASML Holding NV",
+      "address": "0x47F93d52cBeC7C6D2CfC080e154002370a60dAEA",
+      "decimals": 18,
+      "isin": "USN070592100",
+      "chainlinkFeed": {
+        "product": "DataFeeds",
+        "proxyAddress": "0xB4106147E8cce40b7d46124090d373A71b70f87D",
+        "secondaryProxyAddress": "0x3eFBba343e2b1cF9ed4d4D5768e20B70307Aa8c9",
+        "decimals": 8,
+        "heartbeatSeconds": 86400,
+        "deviationThresholdPct": 0.5,
+        "assetName": "ASML Holding NV (Nasdaq) (Robinhood Tokenized Equity)",
+        "includesCorporateActionMultiplier": true
+      }
+    },
+    {
+      "symbol": "SNDK",
+      "name": "Sandisk Corporation",
+      "address": "0xB90A19fF0Af67f7779afF50A882A9CfF42446400",
+      "decimals": 18,
+      "isin": "US80004C2008",
+      "chainlinkFeed": {
+        "product": "DataFeeds",
+        "proxyAddress": "0xfb133Fa4B7b385802B693a293606682Df47109A3",
+        "secondaryProxyAddress": "0xd1016D9Da414B13D55abe02221A8A145eB89aA0D",
+        "decimals": 8,
+        "heartbeatSeconds": 86400,
+        "deviationThresholdPct": 0.5,
+        "assetName": "SanDisk Corp (Robinhood Tokenized Equity)",
+        "includesCorporateActionMultiplier": true
+      }
+    }
+  ],
+  "remaining94": [
+    {
+      "symbol": "AAOI",
+      "name": "Applied Optoelectronics",
+      "address": "0x521Cf887E6531c6F667b5BC4D896E5d9bfE8EB2E",
+      "decimals": 18,
+      "isin": "US03823U1025",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "ABCL",
+      "name": "Abcellera Biologics",
+      "address": "0x3139D77Ace0cbAA5bDfD38bD1F1911a794AF0B0e",
+      "decimals": 18,
+      "isin": "CA00288U1066",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "AEHR",
+      "name": "Aehr",
+      "address": "0x5F604fBA1162193A4388A5DFa56F556f3E133cC2",
+      "decimals": 18,
+      "isin": "US00760J1088",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "AEIS",
+      "name": "Advanced Energy",
+      "address": "0xfAf9cb261B5FCC1f404Bb10CD39C5c6C1974E612",
+      "decimals": 18,
+      "isin": "US0079731008",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "ALAB",
+      "name": "Astera Labs, Inc.",
+      "address": "0x748c32c3ca24eDf31ea597Db1F3d330a7a6DA3Dc",
+      "decimals": 18,
+      "isin": "US04626A1034",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "AMBA",
+      "name": "Ambarella",
+      "address": "0x99D9D8663545151603863C5AcbD6FC3218899009",
+      "decimals": 18,
+      "isin": "KYG037AX1015",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "AMKR",
+      "name": "Amkor Technology",
+      "address": "0xDd356AA38F40A7b7076755aC854B6FBb1F0D305B",
+      "decimals": 18,
+      "isin": "US0316521006",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "ANET",
+      "name": "Arista",
+      "address": "0x28bABD556b60E53663B8615036479a29c2CDd1Bf",
+      "decimals": 18,
+      "isin": "US0404132054",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "APLD",
+      "name": "Applied Digital",
+      "address": "0xb8DBf92F9741c9ac1c32115E78581f23509916FD",
+      "decimals": 18,
+      "isin": "US0381692070",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "AUR",
+      "name": "Aurora Innovation",
+      "address": "0x373C06c4f7BDe527D7Dae4BA169E42b55E393CeD",
+      "decimals": 18,
+      "isin": "US0517741072",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "AXTI",
+      "name": "AXT",
+      "address": "0x141eEa040c2250eEc0314e336975e81f85f6585e",
+      "decimals": 18,
+      "isin": "US00246W1036",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "BB",
+      "name": "Blackberry",
+      "address": "0x48E39E56aCdbA37b09020C0b734A613C9a2f100A",
+      "decimals": 18,
+      "isin": "CA09228F1036",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "BE",
+      "name": "Bloom Energy",
+      "address": "0x822CC93fFD030293E9842c30BBD678F530701867",
+      "decimals": 18,
+      "isin": "US0937121079",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "BND",
+      "name": "Vanguard Total Bond Market ETF",
+      "address": "0x2F62fC9fAbb470C690f141c28340eD832bB27020",
+      "decimals": 18,
+      "isin": "US9219378356",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "CBRS",
+      "name": "Cerebras Systems",
+      "address": "0x5c90450Bbb4273D7b2f17CF6917AEB237A569679",
+      "decimals": 18,
+      "isin": "US15675D1037",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "CCL",
+      "name": "Carnival Corporation",
+      "address": "0x9651342CeA770aE9a2969Ba2A52611523146aef9",
+      "decimals": 18,
+      "isin": "BMG2004J1036",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "CEG",
+      "name": "Constellation Energy",
+      "address": "0xaE517A2903E68bd929Dfd15be875F8369D53e94a",
+      "decimals": 18,
+      "isin": "US21037T1097",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "CIEN",
+      "name": "Ciena",
+      "address": "0x44f6D488021f8233B9416294d1FE9b1fEe28382d",
+      "decimals": 18,
+      "isin": "US1717793095",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "CLOV",
+      "name": "Clover Health Investments",
+      "address": "0x62200915e7DEab1eC7f79fb246daDbB80eACdDd0",
+      "decimals": 18,
+      "isin": "US18914F1030",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "CLS",
+      "name": "Celestica",
+      "address": "0xBf449977089c718C004a66C554B26B94ef3Ad4De",
+      "decimals": 18,
+      "isin": "CA15101Q2071",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "COHR",
+      "name": "Coherent",
+      "address": "0x92F9F459F1a9a5AD266b182BE7Bffd1C6c666894",
+      "decimals": 18,
+      "isin": "US19247G1076",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "CRDO",
+      "name": "Credo Technology Group",
+      "address": "0x4D67253bc223e6b0e104F1084c1fb2b669dDC41b",
+      "decimals": 18,
+      "isin": "KYG254571055",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "CTSH",
+      "name": "Cognizant",
+      "address": "0x63D5a3b6939a33f1e75d8Bcd85759858239600DB",
+      "decimals": 18,
+      "isin": "US1924461023",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "DELL",
+      "name": "Dell",
+      "address": "0x941AE714EC6D8130c7B75d67160Ca08f1e7d11Dd",
+      "decimals": 18,
+      "isin": "US24703L2025",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "DOCN",
+      "name": "DigitalOcean",
+      "address": "0xc02f12B9fe9E707079EC0d546f3050d3F6C1F8bD",
+      "decimals": 18,
+      "isin": "US25402D1028",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "EWT",
+      "name": "iShares MSCI Taiwan Capped ETF",
+      "address": "0x1c690498150252222C275A5CEd69d3A6b1f52D5E",
+      "decimals": 18,
+      "isin": "US46434G7723",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "EWY",
+      "name": "iShares MSCI South Korea fund",
+      "address": "0x7f0aBeF0C07280F82c6a08ead09dEd6BAE2C13Fc",
+      "decimals": 18,
+      "isin": "US4642867729",
+      "chainlinkFeed": {
+        "product": "DataFeeds",
+        "proxyAddress": "0xEFdf54610B62A7753Ec30bDc380847c12D32e1D1",
+        "secondaryProxyAddress": "0x26bca2a89D2D23787ada8F91B849608c51A26977",
+        "decimals": 8,
+        "heartbeatSeconds": 86400,
+        "deviationThresholdPct": 0.5,
+        "assetName": "ISHARES MSCI SOUTH KOREA ETF (Robinhood Tokenized ETF)",
+        "includesCorporateActionMultiplier": true
+      }
+    },
+    {
+      "symbol": "FICO",
+      "name": "Fair Isaac",
+      "address": "0xa48F22A46C0F1C46CA7D111CB6c137c271987180",
+      "decimals": 18,
+      "isin": "US3032501047",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "FISV",
+      "name": "Fiserv",
+      "address": "0x9ECe29A4A2397C0a35fb5fA8EE2b9509130a98cc",
+      "decimals": 18,
+      "isin": "US3377381088",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "FIX",
+      "name": "Comfort Systems",
+      "address": "0x93Dbb1d2Dc5D63F4abACFF30485273f538Df68Ac",
+      "decimals": 18,
+      "isin": "US1999081045",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "FLNC",
+      "name": "Fluence Energy",
+      "address": "0x282e87451E10fA6679BC7D76C69BE44cD3fC777C",
+      "decimals": 18,
+      "isin": "US34379V1035",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "FLY",
+      "name": "Firefly Aerospace Inc.",
+      "address": "0x03BC731Ffb162cdd7B98D3C6542bFC291126075d",
+      "decimals": 18,
+      "isin": "US31816X1063",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "GEV",
+      "name": "GE Vernova",
+      "address": "0x94B8AAE43A1cCc08Aa64B7D1F29b4D920aF4a0C9",
+      "decimals": 18,
+      "isin": "US36828A1016",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "GLD",
+      "name": "SPDR Gold Trust",
+      "address": "0xC9a981FEE1F9DEc688bb123ccDeCc63D0deBFC4e",
+      "decimals": 18,
+      "isin": "US78463V1070",
+      "chainlinkFeed": {
+        "product": "DataStreams",
+        "feedId": "0x000802acecf3ee05bc33c0af01b9fcc6b6fa6b4fdcbfe84d7bebedf81e193f76",
+        "hasOvernightHoursVariant": false,
+        "includesCorporateActionMultiplier": false,
+        "requiresPaidSubscription": true,
+        "verifierProxyAddress": "0xcE73c8ad08CBDEaCa6078BF0627C8fe0a9a536E7",
+        "integrationNote": "Generic Chainlink equity-price stream, not Robinhood-branded -- does NOT bake in the ERC-8056 corporate-action multiplier the way the DataFeeds product does, so consuming this correctly means separately reading/applying currentMultiplier (see api.robinhood.com/rhj/assets) or an on-chain equivalent. Needs: (1) a paid Chainlink Data Streams subscription (self-serve at app.chain.link, from $150/mo per feed, HMAC-authenticated REST/WebSocket API) to fetch the signed report off-chain before each use: (2) passing that report as calldata into IVerifierProxy.verify() on Robinhood Chain (address above) to get a verified ReportV3 (feedId, price int192, timestamps) -- no LINK/native fee needed for verify() itself, billing is subscription-based; (3) a contract-side change since OracleLib currently expects a push feed with latestRoundData(), not a per-call report payload -- mint()/redeem() would need to accept the report bytes as an argument; (4) since the report must be fetched via an authenticated off-chain API call, the current pure-static GH-Pages frontend cannot do this safely client-side (would leak the API secret) -- a small backend/relayer becomes necessary just for these assets."
+      }
+    },
+    {
+      "symbol": "IBRX",
+      "name": "ImmunityBio,",
+      "address": "0x7c148F74ac7445D1F28366b7FcDC6792a9Fcd0Cf",
+      "decimals": 18,
+      "isin": "US45256X1037",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "INDA",
+      "name": "iShares MSCI India ETF",
+      "address": "0xACEF2e09adb47aD6aBeBAD9fF06689E60615C2B6",
+      "decimals": 18,
+      "isin": "US46429B5984",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "INFQ",
+      "name": "Infleqtion",
+      "address": "0xB853bC83a753342a4f8320ea680b4B1E84118D21",
+      "decimals": 18,
+      "isin": "US45676K1034",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "INOD",
+      "name": "Innodata",
+      "address": "0xf1953DAB6FaD537488d5A022361FfAa8B4c95eC6",
+      "decimals": 18,
+      "isin": "US4576422053",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "JBL",
+      "name": "Jabil Inc.",
+      "address": "0xEAf2512dFC1bEAc608F8794B3793CD4E02894Aa6",
+      "decimals": 18,
+      "isin": "US4663131039",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "KSS",
+      "name": "Kohls Corporation",
+      "address": "0x12e3c047bf9AeCAF9dDC98c05C31BFD1dd043993",
+      "decimals": 18,
+      "isin": "US5002551043",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "LITE",
+      "name": "Lumentum",
+      "address": "0x8eF20885F94e3D9bc7eB3080279188Bd5ED7c08C",
+      "decimals": 18,
+      "isin": "US55024U1097",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "MOD",
+      "name": "Modine",
+      "address": "0xc6Cbad1016b38B797610c25E1dc7D95988B1f362",
+      "decimals": 18,
+      "isin": "US6078281002",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "MPWR",
+      "name": "Monolithic Power Systems",
+      "address": "0x52D50D0280AD1054b43f052bD70a49a212A1b128",
+      "decimals": 18,
+      "isin": "US6098391054",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "MRNA",
+      "name": "Moderna",
+      "address": "0x43B07D15cE533bEc5476d70C22a78a1B2B662155",
+      "decimals": 18,
+      "isin": "US60770K1079",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "MRVL",
+      "name": "Marvell Technology",
+      "address": "0x62fd0668e10D8B72339BE2DCF7643001688ff13B",
+      "decimals": 18,
+      "isin": "US5738741041",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "MTSI",
+      "name": "MACOM",
+      "address": "0xC93f4d80e268AB922e871bd169156C3CC41894e6",
+      "decimals": 18,
+      "isin": "US55405Y1001",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "MXL",
+      "name": "MaxLinear",
+      "address": "0x48961813349333209994750ffA89b3c5C22eC969",
+      "decimals": 18,
+      "isin": "US57776J1007",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "NAVN",
+      "name": "Navan",
+      "address": "0xf7181b63Fdb858558A74ba96BC42732684cd7965",
+      "decimals": 18,
+      "isin": "US6391931010",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "NVTS",
+      "name": "Navitas Semiconductor",
+      "address": "0xbE6702d7b70315376dC48a3293f24f0982F86386",
+      "decimals": 18,
+      "isin": "US63942X1063",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "ONTO",
+      "name": "Onto Innovation",
+      "address": "0x8ff63eAeEe3fE54Ba450c4F5538064Ec5A893Aef",
+      "decimals": 18,
+      "isin": "US6833441057",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "OUST",
+      "name": "Ouster",
+      "address": "0x40E7a279850e443f582059ae5dC1c3b6563E6395",
+      "decimals": 18,
+      "isin": "US68989M2026",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "P",
+      "name": "Everpure",
+      "address": "0x1Cdad396DB64BDa184d5182A97Dd9B3C62100b7D",
+      "decimals": 18,
+      "isin": "US74624M1027",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "PATH",
+      "name": "UiPath",
+      "address": "0xfb2664f07B6Aadd29ea7a59D8859b1AeB8645cDa",
+      "decimals": 18,
+      "isin": "US90364P1057",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "PENG",
+      "name": "Penguin Solutions",
+      "address": "0x9b23573b156B52565012F5cE02CDF60AFBaa70Be",
+      "decimals": 18,
+      "isin": "US7069151055",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "PL",
+      "name": "Planet Labs",
+      "address": "0xAA4d64474c172010aB57719cb9951E6142a100d3",
+      "decimals": 18,
+      "isin": "US72703X1063",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "POET",
+      "name": "POET Technologies",
+      "address": "0xcf6B2D875361be807EAfa57458c80f28521F9333",
+      "decimals": 18,
+      "isin": "CA73044W3021",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "POWL",
+      "name": "Powell Industries",
+      "address": "0x237c16D66590F67B886d978ACD362EAeaD8B18c7",
+      "decimals": 18,
+      "isin": "US7391281067",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "PR",
+      "name": "Permian Resources",
+      "address": "0x4189F0c66EBBB0bfeF1C31f763131361EF32f77C",
+      "decimals": 18,
+      "isin": "US71424F1057",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "PWR",
+      "name": "Quanta",
+      "address": "0x9Ab02Ead789b6903c3c44d0ED32F9c707CDF12FD",
+      "decimals": 18,
+      "isin": "US74762E1029",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "QQQ",
+      "name": "Invesco QQQ",
+      "address": "0xD5f3879160bc7c32ebb4dC785F8a4F505888de68",
+      "decimals": 18,
+      "isin": "US46090E1038",
+      "chainlinkFeed": {
+        "product": "DataFeeds",
+        "proxyAddress": "0x80901d846d5D7B030F26B480776EE3b29374C2ae",
+        "secondaryProxyAddress": "0x41ed2c58611790af0760e31e80Bb427e4e83D603",
+        "decimals": 8,
+        "heartbeatSeconds": 86400,
+        "deviationThresholdPct": 0.5,
+        "assetName": "Invesco QQQ (Robinhood Tokenized ETF)",
+        "includesCorporateActionMultiplier": true
+      }
+    },
+    {
+      "symbol": "RUN",
+      "name": "Sunrun",
+      "address": "0x756Bc80af765C82da966a788858d65aDF14f3793",
+      "decimals": 18,
+      "isin": "US86771W1053",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "SCHD",
+      "name": "Schwab US Dividend Equity ETF",
+      "address": "0xd63ABB2C13d7a8421a8017a712802053568e3C1D",
+      "decimals": 18,
+      "isin": "US8085247976",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "SGOV",
+      "name": "iShares 0-3 Month Treasury Bond",
+      "address": "0x92FD66527192E3e61d4DDd13322Aa222DE86F9B5",
+      "decimals": 18,
+      "isin": "US46436E7186",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "SHY",
+      "name": "iShares 1-3 Year Treasury Bond ETF",
+      "address": "0xBE274710Bf3d9567e1B290eF6a5F9f90ca016FD8",
+      "decimals": 18,
+      "isin": "US4642874576",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "SIMO",
+      "name": "Silicon Motion",
+      "address": "0x77E655E37F4d913fB9540e0d541D824171a60e81",
+      "decimals": 18,
+      "isin": "US82706C1080",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "SKHY",
+      "name": "SK hynix Inc. American Depositary Shares",
+      "address": "0x84CAb63bc87912E71ad199ff14A0bA45de68FeF8",
+      "decimals": 18,
+      "isin": "US78392B2060",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "SLS",
+      "name": "SELLAS Life Sciences",
+      "address": "0x285b231728c7E4333799183DF1094d775246a535",
+      "decimals": 18,
+      "isin": "US81642T2096",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "SLV",
+      "name": "iShares Silver Trust",
+      "address": "0x411eFb0E7f985935DAec3D4C3ebaEa0d0AD7D89f",
+      "decimals": 18,
+      "isin": "US46428Q1094",
+      "chainlinkFeed": {
+        "product": "DataFeeds",
+        "proxyAddress": "0x209b73908e92Ae021826eD79609845451Ecba2ce",
+        "secondaryProxyAddress": "0xdA81cD9c76F1D3Ea32655dfFc7408ef22BB0Ee2a",
+        "decimals": 8,
+        "heartbeatSeconds": 86400,
+        "deviationThresholdPct": 0.5,
+        "assetName": "iShares Silver Trust ETF (Robinhood Tokenized ETF)",
+        "includesCorporateActionMultiplier": true
+      }
+    },
+    {
+      "symbol": "SMH",
+      "name": "VanEck Semiconductor ETF",
+      "address": "0x072f979c2CAc8e1391B0162a87Fee094bF8744a0",
+      "decimals": 18,
+      "isin": "US92189F6768",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "SOUN",
+      "name": "SoundHound AI",
+      "address": "0x6E3Dfd9f7e1649BaA14D25cac18C94d62dB10A54",
+      "decimals": 18,
+      "isin": "US8361001071",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "SOXX",
+      "name": "iShares Semiconductor ETF",
+      "address": "0x75742c18BC1f1C5c5f448f4C9D9C6F66dafAAa38",
+      "decimals": 18,
+      "isin": "US4642875235",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "SPMO",
+      "name": "Invesco S&P 500 Momentum ETF",
+      "address": "0xAd622320e520de39e72d41EF07438C3Fd3354875",
+      "decimals": 18,
+      "isin": "US46138E3392",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "SPY",
+      "name": "SPDR S&P 500 ETF Trust",
+      "address": "0x117cc2133c37B721F49dE2A7a74833232B3B4C0C",
+      "decimals": 18,
+      "isin": "US78462F1030",
+      "chainlinkFeed": {
+        "product": "DataFeeds",
+        "proxyAddress": "0x319724394D3A0e3669269846abE664Cd621f9f6A",
+        "secondaryProxyAddress": "0xa68CA83408bE3f78d1c58a82081c619e9d21486d",
+        "decimals": 8,
+        "heartbeatSeconds": 86400,
+        "deviationThresholdPct": 0.5,
+        "assetName": null,
+        "includesCorporateActionMultiplier": true
+      }
+    },
+    {
+      "symbol": "TE",
+      "name": "T1 Energy",
+      "address": "0xb1969f6604CA1AE7a2cD3F1827876e914594CA2D",
+      "decimals": 18,
+      "isin": "US35834F1049",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "TEM",
+      "name": "Tempus AI",
+      "address": "0xB1CC0EC7Db69Cf43539119814df40071b9d61793",
+      "decimals": 18,
+      "isin": "US88023B1035",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "TER",
+      "name": "Teradyne",
+      "address": "0x2778C5024D5cA2CdB0f8eAD671ffc69963AdCD9C",
+      "decimals": 18,
+      "isin": "US8807701029",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "TSEM",
+      "name": "Tower Semiconductor",
+      "address": "0x89776d4Cd68193597A2fC132cfaC1fDe36CCeA8a",
+      "decimals": 18,
+      "isin": "IL0010823792",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "TTD",
+      "name": "Trade Desk",
+      "address": "0x0b5fb4031cae9163db10B169Ee72685F0EdC8545",
+      "decimals": 18,
+      "isin": "US88339J1051",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "UMC",
+      "name": "United Microelectronics",
+      "address": "0x0E6e67Ba88e7b5d9B67636A215c76779B948dE79",
+      "decimals": 18,
+      "isin": "US9108734057",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "USO",
+      "name": "United States Oil Fund",
+      "address": "0xa30FA36Db767ad9eD3f7a60fC79526fB4d56D344",
+      "decimals": 18,
+      "isin": "US91232N2071",
+      "chainlinkFeed": {
+        "product": "DataFeeds",
+        "proxyAddress": "0x75a9c76Ef439e2C7c2E5a34Ab105EcFe3766431c",
+        "secondaryProxyAddress": "0x6D054DECb74Cf8ef3675B0Abc100e02921176EdF",
+        "decimals": 8,
+        "heartbeatSeconds": 86400,
+        "deviationThresholdPct": 0.5,
+        "assetName": "United States Oil Fund LP ETF (Robinhood Tokenized ETF)",
+        "includesCorporateActionMultiplier": true
+      }
+    },
+    {
+      "symbol": "VICR",
+      "name": "Vicor",
+      "address": "0x6006ed4B2F94110851ff7509D97D034f0EeD9226",
+      "decimals": 18,
+      "isin": "US9258151029",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "VRT",
+      "name": "Vertiv",
+      "address": "0xFA78C12E6488814A0262E4e802749a4a737d5fB7",
+      "decimals": 18,
+      "isin": "US92537N1081",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "VSAT",
+      "name": "ViaSat",
+      "address": "0x26dCbfb34FC83CAbD6990f449674efDc6097fF85",
+      "decimals": 18,
+      "isin": "US92552V1008",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "VST",
+      "name": "Vistra",
+      "address": "0x561e2a49212b7cCF47f2744Ccb83e200722fADBc",
+      "decimals": 18,
+      "isin": "US92840M1027",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "VTI",
+      "name": "Vanguard Morningstar Total Stock Market ETF",
+      "address": "0x0594134DF3f171a354D9C85eBD65b7A6148F6D09",
+      "decimals": 18,
+      "isin": "US9229087690",
+      "chainlinkFeed": {
+        "product": "DataStreams",
+        "feedId": "0x0008bffa636b91f8aa6feae06c233c0b04010db7cdade6ff5c5e78ffae4668fe",
+        "hasOvernightHoursVariant": false,
+        "includesCorporateActionMultiplier": false,
+        "requiresPaidSubscription": true,
+        "verifierProxyAddress": "0xcE73c8ad08CBDEaCa6078BF0627C8fe0a9a536E7",
+        "integrationNote": "Generic Chainlink equity-price stream, not Robinhood-branded -- does NOT bake in the ERC-8056 corporate-action multiplier the way the DataFeeds product does, so consuming this correctly means separately reading/applying currentMultiplier (see api.robinhood.com/rhj/assets) or an on-chain equivalent. Needs: (1) a paid Chainlink Data Streams subscription (self-serve at app.chain.link, from $150/mo per feed, HMAC-authenticated REST/WebSocket API) to fetch the signed report off-chain before each use: (2) passing that report as calldata into IVerifierProxy.verify() on Robinhood Chain (address above) to get a verified ReportV3 (feedId, price int192, timestamps) -- no LINK/native fee needed for verify() itself, billing is subscription-based; (3) a contract-side change since OracleLib currently expects a push feed with latestRoundData(), not a per-call report payload -- mint()/redeem() would need to accept the report bytes as an argument; (4) since the report must be fetched via an authenticated off-chain API call, the current pure-static GH-Pages frontend cannot do this safely client-side (would leak the API secret) -- a small backend/relayer becomes necessary just for these assets."
+      }
+    },
+    {
+      "symbol": "WDAY",
+      "name": "Workday",
+      "address": "0x82DA4646242e1D962e96e932269Dc644c94a9CaA",
+      "decimals": 18,
+      "isin": "US98138H1014",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "WDC",
+      "name": "Western Digital",
+      "address": "0xF52597345A8Edf418bc4071b4a35112472277D3e",
+      "decimals": 18,
+      "isin": "US9581021055",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "WYFI",
+      "name": "WhiteFiber, Inc.",
+      "address": "0x9e7ABD3C9139D14E4c86DcE0e455AAB7A0C2FB3E",
+      "decimals": 18,
+      "isin": "KYG961151035",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "XLK",
+      "name": "State Street Technology Select Sector SPDR ETF",
+      "address": "0x15Cd20759CE7F3285c29A319dE2D1A2e098c6f43",
+      "decimals": 18,
+      "isin": "US81369Y8030",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "XNDU",
+      "name": "Xanadu Quantum",
+      "address": "0xA8eB3BCcbf2017eE7CBfb652eB51CF2E1B153289",
+      "decimals": 18,
+      "isin": "CA98390R1029",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "ZM",
+      "name": "Zoom",
+      "address": "0x44c4F142009036cF477eD2d09932051843137CF1",
+      "decimals": 18,
+      "isin": "US98980L1017",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "ZS",
+      "name": "Zscaler",
+      "address": "0x7dc013eB55e436f30d7ED1AFE4E36d6e45e3c3f7",
+      "decimals": 18,
+      "isin": "US98980G1022",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "SATS",
+      "name": "EchoStar",
+      "address": "0x95052ddcd5DC25641657424A8Cf04834997E1730",
+      "decimals": 18,
+      "isin": "US2787681061",
+      "chainlinkFeed": null
+    },
+    {
+      "symbol": "USAR",
+      "name": "USA Rare Earth",
+      "address": "0xd917B029C761D264c6A312BBbcDA868658eF86a6",
+      "decimals": 18,
+      "isin": "US91733P1075",
+      "chainlinkFeed": null
+    }
+  ]
+}
