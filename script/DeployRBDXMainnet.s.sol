@@ -60,8 +60,16 @@ contract DeployRBDXMainnet is Script {
         vm.startBroadcast(deployerKey);
 
         token = new RBDXToken(deployer);
-        registry = new AssetRegistry(admin);
-        vault = new RBDXVault(token, registry, devTreasury, admin);
+        // Registry/vault are constructed with the deployer -- not the real
+        // `admin` -- holding DEFAULT_ADMIN_ROLE/PARAM_ADMIN_ROLE, purely so
+        // this script can call addAsset 27 times in the same broadcast: a
+        // real multisig ADMIN_ADDRESS (as required above) can't co-sign an
+        // atomic forge-script run the way an EOA private key can. Admin power
+        // is hand-off to the real `admin` and fully renounced by the deployer
+        // in _handOffAdmin below, in the same broadcast -- nothing
+        // deployer-controlled is left standing once this function returns.
+        registry = new AssetRegistry(deployer);
+        vault = new RBDXVault(token, registry, devTreasury, deployer);
         token.setVault(address(vault));
         // The deployer has no further use for RBDXToken's Ownable role after
         // this one-time wiring call (setVault reverts if called again, and
@@ -75,8 +83,29 @@ contract DeployRBDXMainnet is Script {
         console2.log("RBDXVault:     ", address(vault));
 
         _listAssets(registry, configPath);
+        _handOffAdmin(registry, vault, admin, deployer);
 
         vm.stopBroadcast();
+    }
+
+    /// @dev Grants the real (multisig) admin its roles on registry/vault, then
+    /// renounces every role the deployer was holding temporarily so it can
+    /// list assets above. Order matters: grant before renounce, or a
+    /// deployer-only renounce of DEFAULT_ADMIN_ROLE first would leave both
+    /// contracts with zero admin, permanently.
+    function _handOffAdmin(AssetRegistry registry, RBDXVault vault, address admin, address deployer) internal {
+        bytes32 defaultAdminRole = registry.DEFAULT_ADMIN_ROLE(); // 0x00, same constant on both contracts
+        bytes32 paramAdminRole = vault.PARAM_ADMIN_ROLE();
+
+        registry.grantRole(defaultAdminRole, admin);
+        vault.grantRole(defaultAdminRole, admin);
+        vault.grantRole(paramAdminRole, admin);
+
+        registry.renounceRole(defaultAdminRole, deployer);
+        vault.renounceRole(defaultAdminRole, deployer);
+        vault.renounceRole(paramAdminRole, deployer);
+
+        console2.log("Admin handed off to:", admin);
     }
 
     function _listAssets(AssetRegistry registry, string memory configPath) internal {
