@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { formatUnits } from "viem";
 import { useAccount, useWriteContract, useWaitForTransactionReceipt } from "wagmi";
 import type { VaultData } from "../hooks/useVaultData";
 import { useUserAsset } from "../hooks/useUserAsset";
@@ -42,6 +43,16 @@ export function TradePanel({ data, onRefetch }: { data: VaultData; onRefetch: ()
   const cooldownActive = cooldown.cooldownEnds > BigInt(Math.floor(Date.now() / 1000));
 
   const needsApproval = mode === "mint" && amount > 0n && userAsset.allowance < amount;
+
+  // Exact balance, as a decimal string -- formatUnits/parseTokenAmount round-trip
+  // losslessly (unlike fmtToken's Number() conversion, which truncates to 4
+  // display digits and would silently ask to spend slightly more than the
+  // wallet holds, exactly the ERC20InsufficientBalance trap a hand-typed
+  // amount can fall into).
+  const maxBalance = mode === "mint" ? userAsset.balance : rbdx.balance;
+  function handleMax() {
+    setAmountStr(formatUnits(maxBalance, 18));
+  }
 
   const approveTx = useWriteContract();
   const approveReceipt = useWaitForTransactionReceipt({ hash: approveTx.data });
@@ -120,14 +131,21 @@ export function TradePanel({ data, onRefetch }: { data: VaultData; onRefetch: ()
         <label className="field-label">
           {mode === "mint" ? `Amount of ${asset.symbol} to deposit` : `Amount of ${RBDX_SYMBOL} to burn`}
         </label>
-        <input
-          className="input"
-          type="text"
-          inputMode="decimal"
-          placeholder="0.0"
-          value={amountStr}
-          onChange={(e) => setAmountStr(e.target.value)}
-        />
+        <div className="input-row">
+          <input
+            className="input input-with-max"
+            type="text"
+            inputMode="decimal"
+            placeholder="0.0"
+            value={amountStr}
+            onChange={(e) => setAmountStr(e.target.value)}
+          />
+          {isConnected && (
+            <button type="button" className="btn-max" disabled={maxBalance === 0n} onClick={handleMax}>
+              Max
+            </button>
+          )}
+        </div>
         <div className="balance-hint">
           {mode === "mint"
             ? isConnected && `Balance: ${fmtToken(userAsset.balance)} ${asset.symbol}`
