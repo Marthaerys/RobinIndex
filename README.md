@@ -40,6 +40,14 @@ docs/
 frontend/
   (Vite + React + wagmi/viem dapp — holdings table + mint/redeem UI,
    deployed to GitHub Pages on every push to main, see frontend/README.md)
+script/
+  DeployRBDX.s.sol         Testnet deploy (mock Chainlink feeds — real ones
+                            don't exist on Robinhood Chain testnet)
+  DeployRBDXMainnet.s.sol  Mainnet deploy — lists real Stock Tokens against
+                            their real Chainlink Data Feeds, no mocks
+  config/assets.mainnet.json  The 27-asset mainnet launch list (individual
+                            Stock Tokens only — see that file's header for
+                            the full selection rationale)
 ```
 
 ## Setup
@@ -62,6 +70,9 @@ forge build
 forge test -vv
 ```
 
-Status: 11/11 tests passing. Deployed to Robinhood Chain Testnet (chain id
-46630) with a live frontend on GitHub Pages — see docs/DESIGN.md §8 for open
-items before mainnet.
+Status: 20/20 tests passing. Deployed to Robinhood Chain Testnet (chain id
+46630) with a live frontend at [robinindex.com](https://robinindex.com/).
+Mainnet deploy script + a real 27-asset mainnet listing are ready
+(`script/DeployRBDXMainnet.s.sol`) but not yet run — see docs/DESIGN.md §8 for
+what's still open before actually launching (admin multisig, third-party
+audit).
