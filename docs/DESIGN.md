@@ -175,11 +175,19 @@ All builds/tests verified locally: `forge build` and `forge test` both pass
 
 ## 8. Open questions (flagged, not blocking a testnet iteration)
 
-- **After-hours behavior**: stock feeds don't update outside market hours; the
-  chain presumably never sleeps. Right now `OracleLib` just reverts on staleness
-  past `maxOracleStaleness` per asset — meaning mint/redeem naturally freezes
-  off-hours if that's set tight, or stays open with a stale price if set loose.
-  Needs an explicit choice before mainnet (freeze vs. widen bounds off-hours).
+- **After-hours behavior — resolved**: stock feeds don't update outside market
+  hours; the chain never sleeps. `OracleLib` still reverts on staleness past
+  `maxOracleStaleness` per asset (mint/redeem of *that* asset naturally freezes
+  off-hours if its staleness bound is tight, or trades on a stale price if set
+  loose — that per-asset tradeoff is still each asset's own `maxOracleStaleness`
+  setting, unchanged). What's now fixed: that staleness no longer *cascades* —
+  `RBDXVault._nav()` and `AssetRegistry.totalCirculatingValue()` both skip a
+  reverting asset (try/catch on a self-external-call) instead of reverting the
+  whole computation, so one stale/broken feed only freezes mint/redeem of that
+  one asset, never every other listed asset too. If *every* feed goes stale at
+  once (e.g. a full market closure with tight bounds), every asset's own trade
+  still correctly freezes individually — there's no scenario left where a single
+  bad feed takes down assets that aren't themselves affected.
 - **Regulatory**: wrapping/indexing these tokens into a permissionless, DEX-tradable
   derivative is a real open legal question, independent of the KYB-gating on
   primary issuance. Out of scope here technically — get counsel before launch.

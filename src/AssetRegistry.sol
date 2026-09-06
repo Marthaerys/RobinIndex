@@ -116,10 +116,24 @@ contract AssetRegistry is AccessControl {
 
     /// @notice Sum of circulating value across every listed asset — the
     /// denominator of every targetWeight_i = circulatingValueOf(i) / totalCirculatingValue().
+    /// @dev SECURITY: values each asset through an external self-call
+    /// (`this.circulatingValueOf`) wrapped in try/catch, mirroring
+    /// RBDXVault._nav(). Without this, ONE listed asset's reverting price feed
+    /// (stale/invalid oracle) or reverting totalSupply() would block weight
+    /// computation — and therefore mint/redeem — for every OTHER listed asset too,
+    /// even ones the vault doesn't hold, with no admin recovery path. A skipped
+    /// asset's value is excluded from this total until it recovers or is
+    /// delisted/re-added; that asset's OWN weight/mint/redeem still correctly
+    /// reverts (its own circulatingValueOf/priceOf call fails directly), so this
+    /// only protects cross-asset availability.
     function totalCirculatingValue() public view returns (uint256 total) {
         uint256 len = assetList.length;
         for (uint256 i = 0; i < len; i++) {
-            total += circulatingValueOf(assetList[i]);
+            try this.circulatingValueOf(assetList[i]) returns (uint256 value) {
+                total += value;
+            } catch {
+                // Skip -- see dev-comment above.
+            }
         }
     }
 

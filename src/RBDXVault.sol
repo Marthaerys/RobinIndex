@@ -103,17 +103,35 @@ contract RBDXVault is AccessControl, ReentrancyGuard, Pausable {
         uint256 price = registry.priceOf(token);
 
         IERC20(token).safeTransferFrom(msg.sender, address(this), amount);
+        // SECURITY: price off what the vault actually received, not the caller-
+        // declared `amount` — protects solvency if a fee-on-transfer/deflationary
+        // token is ever listed (today's Stock Tokens are plain ERC-20s, so this is
+        // a no-op in practice, but the vault shouldn't rely on that holding forever).
+        uint256 received = IERC20(token).balanceOf(address(this)) - balancePre;
+        if (received == 0) revert ZeroAmount();
         heldTokens.add(token);
 
-        uint256 netAmount = _splitDevFee(token, amount, price);
+        uint256 netAmount = _splitDevFee(token, received, price);
         uint256 usdIn = (netAmount * price) / 1e18;
 
         int256 weightFeeBps;
         if (supplyPre == 0) {
             // Bootstrap mint: no basket yet to be "away from target" relative to.
+            //
+            // SECURITY: `balancePre` (captured above, before this deposit's own
+            // transferFrom) may be nonzero even though nothing has ever been
+            // minted -- e.g. an attacker directly `transfer()`-ing tokens to the
+            // vault address ahead of the real bootstrap mint, to try to inflate
+            // price-per-share against the next depositor (the classic ERC-4626
+            // donation/inflation attack). Any such pre-existing balance is priced
+            // and minted to DEAD_ADDRESS alongside the fixed DEAD_SHARES floor, so
+            // it backs total supply instead of just backing the depositor's own
+            // claim -- the donor forfeits it, and the resulting index price still
+            // starts at exactly GENESIS_PRICE regardless of any pre-funding.
             if (usdIn < MIN_FIRST_DEPOSIT_USD) revert FirstDepositTooSmall(usdIn, MIN_FIRST_DEPOSIT_USD);
+            uint256 donatedValue = (balancePre * price) / 1e18;
             rbdxOut = usdIn - DEAD_SHARES;
-            rbdx.mint(DEAD_ADDRESS, DEAD_SHARES);
+            rbdx.mint(DEAD_ADDRESS, DEAD_SHARES + donatedValue);
         } else {
             uint256 indexPricePre = (navPre * 1e18) / supplyPre;
             uint256 currentWeight = navPre == 0 ? 0 : (balancePre * price / 1e18) * 1e18 / navPre;
@@ -162,7 +180,11 @@ contract RBDXVault is AccessControl, ReentrancyGuard, Pausable {
         uint256 notionalTokenOut = (usdAmount * 1e18) / price;
         if (notionalTokenOut > balancePre) revert InsufficientVaultBalance(token);
 
-        uint256 currentWeight = (balancePre * price / 1e18) * 1e18 / navPre;
+        // SECURITY: guard against dividing by a zero navPre (e.g. redeeming a
+        // token that was never tracked via mint()/heldTokens, or a degenerate
+        // near-fully-drained vault) — mirrors the same navPre==0 guard already
+        // used in mint()'s non-bootstrap branch, instead of an unhandled panic.
+        uint256 currentWeight = navPre == 0 ? 0 : (balancePre * price / 1e18) * 1e18 / navPre;
         uint256 navAfter = navPre - usdAmount;
         uint256 nextBalanceValue = ((balancePre - notionalTokenOut) * price) / 1e18;
         uint256 nextWeight = navAfter == 0 ? 0 : (nextBalanceValue * 1e18) / navAfter;
@@ -253,14 +275,36 @@ contract RBDXVault is AccessControl, ReentrancyGuard, Pausable {
         }
     }
 
+    /// @dev SECURITY: values each held token through an external self-call
+    /// (`this.tokenValue`) wrapped in try/catch, so that ONE token whose
+    /// `balanceOf()` reverts (blacklist, pause, a buggy/self-destructed token) or
+    /// whose price feed reverts (stale/invalid oracle) does not brick NAV -- and
+    /// therefore mint/redeem -- for every OTHER asset, forever, with no admin
+    /// recovery path. A skipped token's value is simply excluded from NAV until it
+    /// (or an admin re-listing it with a fixed feed) recovers; minting/redeeming
+    /// THAT SPECIFIC token is unaffected by this and still reverts on its own
+    /// (mint/redeem call `registry.priceOf(token)` directly), so this only
+    /// protects cross-asset availability, not the broken asset's own correctness.
     function _nav() internal view returns (uint256 total) {
         uint256 len = heldTokens.length();
         for (uint256 i = 0; i < len; i++) {
             address t = heldTokens.at(i);
-            uint256 bal = IERC20(t).balanceOf(address(this));
-            if (bal == 0) continue;
-            total += (bal * registry.priceOf(t)) / 1e18;
+            try this.tokenValue(t) returns (uint256 value) {
+                total += value;
+            } catch {
+                // Skip -- see dev-comment above.
+            }
         }
+    }
+
+    /// @notice USD-1e18 value of the vault's current balance of `token`. Marked
+    /// `external` (rather than merely `internal`/`private`) specifically so
+    /// `_nav()` can call it via `this.tokenValue(t)` and try/catch a per-asset
+    /// failure -- not intended to be called directly for accounting; use `nav()`.
+    function tokenValue(address token) external view returns (uint256) {
+        uint256 bal = IERC20(token).balanceOf(address(this));
+        if (bal == 0) return 0;
+        return (bal * registry.priceOf(token)) / 1e18;
     }
 
     // ── Views ───────────────────────────────────────────────────────────────

@@ -7,6 +7,7 @@ import {AssetRegistry} from "../src/AssetRegistry.sol";
 import {RBDXVault} from "../src/RBDXVault.sol";
 import {MockStockToken} from "./mocks/MockStockToken.sol";
 import {MockAggregator} from "./mocks/MockAggregator.sol";
+import {MockFeeOnTransferToken} from "./mocks/MockFeeOnTransferToken.sol";
 
 contract RBDXVaultTest is Test {
     RBDXToken rbdx;
@@ -105,6 +106,104 @@ contract RBDXVaultTest is Test {
         vm.prank(user1);
         vm.expectRevert();
         vault.mint(address(tokenA), 1e18, 0); // $10, well under $100 minimum
+    }
+
+    /// @notice Regression test for the ERC-4626-style donation/inflation attack:
+    /// an attacker sends tokens directly to the vault (bypassing `mint()`) BEFORE
+    /// the real bootstrap deposit, hoping to inflate price-per-share against the
+    /// depositor that follows. The fix must neutralize the donation into dead
+    /// shares rather than letting it silently inflate `indexPrice`.
+    function test_BootstrapMint_DonationBeforeFirstMint_CannotInflatePrice() public {
+        // Attacker donates $1,000,000 of tokenA directly to the vault -- no mint()
+        // has ever been called, so this is entirely invisible to `heldTokens` until
+        // the bootstrap mint below adds tokenA to it.
+        tokenA.mint(address(vault), 100_000e18);
+
+        vm.prank(user1);
+        uint256 rbdxOut = vault.mint(address(tokenA), 1000e18, 0);
+
+        // The depositor must be minted shares based ONLY on their own net
+        // contribution -- identical to the no-donation case
+        // (test_FirstMint_Bootstrap_NoWeightFee), not diluted or inflated by the
+        // attacker's donation.
+        uint256 expectedUsd = (1000e18 * 999) / 1000 * 10; // net*price, price=$10
+        assertApproxEqAbs(rbdxOut, expectedUsd - vault.DEAD_SHARES(), 1e12);
+
+        // The donated value must be locked into DEAD_ADDRESS, not left unminted --
+        // otherwise the attacker would still own ~100% of a supply backed by
+        // NAV that includes the donation, i.e. the attack would still work.
+        assertGe(rbdx.balanceOf(vault.DEAD_ADDRESS()), vault.DEAD_SHARES());
+
+        // Index price must stay pegged near GENESIS_PRICE ($1) despite the
+        // donation -- if the attack worked, this would instead be inflated by
+        // orders of magnitude.
+        assertApproxEqAbs(vault.indexPrice(), vault.GENESIS_PRICE(), 1e12);
+
+        // A second, honest depositor must still receive a fair amount of RBDX --
+        // not be priced out by the attacker's donation.
+        vm.prank(user2);
+        uint256 rbdxOut2 = vault.mint(address(tokenA), 1000e18, 0);
+        assertApproxEqAbs(rbdxOut2, rbdxOut, rbdxOut / 100);
+    }
+
+    /// @notice Regression test: one asset's price feed going stale/reverting must
+    /// not freeze mint/redeem for every OTHER asset. `_nav()` has to skip the
+    /// broken asset's valuation rather than reverting the whole computation, while
+    /// the broken asset's OWN mint/redeem should still correctly revert.
+    function test_Nav_SkipsAssetWithRevertingPriceFeed_OtherAssetsStillWork() public {
+        vm.prank(user1);
+        vault.mint(address(tokenA), 12_000e18, 0);
+        vm.warp(block.timestamp + vault.mintRedeemCooldown() + 1);
+        vm.prank(user1);
+        vault.mint(address(tokenB), 88_000e18, 0);
+
+        // tokenA's feed alone goes stale (e.g. an outage on just that provider);
+        // tokenB's is refreshed and stays healthy.
+        vm.warp(block.timestamp + MAX_STALENESS + 1);
+        feedB.setUpdatedAt(block.timestamp);
+
+        // tokenA's own price is genuinely broken -- minting/redeeming IT must
+        // still correctly revert (the fix isolates blast radius, it doesn't paper
+        // over a real stale-price condition for the asset itself).
+        vm.prank(user2);
+        vm.expectRevert();
+        vault.mint(address(tokenA), 1_000e18, 0);
+
+        // But tokenB, a healthy and unrelated asset, must still be mintable.
+        vm.prank(user2);
+        uint256 rbdxOut = vault.mint(address(tokenB), 1_000e18, 0);
+        assertGt(rbdxOut, 0);
+    }
+
+    /// @notice Regression test: mint() must price off what the vault actually
+    /// received, not the caller-declared `amount` -- otherwise a fee-on-transfer
+    /// token would let a depositor be credited RBDX for value that never arrived,
+    /// silently under-collateralizing everyone else.
+    function test_Mint_FeeOnTransferToken_PricesOffActualReceivedAmount() public {
+        MockFeeOnTransferToken feeToken = new MockFeeOnTransferToken("Fee Stock", "FEEx", 1000); // 10% fee
+        MockAggregator feeTokenFeed = new MockAggregator(8, int256(PRICE_8DEC));
+        vm.prank(admin);
+        registry.addAsset(address(feeToken), address(feeTokenFeed), MAX_STALENESS);
+
+        feeToken.mint(user1, 10_000e18);
+        vm.prank(user1);
+        feeToken.approve(address(vault), type(uint256).max);
+
+        vm.prank(user1);
+        uint256 rbdxOut = vault.mint(address(feeToken), 2000e18, 0); // requests 2000, 10% transfer fee eats 200
+
+        // The vault's own dev-fee transfer-out is itself subject to the same
+        // fee-on-transfer mechanics, so its final balance is 1800e18 (actually
+        // received) minus the vault's own 0.1% dev fee taken on that real 1800e18
+        // -- proving mint() priced off the real 1800e18, not the requested 2000e18
+        // (which would instead leave a balance around 1998e18).
+        assertEq(feeToken.balanceOf(address(vault)), 1798.2e18, "vault balance should reflect the real 1800e18 received, net of its own dev fee");
+
+        // rbdxOut must be priced off that real 1800e18 (net of the vault's 0.1%
+        // dev fee) = $17,982 -- NOT off the requested 2000e18 (which would wrongly
+        // compute $19,980 and over-credit the depositor by ~$2,000 of value the
+        // vault never actually received).
+        assertEq(rbdxOut, 17_982e18 - vault.DEAD_SHARES());
     }
 
     // ── Weight-deviation rebate / penalty ────────────────────────────────
