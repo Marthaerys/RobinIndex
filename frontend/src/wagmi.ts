@@ -1,11 +1,11 @@
 import { createConfig, http, injected } from "wagmi";
-import { robinhoodTestnet } from "./config/contracts";
+import { robinhoodMainnet } from "./config/contracts";
 
 export const wagmiConfig = createConfig({
-  chains: [robinhoodTestnet],
+  chains: [robinhoodMainnet],
   connectors: [injected()],
   transports: {
-    [robinhoodTestnet.id]: http(),
+    [robinhoodMainnet.id]: http(),
   },
 });
 

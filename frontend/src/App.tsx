@@ -13,7 +13,7 @@ export default function App() {
 
       <main className="main">
         {isLoading && !data && <div className="notice">Loading on-chain data…</div>}
-        {isError && <div className="notice notice-warn">Couldn't reach Robinhood Chain Testnet RPC. Retrying…</div>}
+        {isError && <div className="notice notice-warn">Couldn't reach Robinhood Chain RPC. Retrying…</div>}
 
         {data && (
           <>
@@ -27,7 +27,7 @@ export default function App() {
       </main>
 
       <footer className="footer">
-        RobinIndex ($RBDX) — Robinhood Chain Testnet (46630). Experimental,
+        RobinIndex ($RBDX) — Robinhood Chain (4663). Experimental,
         pilot-scale project — not audited, no legal/regulatory review, not
         financial advice. Use at your own risk.
       </footer>

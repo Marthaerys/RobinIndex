@@ -1,5 +1,5 @@
 import { useAccount, useConnect, useDisconnect, useSwitchChain } from "wagmi";
-import { robinhoodTestnet } from "../config/contracts";
+import { robinhoodMainnet } from "../config/contracts";
 import { shortAddr } from "../lib/format";
 
 export function Header() {
@@ -8,7 +8,7 @@ export function Header() {
   const { disconnect } = useDisconnect();
   const { switchChain, isPending: isSwitching } = useSwitchChain();
 
-  const wrongNetwork = isConnected && chainId !== robinhoodTestnet.id;
+  const wrongNetwork = isConnected && chainId !== robinhoodMainnet.id;
 
   return (
     <header className="header">
@@ -16,13 +16,13 @@ export function Header() {
         <span className="brand-mark">◆</span>
         <div>
           <div className="brand-name">RobinIndex</div>
-          <div className="brand-ticker">$RBDX · testnet</div>
+          <div className="brand-ticker">$RBDX</div>
         </div>
       </div>
 
       <div className="header-actions">
         {wrongNetwork && (
-          <button className="btn btn-warn" onClick={() => switchChain({ chainId: robinhoodTestnet.id })} disabled={isSwitching}>
+          <button className="btn btn-warn" onClick={() => switchChain({ chainId: robinhoodMainnet.id })} disabled={isSwitching}>
             {isSwitching ? "Switching…" : "Wrong network — switch"}
           </button>
         )}
