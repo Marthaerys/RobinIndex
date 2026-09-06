@@ -2,9 +2,11 @@ import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 
 // https://vite.dev/config/
-// Served from https://marthaerys.github.io/RobinIndex/ via GitHub Pages —
-// base must match the repo name so built asset URLs resolve correctly.
+// Served from https://robinindex.com/ (custom domain, root path) via GitHub
+// Pages — base is "/" because the site now lives at the domain root, not
+// under a /RobinIndex/ subpath. See public/CNAME for the other half of the
+// custom-domain setup.
 export default defineConfig({
-  base: "/RobinIndex/",
+  base: "/",
   plugins: [react()],
 })

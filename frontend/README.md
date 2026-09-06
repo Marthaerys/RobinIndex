@@ -1,6 +1,9 @@
 # RobinIndex frontend
 
-Live at **https://marthaerys.github.io/RobinIndex/**.
+Live at **https://robinindex.com/** (custom domain — see `public/CNAME` and
+`vite.config.ts`; requires DNS records at the registrar plus the custom
+domain set under repo Settings → Pages, see the root README/commit that
+introduced this for the exact steps).
 
 Vite + React + TypeScript, wired via wagmi/viem directly to the RBDX
 contracts on **Robinhood Chain Testnet** (chain id 46630). No backend — the
@@ -28,7 +31,7 @@ Pages on every push to `main` that touches `frontend/` (see
 ```bash
 cd frontend
 npm install
-npm run dev       # http://localhost:5173/RobinIndex/
+npm run dev       # http://localhost:5173/
 npm run build     # type-checks + production build to dist/
 ```
 
