@@ -188,9 +188,18 @@ All builds/tests verified locally: `forge build` and `forge test` both pass
   once (e.g. a full market closure with tight bounds), every asset's own trade
   still correctly freezes individually — there's no scenario left where a single
   bad feed takes down assets that aren't themselves affected.
-- **Regulatory**: wrapping/indexing these tokens into a permissionless, DEX-tradable
-  derivative is a real open legal question, independent of the KYB-gating on
-  primary issuance. Out of scope here technically — get counsel before launch.
+- **Regulatory — deliberately deferred, not resolved**: wrapping/indexing these
+  tokens into a permissionless, DEX-tradable derivative is a real open legal
+  question (is $RBDX itself a security, does the vault resemble a regulated
+  exchange/investment vehicle, does jurisdiction matter), independent of the
+  KYB-gating on primary issuance — Robinhood's own compliance work on the
+  underlying Stock Tokens doesn't automatically extend to a derivative built on
+  top of them. Out of scope for this codebase technically. Explicit decision
+  (2026-09): given the intended pilot-scale/effectively-single-operator launch,
+  formal legal counsel is consciously deferred rather than skipped outright —
+  see the disclaimer in the root [README.md](../README.md). **This stops being
+  deferrable the moment usage, marketing, or capital meaningfully grows** —
+  revisit before any of those happen, not after.
 - **Initial DEX liquidity** for RBDX itself (which DEX on Robinhood Chain, who
   seeds the first pool) — deferred to the frontend/launch phase.
 - **Fee curve shape** (`_weightFeeBps`): the linear-capped-at-1% curve is a

@@ -27,7 +27,9 @@ export default function App() {
       </main>
 
       <footer className="footer">
-        RobinIndex ($RBDX) — Robinhood Chain Testnet (46630). Testnet only, not financial advice.
+        RobinIndex ($RBDX) — Robinhood Chain Testnet (46630). Experimental,
+        pilot-scale project — not audited, no legal/regulatory review, not
+        financial advice. Use at your own risk.
       </footer>
     </div>
   );
