@@ -202,9 +202,17 @@ All builds/tests verified locally: `forge build` and `forge test` both pass
   revisit before any of those happen, not after.
 - **Initial DEX liquidity** for RBDX itself (which DEX on Robinhood Chain, who
   seeds the first pool) — deferred to the frontend/launch phase.
-- **Fee curve shape** (`_weightFeeBps`): the linear-capped-at-1% curve is a
-  reasonable, simple default, but it's the one function most likely to get tuned
-  pre-audit/pre-mainnet based on simulated market data.
+- **Fee curve shape — finalized as-is**: the linear-capped-at-1% curve
+  (`_weightFeeBps`) is the shipped mainnet design, not a placeholder. Explicit
+  decision (2026-09): given the intended pilot scale, tuning against alternative
+  shapes (quadratic, stepped, etc.) isn't worth the effort now — the ±1% cap and
+  the `rebateReserve` clamp make solvency independent of curve shape either way
+  (see the security-audit fix commits), so a suboptimal-but-safe curve is an
+  acceptable tradeoff. One known, accepted quirk (informational, not a bug):
+  magnitude scales off post-trade deviation (`devAfter`) rather than the
+  improvement (`devBefore - devAfter`), so a trade that only partially corrects
+  a large deviation can score similarly to one that fully corrects it. Revisit
+  if real trading volume ever makes this worth optimizing.
 
 ## 9. Verification status
 
