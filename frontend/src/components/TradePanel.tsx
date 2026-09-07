@@ -123,7 +123,7 @@ export function TradePanel({ data, onRefetch }: { data: VaultData; onRefetch: ()
         <select className="select" value={assetIndex} onChange={(e) => setAssetIndex(Number(e.target.value))}>
           {data.assets.map((a, i) => (
             <option key={a.address} value={i}>
-              {a.symbol} — {fmtUsd(a.price)}
+              {a.symbol} — {a.priceAvailable ? fmtUsd(a.price) : "price unavailable"}
             </option>
           ))}
         </select>
@@ -203,7 +203,11 @@ function PreviewPanel({
       const message =
         mintPreview.reason === "zero"
           ? "Enter an amount to see the expected discount / penalty and output."
-          : `This would be the very first deposit — needs to be worth at least $100 (currently ~${fmtUsd(mintPreview.usdIn)}).`;
+          : mintPreview.reason === "price-unavailable"
+            ? `${symbol}'s price feed hasn't updated within its staleness window, so the vault can't price a deposit. Minting ${symbol} is frozen on-chain until the feed refreshes — pick another asset in the meantime.`
+            : mintPreview.reason === "nav-unavailable"
+              ? "Every asset the vault holds currently has a stale price feed, so NAV and the index price can't be computed. Minting is frozen until at least one of those feeds refreshes."
+              : `This would be the very first deposit — needs to be worth at least $100 (currently ~${fmtUsd(mintPreview.usdIn)}).`;
       return <div className="preview preview-empty">{message}</div>;
     }
     return (
@@ -222,7 +226,11 @@ function PreviewPanel({
     const message =
       redeemPreview.reason === "zero"
         ? "Enter an amount to see the expected discount / penalty and output."
-        : redeemPreview.reason === "empty-vault-balance"
+        : redeemPreview.reason === "price-unavailable"
+          ? `${symbol}'s price feed hasn't updated within its staleness window, so the vault can't price a redemption. Redeeming ${symbol} is frozen on-chain until the feed refreshes.`
+          : redeemPreview.reason === "nav-unavailable"
+            ? "Every asset the vault holds currently has a stale price feed, so NAV and the index price can't be computed. Redeeming is frozen until at least one of those feeds refreshes."
+            : redeemPreview.reason === "empty-vault-balance"
           ? `The vault doesn't hold any ${symbol} to redeem right now.`
           : redeemPreview.reason === "exceeds-supply"
             ? "Amount exceeds total RBDX supply."

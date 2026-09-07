@@ -77,6 +77,8 @@ function applyFee(usdAmount: bigint, feeBps: bigint, maxRebateUsd: bigint, rebat
 
 export type MintPreview =
   | { ok: false; reason: "zero" }
+  | { ok: false; reason: "price-unavailable" }
+  | { ok: false; reason: "nav-unavailable" }
   | { ok: false; reason: "below-min-first-deposit"; usdIn: bigint }
   | {
       ok: true;
@@ -93,6 +95,12 @@ export type MintPreview =
 
 export function previewMint(amount: bigint, vault: VaultParams, asset: AssetParams, pool: PoolParams): MintPreview {
   if (amount <= 0n) return { ok: false, reason: "zero" };
+  // price === 0 means the `priceOf` read reverted -- a stale or invalid
+  // Chainlink feed (see useVaultData, which surfaces this as
+  // `priceAvailable: false`). The on-chain mint would revert on exactly the
+  // same read, and every division below would be a division by zero, so bail
+  // out with a reason the panel can explain rather than throwing mid-render.
+  if (asset.price === 0n) return { ok: false, reason: "price-unavailable" };
 
   const { netAmount, devFeeToReserveUsd } = splitDevFee(amount, asset.price, vault);
   const usdIn = (netAmount * asset.price) / ONE;
@@ -113,8 +121,13 @@ export function previewMint(amount: bigint, vault: VaultParams, asset: AssetPara
     };
   }
 
+  // A zero NAV against a non-zero supply means every asset the vault actually
+  // holds has a reverting feed (RBDXVault._nav skips those), so there is no
+  // index price to quote against -- and `rbdxOut` below would divide by it.
+  if (pool.navPre === 0n) return { ok: false, reason: "nav-unavailable" };
+
   const indexPricePre = (pool.navPre * ONE) / pool.supplyPre;
-  const currentWeight = pool.navPre === 0n ? 0n : ((asset.balancePre * asset.price) / ONE) * ONE / pool.navPre;
+  const currentWeight = ((asset.balancePre * asset.price) / ONE) * ONE / pool.navPre;
   const navAfter = pool.navPre + usdIn;
   const nextBalanceValue = ((asset.balancePre + netAmount) * asset.price) / ONE;
   const nextWeight = navAfter === 0n ? 0n : (nextBalanceValue * ONE) / navAfter;
@@ -139,6 +152,8 @@ export function previewMint(amount: bigint, vault: VaultParams, asset: AssetPara
 
 export type RedeemPreview =
   | { ok: false; reason: "zero" }
+  | { ok: false; reason: "price-unavailable" }
+  | { ok: false; reason: "nav-unavailable" }
   | { ok: false; reason: "empty-vault-balance" }
   | { ok: false; reason: "exceeds-supply" }
   | { ok: false; reason: "exceeds-vault-balance" }
@@ -157,6 +172,10 @@ export function previewRedeem(rbdxAmount: bigint, vault: VaultParams, asset: Ass
   if (rbdxAmount <= 0n) return { ok: false, reason: "zero" };
   if (asset.balancePre === 0n) return { ok: false, reason: "empty-vault-balance" };
   if (pool.supplyPre === 0n || rbdxAmount > pool.supplyPre) return { ok: false, reason: "exceeds-supply" };
+  // Same two guards as previewMint -- `notionalTokenOut`/`rawTokenOut` divide
+  // by `price` and `currentWeight` divides by `navPre`.
+  if (asset.price === 0n) return { ok: false, reason: "price-unavailable" };
+  if (pool.navPre === 0n) return { ok: false, reason: "nav-unavailable" };
 
   const indexPricePre = (pool.navPre * ONE) / pool.supplyPre;
   const usdAmount = (rbdxAmount * indexPricePre) / ONE;

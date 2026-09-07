@@ -266,6 +266,15 @@ body {
   background: color-mix(in srgb, var(--accent) 15%, transparent);
 }
 
+/* Not an over/underweight signal at all -- the price simply isn't quotable
+   right now, so it reads as neutral/muted rather than as a trade opportunity. */
+.badge-stale {
+  color: var(--text-dim);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  cursor: help;
+}
+
 /* ── Trade panel ────────────────────────────────────────── */
 
 .tabs {

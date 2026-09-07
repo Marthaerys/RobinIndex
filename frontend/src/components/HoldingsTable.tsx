@@ -121,26 +121,38 @@ function HoldingRow({ row }: { row: Row }) {
       <td className="asset-cell">
         <span className="asset-symbol">{asset.symbol}</span>
       </td>
-      <td className="mono">{fmtUsd(asset.price)}</td>
+      <td className="mono">{asset.priceAvailable ? fmtUsd(asset.price) : <span className="dim">—</span>}</td>
       <td className="mono">
         {fmtToken(asset.vaultBalance, 18, 2)}
-        <span className="dim"> · {fmtUsd(valueUsd)}</span>
+        <span className="dim"> · {asset.priceAvailable ? fmtUsd(valueUsd) : "—"}</span>
       </td>
       <td className="weight-cell">
-        <div className="weight-bar-row">
-          <span className="mono">{fmtPct(asset.currentWeight)}</span>
-          <span className="dim">/ {fmtPct(asset.targetWeight)} target</span>
-        </div>
-        <div className="weight-bar">
-          <div className="weight-bar-fill" style={{ width: `${Math.min(current * 100, 100)}%` }} />
-          <div className="weight-bar-target" style={{ left: `${Math.min(target * 100, 100)}%` }} />
-        </div>
+        {asset.priceAvailable ? (
+          <>
+            <div className="weight-bar-row">
+              <span className="mono">{fmtPct(asset.currentWeight)}</span>
+              <span className="dim">/ {fmtPct(asset.targetWeight)} target</span>
+            </div>
+            <div className="weight-bar">
+              <div className="weight-bar-fill" style={{ width: `${Math.min(current * 100, 100)}%` }} />
+              <div className="weight-bar-target" style={{ left: `${Math.min(target * 100, 100)}%` }} />
+            </div>
+          </>
+        ) : (
+          <span className="dim">—</span>
+        )}
       </td>
       <td>
-        {(overweight || underweight) && (
-          <span className={`badge ${overweight ? "badge-over" : "badge-under"}`}>
-            {overweight ? "▲" : "▼"} {Math.abs(deltaPp).toFixed(1)}pp
+        {!asset.priceAvailable ? (
+          <span className="badge badge-stale" title="This asset's Chainlink feed hasn't updated within its staleness window, so the registry can't quote a price. Minting and redeeming this asset are frozen until it refreshes.">
+            price feed stale
           </span>
+        ) : (
+          (overweight || underweight) && (
+            <span className={`badge ${overweight ? "badge-over" : "badge-under"}`}>
+              {overweight ? "▲" : "▼"} {Math.abs(deltaPp).toFixed(1)}pp
+            </span>
+          )
         )}
       </td>
     </tr>

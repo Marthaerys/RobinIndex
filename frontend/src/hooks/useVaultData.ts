@@ -17,6 +17,13 @@ export interface AssetRow {
   targetWeight: bigint;
   vaultBalance: bigint;
   currentWeight: bigint; // computed client-side vs. nav
+  /// False when `priceOf`/`targetWeightOf` reverted -- in practice an
+  /// OracleLib `StalePrice` because the Chainlink equity feed stopped updating
+  /// (US market closed) and blew past that asset's `maxOracleStaleness`.
+  /// MUST be checked before showing `price`/`targetWeight`: a failed read has
+  /// no value to show, and rendering the 0n placeholder as "$0.00" claims the
+  /// asset is worthless rather than unpriced.
+  priceAvailable: boolean;
 }
 
 export interface VaultData {
@@ -29,6 +36,11 @@ export interface VaultData {
   maxWeightFeeBps: bigint;
   mintRedeemCooldown: bigint;
   assets: AssetRow[];
+  /// True when at least one asset the vault actually holds has an unavailable
+  /// price. `RBDXVault._nav()` silently skips those, so `nav` (and every weight
+  /// derived from it) understates the real basket -- the UI has to say so
+  /// rather than present the shortfall as fact.
+  navIncomplete: boolean;
 }
 
 /// Batched (multicall3) read of everything the holdings table + mint/redeem
@@ -68,12 +80,16 @@ export function useVaultData() {
     const totalSupply = (supplyR.result as bigint) ?? 0n;
 
     const assets: AssetRow[] = ASSETS.map((a, i) => {
-      const price = (assetR[i * 3]?.result as bigint) ?? 0n;
+      const priceR = assetR[i * 3];
+      // Both registry reads go through the same price feed, so they fail
+      // together; `priceOf`'s status is the one that decides.
+      const priceAvailable = priceR?.status === "success";
+      const price = (priceR?.result as bigint) ?? 0n;
       const targetWeight = (assetR[i * 3 + 1]?.result as bigint) ?? 0n;
       const vaultBalance = (assetR[i * 3 + 2]?.result as bigint) ?? 0n;
       const value = (vaultBalance * price) / 10n ** 18n;
       const currentWeight = nav === 0n ? 0n : (value * 10n ** 18n) / nav;
-      return { symbol: a.symbol, address: a.token, price, targetWeight, vaultBalance, currentWeight };
+      return { symbol: a.symbol, address: a.token, price, targetWeight, vaultBalance, currentWeight, priceAvailable };
     });
 
     parsed = {
@@ -86,6 +102,7 @@ export function useVaultData() {
       maxWeightFeeBps: (maxWeightR.result as bigint) ?? 0n,
       mintRedeemCooldown: (cooldownR.result as bigint) ?? 0n,
       assets,
+      navIncomplete: assets.some((a) => a.vaultBalance > 0n && !a.priceAvailable),
     };
   }
 

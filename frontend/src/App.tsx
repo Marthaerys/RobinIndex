@@ -17,6 +17,14 @@ export default function App() {
 
         {data && (
           <>
+            {data.navIncomplete && (
+              <div className="notice notice-warn">
+                One or more assets the vault holds have a price feed that hasn't updated within its staleness
+                window (US equity feeds stop updating while the market is closed), so those holdings are excluded
+                from NAV and can't be minted or redeemed right now. The figures below understate the basket until
+                the feeds refresh — see the "price feed stale" rows.
+              </div>
+            )}
             <StatBar data={data} />
             <div className="layout">
               <HoldingsTable assets={data.assets} />
