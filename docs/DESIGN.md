@@ -188,6 +188,36 @@ All builds/tests verified locally: `forge build` and `forge test` both pass
   once (e.g. a full market closure with tight bounds), every asset's own trade
   still correctly freezes individually — there's no scenario left where a single
   bad feed takes down assets that aren't themselves affected.
+- **Staleness window sized for closures — decided 2026-09-07**: the "every feed
+  goes stale at once" case above stopped being hypothetical on the first Labor
+  Day after launch. All 27 feeds' `updatedAt` still read Friday 2026-09-04
+  (14:27–21:57 UTC) — not a single update across the three-day weekend — so the
+  original 259,200s (3-day) `maxOracleStaleness` expired mid-holiday and froze
+  mint/redeem across the whole index. The 3-day value had been sized against
+  each feed's documented 24h heartbeat, on the assumption that the heartbeat
+  keeps ticking while the market is closed. It does not, and 3 days was in fact
+  marginal even on an ordinary weekend: GOOGL's Friday 14:27 UTC update leaves
+  57 minutes of headroom before a normal Monday 13:30 UTC open. Raised to
+  432,000s (5 days), which clears the worst regular gap — an early-Friday update
+  through a three-day-weekend Tuesday open, ~3d23h — with about a day spare, and
+  also covers Good Friday and Thanksgiving. **The trade-off is real and is being
+  accepted, not solved**: across a closure the vault quotes Friday's close, so it
+  is the standing counterparty to anyone trading on weekend news the oracle
+  hasn't priced in yet — deposit the about-to-gap-down name at the stale price,
+  redeem a different one once feeds refresh, and the difference comes out of
+  existing RBDX holders. The ±1% weight-fee curve does not cover a typical 3–10%
+  single-name gap, and the 15-minute mint/redeem cooldown is far too short to
+  matter across a weekend. Judged acceptable at pilot scale (396 RBDX
+  outstanding) in exchange for the vault not closing; revisit if TVL grows
+  materially. The only structural fix is a price source that actually updates
+  24/7 — Chainlink Data Streams is the candidate, but per
+  `script/config/robinhood_stock_tokens_top100.json` it needs a paid
+  subscription, a backend to hold the API credentials (the static GitHub Pages
+  frontend cannot), an on-chain `verify()` call, and it covers only 11 mostly
+  different tickers today. Retuning the window needs no redeploy but does need a
+  `delistAsset` + `addAsset` round trip per token, since `AssetRegistry` has no
+  setter: `script/safe/build_staleness_batch.py` generates the Safe batch from
+  `script/config/assets.mainnet.json`.
 - **Regulatory — deliberately deferred, not resolved**: wrapping/indexing these
   tokens into a permissionless, DEX-tradable derivative is a real open legal
   question (is $RBDX itself a security, does the vault resemble a regulated

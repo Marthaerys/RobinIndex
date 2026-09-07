@@ -1,0 +1,391 @@
+{
+  "version": "1.0",
+  "chainId": "4663",
+  "createdAt": 1788813350626,
+  "meta": {
+    "name": "RBDX: set maxOracleStaleness to 432000s (5 days)",
+    "description": "Re-lists all 27 mainnet assets with maxOracleStaleness = 432000s (5 days), by delistAsset + addAsset per token (AssetRegistry has no setter). Feed addresses are unchanged. Generated from script/config/assets.mainnet.json by script/safe/build_staleness_batch.py.",
+    "txBuilderVersion": "1.16.5",
+    "createdFromSafeAddress": "0x904B8B54b3734C2Bb0E26b06ab41E1d22a459eF8"
+  },
+  "transactions": [
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0x7605bbb0000000000000000000000000af3d76f1834a1d425780943c99ea8a608f8a93f9",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0xf399a83e000000000000000000000000af3d76f1834a1d425780943c99ea8a608f8a93f90000000000000000000000006b22a786baa607d76728168703a39ea9c99f2cd00000000000000000000000000000000000000000000000000000000000069780",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0x7605bbb000000000000000000000000086923f96303d656e4aa86d9d42d1e57ad2023fdc",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0xf399a83e00000000000000000000000086923f96303d656e4aa86d9d42d1e57ad2023fdc000000000000000000000000943a29e7ae51a4798823ca9eed2ed533b2a22c720000000000000000000000000000000000000000000000000000000000069780",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0x7605bbb000000000000000000000000012f190a9f9d7d37a250758b26824b97ce941bf54",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0xf399a83e00000000000000000000000012f190a9f9d7d37a250758b26824b97ce941bf54000000000000000000000000d5a1508ced74c084ebf3cbe853e2c968fb2a651c0000000000000000000000000000000000000000000000000000000000069780",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0x7605bbb000000000000000000000000047f93d52cbec7c6d2cfc080e154002370a60daea",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0xf399a83e00000000000000000000000047f93d52cbec7c6d2cfc080e154002370a60daea000000000000000000000000b4106147e8cce40b7d46124090d373a71b70f87d0000000000000000000000000000000000000000000000000000000000069780",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0x7605bbb0000000000000000000000000ad25ac6c84d497db898fa1e8387bf6af3532a1c4",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0xf399a83e000000000000000000000000ad25ac6c84d497db898fa1e8387bf6af3532a1c400000000000000000000000062cc8f9b5f56a33c9c8a60c8b92779f523c4e9840000000000000000000000000000000000000000000000000000000000069780",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0x7605bbb0000000000000000000000000cbb95bbf36099d34da091dc6fa6f49efa257cee3",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0xf399a83e000000000000000000000000cbb95bbf36099d34da091dc6fa6f49efa257cee3000000000000000000000000810c12d3a554bc47fd39597fe3b3aac4941f50ef0000000000000000000000000000000000000000000000000000000000069780",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0x7605bbb00000000000000000000000006330d8c3178a418788df01a47479c0ce7ccf450b",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0xf399a83e0000000000000000000000006330d8c3178a418788df01a47479c0ce7ccf450b000000000000000000000000a3a468a452940b7d6b69991207b508c609a98ef20000000000000000000000000000000000000000000000000000000000069780",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0x7605bbb0000000000000000000000000df0992e440dd0be65bd8439b609d6d4366bf1cb5",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0xf399a83e000000000000000000000000df0992e440dd0be65bd8439b609d6d4366bf1cb50000000000000000000000006652edf64ba3731c4f2d3ce821a0fb1f1f6b482a0000000000000000000000000000000000000000000000000000000000069780",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0x7605bbb00000000000000000000000005f10a1c971b69e47e059e1dc91901b59b3fb49c3",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0xf399a83e0000000000000000000000005f10a1c971b69e47e059e1dc91901b59b3fb49c3000000000000000000000000e1b3aabcafad1c94708dc1367dcff8aa4407487c0000000000000000000000000000000000000000000000000000000000069780",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0x7605bbb00000000000000000000000001b0e319c6a659f002271b69db8a7df2f911c153e",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0xf399a83e0000000000000000000000001b0e319c6a659f002271b69db8a7df2f911c153e00000000000000000000000027c71df6a64fb476468edf256cf72c038bab5b670000000000000000000000000000000000000000000000000000000000069780",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0x7605bbb00000000000000000000000002e0847e8910a9732eb3fb1bb4b70a580adad4fe3",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0xf399a83e0000000000000000000000002e0847e8910a9732eb3fb1bb4b70a580adad4fe3000000000000000000000000f6f373a037c30f0e5010d854385ca89185ae638b0000000000000000000000000000000000000000000000000000000000069780",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0x7605bbb0000000000000000000000000c72b96e0e48ecd4dc75e1e45396e26300bc39681",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0xf399a83e000000000000000000000000c72b96e0e48ecd4dc75e1e45396e26300bc396810000000000000000000000003f390c5c24628ac7c489515402235fead71d19130000000000000000000000000000000000000000000000000000000000069780",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0x7605bbb0000000000000000000000000558378e000d634a36593e338ebacdd6207640efe",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0xf399a83e000000000000000000000000558378e000d634a36593e338ebacdd6207640efe00000000000000000000000022efec4919baf55f360e0edee4abeb26de4971eb0000000000000000000000000000000000000000000000000000000000069780",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0x7605bbb0000000000000000000000000c0d6457c16cc70d6790dd43521c899c87ce02f35",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0xf399a83e000000000000000000000000c0d6457c16cc70d6790dd43521c899c87ce02f350000000000000000000000007c38c00c30bee9378381e7b6135d7283356d71b10000000000000000000000000000000000000000000000000000000000069780",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0x7605bbb0000000000000000000000000e93237c50d904957cf27e7b1133b510c669c2e74",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0xf399a83e000000000000000000000000e93237c50d904957cf27e7b1133b510c669c2e7400000000000000000000000045c3c877c15e6ba2ebb19ea114ea508d14c1af2e0000000000000000000000000000000000000000000000000000000000069780",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0x7605bbb0000000000000000000000000ec262a75e413fafd0df80480274532c79d42da09",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0xf399a83e000000000000000000000000ec262a75e413fafd0df80480274532c79d42da09000000000000000000000000396118bdfb181e6240e74d243f266b061c0edc3d0000000000000000000000000000000000000000000000000000000000069780",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0x7605bbb0000000000000000000000000ff080c8ce2e5feadaca0da81314ae59d232d4afd",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0xf399a83e000000000000000000000000ff080c8ce2e5feadaca0da81314ae59d232d4afd000000000000000000000000425eefdcf05ed6526c3ce61af99429a228a6d5960000000000000000000000000000000000000000000000000000000000069780",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0x7605bbb00000000000000000000000009d9c6684f596f66a64c030b93a886d51fd4d7931",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0xf399a83e0000000000000000000000009d9c6684f596f66a64c030b93a886d51fd4d7931000000000000000000000000e1d87b116ba0fe898998f1d140339d1fa1e097050000000000000000000000000000000000000000000000000000000000069780",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0x7605bbb0000000000000000000000000d0601ce157db5bdc3162bbac2a2c8af5320d9eec",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0xf399a83e000000000000000000000000d0601ce157db5bdc3162bbac2a2c8af5320d9eec000000000000000000000000379ec4f7c378f34a1b47e4f3cbebcbac3e8e9f150000000000000000000000000000000000000000000000000000000000069780",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0x7605bbb0000000000000000000000000b0992820e760d836549ba69bc7598b4af75dee03",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0xf399a83e000000000000000000000000b0992820e760d836549ba69bc7598b4af75dee030000000000000000000000000e6a64a2b58a6693a531e6c555f3a5d042eea8440000000000000000000000000000000000000000000000000000000000069780",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0x7605bbb0000000000000000000000000894e1ec2d74ffe5aef8dc8a9e84686accb964f2a",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0xf399a83e000000000000000000000000894e1ec2d74ffe5aef8dc8a9e84686accb964f2a000000000000000000000000820abedff239034956b7a9d2f0a331f9f075eb4c0000000000000000000000000000000000000000000000000000000000069780",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0x7605bbb0000000000000000000000000284358abc07f9359f19f4b5b4ac91901be2597ba",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0xf399a83e000000000000000000000000284358abc07f9359f19f4b5b4ac91901be2597ba0000000000000000000000002a045cf1c49c61c166c036d2f06fa2d2d984f7650000000000000000000000000000000000000000000000000000000000069780",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0x7605bbb00000000000000000000000003b14c39e89d60d627b42a1a4ca45b5bb45fc12e2",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0xf399a83e0000000000000000000000003b14c39e89d60d627b42a1a4ca45b5bb45fc12e2000000000000000000000000045477bf65aef6f4f2386ad0164579e48381cc740000000000000000000000000000000000000000000000000000000000069780",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0x7605bbb0000000000000000000000000b90a19ff0af67f7779aff50a882a9cff42446400",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0xf399a83e000000000000000000000000b90a19ff0af67f7779aff50a882a9cff42446400000000000000000000000000fb133fa4b7b385802b693a293606682df47109a30000000000000000000000000000000000000000000000000000000000069780",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0x7605bbb00000000000000000000000004a0e65a3eccec6dbe60ae065f2e7bb85fae35eea",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0xf399a83e0000000000000000000000004a0e65a3eccec6dbe60ae065f2e7bb85fae35eea000000000000000000000000b265810950ba6c5c0ff821c9963014a56fd8bffb0000000000000000000000000000000000000000000000000000000000069780",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0x7605bbb0000000000000000000000000322f0929c4625ed5bad873c95208d54e1c003b2d",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0xf399a83e000000000000000000000000322f0929c4625ed5bad873c95208d54e1c003b2d0000000000000000000000004a1166a659a55625345e9515b32adecea5547c380000000000000000000000000000000000000000000000000000000000069780",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0x7605bbb000000000000000000000000058ffe4a942d3885baa22d7520691f611ef09e7aa",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79",
+      "value": "0",
+      "data": "0xf399a83e00000000000000000000000058ffe4a942d3885baa22d7520691f611ef09e7aa000000000000000000000000874cf94aa8ec88fd9560094dd065f2fb3e41fc2f0000000000000000000000000000000000000000000000000000000000069780",
+      "contractMethod": null,
+      "contractInputsValues": null
+    }
+  ]
+}
