@@ -70,9 +70,32 @@ forge build
 forge test -vv
 ```
 
-Status: 20/20 tests passing. Deployed to Robinhood Chain Testnet (chain id
-46630) with a live frontend at [robinindex.com](https://robinindex.com/).
-Mainnet deploy script + a real 27-asset mainnet listing are ready
-(`script/DeployRBDXMainnet.s.sol`) but not yet run — see docs/DESIGN.md §8 for
-what's still open before actually launching (admin multisig, third-party
-audit).
+Status: 20/20 tests passing.
+
+## Live on Robinhood Chain mainnet (since 2026-09-06)
+
+| | |
+|---|---|
+| App | [robinindex.com](https://robinindex.com/) |
+| Chain | Robinhood Chain, id 4663, RPC `https://rpc.mainnet.chain.robinhood.com` |
+| RBDXToken | [`0x1914C83bc4E8bB36EB8eaA36f866969Fd2252030`](https://robinhoodchain.blockscout.com/address/0x1914C83bc4E8bB36EB8eaA36f866969Fd2252030?tab=contract) (verified) |
+| RBDXVault | [`0xc3ce9C84E9E012A32dFf7B7B0E2d44A30A96477e`](https://robinhoodchain.blockscout.com/address/0xc3ce9C84E9E012A32dFf7B7B0E2d44A30A96477e?tab=contract) (verified) |
+| AssetRegistry | [`0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79`](https://robinhoodchain.blockscout.com/address/0x6b61Aa9576Eb6Cbb19ac6aB350519Ac37f9CCE79?tab=contract) (verified) |
+| Admin | 2-of-3 Safe `0x904B8B54b3734C2Bb0E26b06ab41E1d22a459eF8` |
+| DEX | [RBDX/USDG 0.25% on Uniswap v4](https://www.geckoterminal.com/robinhood/pools/0x6975ffdff6e01409d44c51a9fec2bb955f3d0cb3de32b2545d46cc99d190aa4b) |
+| Assets | 27 individual-company Stock Tokens, see `script/config/assets.mainnet.json` |
+| Launch thread | [x.com/DefiNPCMan](https://x.com/DefiNPCMan/status/2097310065359294702) |
+
+### Try it (non-US persons only)
+
+1. Add Robinhood Chain to your wallet (chain id 4663) and hold a listed Stock Token
+   (buy one on Uniswap on Robinhood Chain, or move one from Robinhood Wallet).
+2. Open [robinindex.com](https://robinindex.com/), connect, pick the asset, enter an
+   amount. The panel shows the exact discount/penalty and RBDX out before you sign;
+   depositing an *underweight* asset (anything the vault holds little of) earns a rebate.
+3. Redeem the same way in reverse, into any listed asset. RBDX is a plain ERC-20 and
+   also trades on Uniswap.
+
+Pilot scale: read the [status & risk disclaimer](#status--risk-disclaimer) and
+docs/DESIGN.md §8 (open items: third-party audit, legal review, after-hours oracle
+trade-off) before putting in anything you can't afford to lose.
