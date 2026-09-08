@@ -1,0 +1,1948 @@
+{
+ "at": "2026-09-08T13:54:40.777Z",
+ "tokens": 194,
+ "priced": 193,
+ "totalUsd": 161167756.19285238,
+ "rows": [
+  {
+   "symbol": "SPY",
+   "name": "SPDR S&P 500 ETF Trust",
+   "address": "0x117cc2133c37B721F49dE2A7a74833232B3B4C0C",
+   "supply": 27037.997000000003,
+   "price": 769.325,
+   "priceSource": 0.995,
+   "feed": "DataFeeds",
+   "usd": 20801007.042025004
+  },
+  {
+   "symbol": "NVDA",
+   "name": "NVIDIA",
+   "address": "0xd0601CE157Db5bdC3162BbaC2a2C8aF5320D9EEC",
+   "supply": 68191.976,
+   "price": 232.91,
+   "priceSource": 0.995,
+   "feed": "DataFeeds",
+   "usd": 15882593.130159998
+  },
+  {
+   "symbol": "SPCX",
+   "name": "Space Exploration Technologies Corp. Class A Common Stock",
+   "address": "0x4a0E65A3EcceC6dBe60AE065F2e7bb85Fae35eEa",
+   "supply": 67411.125,
+   "price": 148.985,
+   "priceSource": 0.995,
+   "feed": "DataFeeds",
+   "usd": 10043246.458125
+  },
+  {
+   "symbol": "GLD",
+   "name": "SPDR Gold Trust",
+   "address": "0xC9a981FEE1F9DEc688bb123ccDeCc63D0deBFC4e",
+   "supply": 20889.826,
+   "price": 403.56,
+   "priceSource": 0.9,
+   "feed": "DataStreams",
+   "usd": 8430298.18056
+  },
+  {
+   "symbol": "AMC",
+   "name": "AMC Entertainment",
+   "address": "0x05a3d1Cd21d0C88145E82600E62e7E496e0F222B",
+   "supply": 2713182.8140000002,
+   "price": 2.625,
+   "priceSource": 0.9,
+   "feed": null,
+   "usd": 7122104.8867500005
+  },
+  {
+   "symbol": "AAPL",
+   "name": "Apple",
+   "address": "0xaF3D76f1834A1d425780943C99Ea8A608f8a93f9",
+   "supply": 17989.39348304,
+   "price": 316.67999999999995,
+   "priceSource": 0.995,
+   "feed": "DataFeeds",
+   "usd": 5696881.128209106
+  },
+  {
+   "symbol": "TSLA",
+   "name": "Tesla",
+   "address": "0x322F0929c4625eD5bAd873c95208D54E1c003b2d",
+   "supply": 13953.54,
+   "price": 356.975,
+   "priceSource": 0.995,
+   "feed": "DataFeeds",
+   "usd": 4981064.941500001
+  },
+  {
+   "symbol": "MU",
+   "name": "Micron Technology",
+   "address": "0xfF080c8ce2E5feadaCa0Da81314Ae59D232d4afD",
+   "supply": 4661.30686606,
+   "price": 1035.1399999999999,
+   "priceSource": 0.995,
+   "feed": "DataFeeds",
+   "usd": 4825105.189333348
+  },
+  {
+   "symbol": "GME",
+   "name": "GameStop",
+   "address": "0x1b0E319c6A659F002271B69dB8A7df2F911c153E",
+   "supply": 219133.674,
+   "price": 19.4,
+   "priceSource": 0.9,
+   "feed": "DataFeeds",
+   "usd": 4251193.275599999
+  },
+  {
+   "symbol": "HIMS",
+   "name": "Hims & Hers Health",
+   "address": "0xCceE82fE024c36fA15E1005edE3E9e4787e23D09",
+   "supply": 136310.258,
+   "price": 27.73,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 3779883.45434
+  },
+  {
+   "symbol": "QQQ",
+   "name": "Invesco QQQ",
+   "address": "0xD5f3879160bc7c32ebb4dC785F8a4F505888de68",
+   "supply": 5138.894,
+   "price": 721.145,
+   "priceSource": 0.995,
+   "feed": "DataFeeds",
+   "usd": 3705887.71363
+  },
+  {
+   "symbol": "SGOV",
+   "name": "iShares 0-3 Month Treasury Bond",
+   "address": "0x92FD66527192E3e61d4DDd13322Aa222DE86F9B5",
+   "supply": 36567.03861931,
+   "price": 100.475,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 3674073.205275172
+  },
+  {
+   "symbol": "LLY",
+   "name": "Eli Lilly",
+   "address": "0x8005d266423c7ea827372c9c864491e5786600ea",
+   "supply": 3190.226,
+   "price": 1136.725,
+   "priceSource": 0.995,
+   "feed": "DataStreams",
+   "usd": 3626409.6498499997
+  },
+  {
+   "symbol": "GOOGL",
+   "name": "Alphabet Class A",
+   "address": "0x2e0847E8910a9732eB3fb1bb4b70a580ADAD4FE3",
+   "supply": 9275.288,
+   "price": 335.53499999999997,
+   "priceSource": 0.995,
+   "feed": "DataFeeds",
+   "usd": 3112183.7590799998
+  },
+  {
+   "symbol": "DJT",
+   "name": "Trump Media & Technology Group",
+   "address": "0x1D11f0496982706C5e14A514D4E79F2e6BdE4516",
+   "supply": 330206.994,
+   "price": 9.05,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 2988373.2957
+  },
+  {
+   "symbol": "MSTR",
+   "name": "Strategy Inc.",
+   "address": "0xec262a75e413fAfD0dF80480274532C79D42da09",
+   "supply": 21039.6431,
+   "price": 138.18,
+   "priceSource": 0.995,
+   "feed": "DataFeeds",
+   "usd": 2907257.8835580004
+  },
+  {
+   "symbol": "MSFT",
+   "name": "Microsoft",
+   "address": "0xe93237C50D904957Cf27E7B1133b510C669c2e74",
+   "supply": 5633.082,
+   "price": 493.605,
+   "priceSource": 0.995,
+   "feed": "DataFeeds",
+   "usd": 2780517.4406100004
+  },
+  {
+   "symbol": "AMZN",
+   "name": "Amazon",
+   "address": "0x12f190a9F9d7D37a250758b26824B97CE941bF54",
+   "supply": 10477.026,
+   "price": 257.77,
+   "priceSource": 0.995,
+   "feed": "DataFeeds",
+   "usd": 2700662.99202
+  },
+  {
+   "symbol": "CRCL",
+   "name": "Circle Internet Group",
+   "address": "0xdF0992E440dD0be65BD8439b609d6D4366bf1CB5",
+   "supply": 22501.266,
+   "price": 100.62,
+   "priceSource": 0.9,
+   "feed": "DataFeeds",
+   "usd": 2264077.38492
+  },
+  {
+   "symbol": "RDDT",
+   "name": "Reddit",
+   "address": "0x05b37Fb53A299a1b874A619e1c4C404D52C36F4C",
+   "supply": 14525.497000000001,
+   "price": 154.76,
+   "priceSource": 0.9,
+   "feed": null,
+   "usd": 2247965.91572
+  },
+  {
+   "symbol": "PLTR",
+   "name": "Palantir Technologies",
+   "address": "0x894E1EC2D74FFE5AEF8Dc8A9e84686acCB964F2A",
+   "supply": 11610.821,
+   "price": 173.535,
+   "priceSource": 0.995,
+   "feed": "DataFeeds",
+   "usd": 2014883.8222349999
+  },
+  {
+   "symbol": "AMD",
+   "name": "AMD",
+   "address": "0x86923f96303D656E4aa86D9d42D1e57ad2023fdC",
+   "supply": 3988.2319999999995,
+   "price": 489.125,
+   "priceSource": 0.995,
+   "feed": "DataFeeds",
+   "usd": 1950743.9769999997
+  },
+  {
+   "symbol": "COIN",
+   "name": "Coinbase",
+   "address": "0x6330D8C3178a418788dF01a47479c0ce7CCF450b",
+   "supply": 10383.627999999999,
+   "price": 181.44,
+   "priceSource": 0.995,
+   "feed": "DataFeeds",
+   "usd": 1884005.4643199998
+  },
+  {
+   "symbol": "META",
+   "name": "Meta Platforms",
+   "address": "0xc0D6457C16Cc70d6790Dd43521C899C87ce02f35",
+   "supply": 2777.773,
+   "price": 614.0699999999999,
+   "priceSource": 0.995,
+   "feed": "DataFeeds",
+   "usd": 1705747.06611
+  },
+  {
+   "symbol": "COST",
+   "name": "Costco",
+   "address": "0x4EA005168D7F09a7A0Ba9D1DEf21a479950E44C2",
+   "supply": 1829.8606318900001,
+   "price": 913.4300000000001,
+   "priceSource": 0.995,
+   "feed": "DataStreams",
+   "usd": 1671449.5969872829
+  },
+  {
+   "symbol": "TTWO",
+   "name": "Take-Two Interactive Software",
+   "address": "0x5e81213613b6B86EaB4c6c50d718d34359459786",
+   "supply": 7658.085999999999,
+   "price": 215.25,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 1648403.0114999998
+  },
+  {
+   "symbol": "SNDK",
+   "name": "Sandisk Corporation",
+   "address": "0xB90A19fF0Af67f7779afF50A882A9CfF42446400",
+   "supply": 889.172,
+   "price": 1771.615,
+   "priceSource": 0.995,
+   "feed": "DataFeeds",
+   "usd": 1575270.4527800002
+  },
+  {
+   "symbol": "USO",
+   "name": "United States Oil Fund",
+   "address": "0xa30FA36Db767ad9eD3f7a60fC79526fB4d56D344",
+   "supply": 10707.011,
+   "price": 144.3,
+   "priceSource": 0.995,
+   "feed": "DataFeeds",
+   "usd": 1545021.6873
+  },
+  {
+   "symbol": "SLV",
+   "name": "iShares Silver Trust",
+   "address": "0x411eFb0E7f985935DAec3D4C3ebaEa0d0AD7D89f",
+   "supply": 24920.99,
+   "price": 59.870000000000005,
+   "priceSource": 0.995,
+   "feed": "DataFeeds",
+   "usd": 1492019.6713000003
+  },
+  {
+   "symbol": "INTC",
+   "name": "Intel",
+   "address": "0xc72b96e0E48ecd4DC75E1e45396e26300BC39681",
+   "supply": 14595.313,
+   "price": 100.865,
+   "priceSource": 0.995,
+   "feed": "DataFeeds",
+   "usd": 1472156.245745
+  },
+  {
+   "symbol": "TSM",
+   "name": "Taiwan Semiconductor Manufacturing",
+   "address": "0x58FfE4a942d3885bAa22D7520691F611EF09e7AA",
+   "supply": 3181.5186999999996,
+   "price": 438.38,
+   "priceSource": 0.995,
+   "feed": "DataFeeds",
+   "usd": 1394714.167706
+  },
+  {
+   "symbol": "SNAP",
+   "name": "Snap",
+   "address": "0xF6589F11Bc40b669e584073F428B05562F568733",
+   "supply": 253668.741,
+   "price": 5.445,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 1381226.294745
+  },
+  {
+   "symbol": "LULU",
+   "name": "Lululemon",
+   "address": "0x4e62068525Ab11FE768e29dfD00ef909B9803016",
+   "supply": 11527.615,
+   "price": 100.11,
+   "priceSource": 0.9,
+   "feed": null,
+   "usd": 1154029.53765
+  },
+  {
+   "symbol": "BE",
+   "name": "Bloom Energy",
+   "address": "0x822CC93fFD030293E9842c30BBD678F530701867",
+   "supply": 3645.899,
+   "price": 267.7,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 976007.1623
+  },
+  {
+   "symbol": "BABA",
+   "name": "Alibaba",
+   "address": "0xad25Ac6C84D497db898fa1E8387bf6Af3532a1c4",
+   "supply": 8580.305,
+   "price": 112.24000000000001,
+   "priceSource": 0.995,
+   "feed": "DataFeeds",
+   "usd": 963053.4332000001
+  },
+  {
+   "symbol": "NFLX",
+   "name": "Netflix",
+   "address": "0xE0444EF8BF4eD74f74FD73686e2ddF4C1c5591E8",
+   "supply": 11284.697,
+   "price": 77.72,
+   "priceSource": 0.995,
+   "feed": "DataStreams",
+   "usd": 877046.65084
+  },
+  {
+   "symbol": "RBLX",
+   "name": "Roblox",
+   "address": "0xF0C4BF4C582cb3836e98394b1d4e7B7281101bE8",
+   "supply": 19436.406,
+   "price": 44.435,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 863656.70061
+  },
+  {
+   "symbol": "SKHY",
+   "name": "SK hynix Inc. American Depositary Shares",
+   "address": "0x84CAb63bc87912E71ad199ff14A0bA45de68FeF8",
+   "supply": 4406,
+   "price": 184.655,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 813589.93
+  },
+  {
+   "symbol": "USAR",
+   "name": "USA Rare Earth",
+   "address": "0xd917B029C761D264c6A312BBbcDA868658eF86a6",
+   "supply": 46347.420999999995,
+   "price": 17.48,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 810152.9190799999
+  },
+  {
+   "symbol": "MRNA",
+   "name": "Moderna",
+   "address": "0x43B07D15cE533bEc5476d70C22a78a1B2B662155",
+   "supply": 5282.391,
+   "price": 145,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 765946.695
+  },
+  {
+   "symbol": "ORCL",
+   "name": "Oracle",
+   "address": "0xb0992820E760d836549ba69BC7598b4af75dEE03",
+   "supply": 4531.10380478,
+   "price": 167.875,
+   "priceSource": 0.995,
+   "feed": "DataFeeds",
+   "usd": 760659.0512274426
+  },
+  {
+   "symbol": "IBM",
+   "name": "IBM",
+   "address": "0x980dcf6766FA79f5Cf0c4AAdb3ab477ff15a9619",
+   "supply": 3157.263,
+   "price": 233.625,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 737615.568375
+  },
+  {
+   "symbol": "CRWV",
+   "name": "CoreWeave",
+   "address": "0x5f10A1C971B69e47e059e1dC91901B59b3fB49C3",
+   "supply": 7562.894,
+   "price": 92.48,
+   "priceSource": 0.995,
+   "feed": "DataFeeds",
+   "usd": 699416.43712
+  },
+  {
+   "symbol": "RIVN",
+   "name": "Rivian Automotive",
+   "address": "0xB1BF26c1D20ff267A4f93550d1E0d06ac40a114B",
+   "supply": 43279.111000000004,
+   "price": 15.815000000000001,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 684459.1404650002
+  },
+  {
+   "symbol": "BB",
+   "name": "Blackberry",
+   "address": "0x48E39E56aCdbA37b09020C0b734A613C9a2f100A",
+   "supply": 86814.40000000001,
+   "price": 7.77,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 674547.888
+  },
+  {
+   "symbol": "DELL",
+   "name": "Dell",
+   "address": "0x941AE714EC6D8130c7B75d67160Ca08f1e7d11Dd",
+   "supply": 1131.17815417,
+   "price": 525.065,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 593942.057519271
+  },
+  {
+   "symbol": "FIG",
+   "name": "Figma",
+   "address": "0x41F4267525a8AFf329540eF24fD83d9044758B33",
+   "supply": 23745.310999999998,
+   "price": 24.03,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 570599.8233299999
+  },
+  {
+   "symbol": "JNJ",
+   "name": "Johnson & Johnson",
+   "address": "0x03DfbBE0AC4E7bCDaFd08eD41A400326B77D8c80",
+   "supply": 1785.549,
+   "price": 270.695,
+   "priceSource": 0.995,
+   "feed": "DataStreams",
+   "usd": 483339.18655499996
+  },
+  {
+   "symbol": "BULL",
+   "name": "Webull",
+   "address": "0xceF9027c7d6985b85f0BA431125073529A947A68",
+   "supply": 47508.594000000005,
+   "price": 10.01,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 475561.02594
+  },
+  {
+   "symbol": "EWY",
+   "name": "iShares MSCI South Korea fund",
+   "address": "0x7f0aBeF0C07280F82c6a08ead09dEd6BAE2C13Fc",
+   "supply": 2390.6850000000004,
+   "price": 191.20499999999998,
+   "priceSource": 0.995,
+   "feed": "DataFeeds",
+   "usd": 457110.925425
+  },
+  {
+   "symbol": "MRVL",
+   "name": "Marvell Technology",
+   "address": "0x62fd0668e10D8B72339BE2DCF7643001688ff13B",
+   "supply": 2013.8418100000001,
+   "price": 225.025,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 453164.75329525006
+  },
+  {
+   "symbol": "PFE",
+   "name": "Pfizer",
+   "address": "0x7066A64c24e4206CD62E83bf198c1E7EB361F51e",
+   "supply": 15303.202,
+   "price": 28.085,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 429790.42816999997
+  },
+  {
+   "symbol": "UPS",
+   "name": "UPS",
+   "address": "0xf23250dac154D05Bb671CB0d0eBEf3c635c79CE2",
+   "supply": 4001.3196354,
+   "price": 102.56,
+   "priceSource": 0.9,
+   "feed": null,
+   "usd": 410375.341806624
+  },
+  {
+   "symbol": "INDA",
+   "name": "iShares MSCI India ETF",
+   "address": "0xACEF2e09adb47aD6aBeBAD9fF06689E60615C2B6",
+   "supply": 8056.798,
+   "price": 49.37,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 397764.11725999997
+  },
+  {
+   "symbol": "SHOP",
+   "name": "Shopify",
+   "address": "0xF53F66751B1Eff985311b693531E3290F600c410",
+   "supply": 2803.7149999999997,
+   "price": 141.87,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 397763.04705
+  },
+  {
+   "symbol": "QUBT",
+   "name": "Quantum Computing",
+   "address": "0x59818904ab4cE163b3cE4FfB64f2D6Ca02c434B4",
+   "supply": 39907.6602,
+   "price": 8.295,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 331034.04135899997
+  },
+  {
+   "symbol": "PENG",
+   "name": "Penguin Solutions",
+   "address": "0x9b23573b156B52565012F5cE02CDF60AFBaa70Be",
+   "supply": 5882.7390000000005,
+   "price": 53.96,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 317432.59644000005
+  },
+  {
+   "symbol": "BA",
+   "name": "Boeing",
+   "address": "0x4D21483a44Bf67a86b77E3dA301411880797D452",
+   "supply": 1225.39,
+   "price": 211.57999999999998,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 259268.0162
+  },
+  {
+   "symbol": "F",
+   "name": "Ford Motor",
+   "address": "0x25C288E6D899b9BC30160965aD9644c67e73bE0C",
+   "supply": 17127.64244893,
+   "price": 14.725000000000001,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 252204.5350604943
+  },
+  {
+   "symbol": "SNOW",
+   "name": "Snowflake",
+   "address": "0xBa0CAB75495255d0cB58E22B648bFED4ECD1F47E",
+   "supply": 732.752,
+   "price": 336.22,
+   "priceSource": 0.9,
+   "feed": null,
+   "usd": 246365.87744
+  },
+  {
+   "symbol": "NET",
+   "name": "Cloudflare, Inc. Class A common stock",
+   "address": "0x116F00968269B7bfbaD4109cE591d6E74c0601d4",
+   "supply": 876.971,
+   "price": 279.865,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 245433.488915
+  },
+  {
+   "symbol": "ASML",
+   "name": "ASML Holding NV",
+   "address": "0x47F93d52cBeC7C6D2CfC080e154002370a60dAEA",
+   "supply": 130.57710953,
+   "price": 1779.1799999999998,
+   "priceSource": 0.995,
+   "feed": "DataFeeds",
+   "usd": 232320.18173358537
+  },
+  {
+   "symbol": "LITE",
+   "name": "Lumentum",
+   "address": "0x8eF20885F94e3D9bc7eB3080279188Bd5ED7c08C",
+   "supply": 256.764,
+   "price": 893.38,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 229387.82232
+  },
+  {
+   "symbol": "NBIS",
+   "name": "Nebius Group",
+   "address": "0x9D9c6684F596F66a64C030B93A886D51Fd4D7931",
+   "supply": 962.3939999999999,
+   "price": 233.64,
+   "priceSource": 0.995,
+   "feed": "DataFeeds",
+   "usd": 224853.73415999996
+  },
+  {
+   "symbol": "AVGO",
+   "name": "Broadcom",
+   "address": "0x156E175DD063a8cE274C50654eF40e0032b3fbcF",
+   "supply": 612.7230000000001,
+   "price": 363.645,
+   "priceSource": 0.995,
+   "feed": "DataStreams",
+   "usd": 222813.65533500002
+  },
+  {
+   "symbol": "WYFI",
+   "name": "WhiteFiber, Inc.",
+   "address": "0x9e7ABD3C9139D14E4c86DcE0e455AAB7A0C2FB3E",
+   "supply": 11031,
+   "price": 19.92,
+   "priceSource": 0.9,
+   "feed": null,
+   "usd": 219737.52000000002
+  },
+  {
+   "symbol": "NU",
+   "name": "Nu",
+   "address": "0x408c14038a04f7bD235329E26d2bf569ee20e250",
+   "supply": 13991.113000000001,
+   "price": 15.649999999999999,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 218960.91845
+  },
+  {
+   "symbol": "GLXY",
+   "name": "Galaxy Digital Inc.",
+   "address": "0x2D427692E928fa156ec22acfaBaFA0447C5805B7",
+   "supply": 7998.233,
+   "price": 26.354999999999997,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 210793.43071499997
+  },
+  {
+   "symbol": "SOXX",
+   "name": "iShares Semiconductor ETF",
+   "address": "0x75742c18BC1f1C5c5f448f4C9D9C6F66dafAAa38",
+   "supply": 395.37100000000004,
+   "price": 530.665,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 209809.551715
+  },
+  {
+   "symbol": "CVNA",
+   "name": "Carvana",
+   "address": "0xa4f319104089FE321dc8093C6E707d4fE190A988",
+   "supply": 2683.774,
+   "price": 75.47,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 202544.42377999998
+  },
+  {
+   "symbol": "RCAT",
+   "name": "Red Cat",
+   "address": "0xFDE6b5d9BB419B10C23268c74e369AbFF39C0460",
+   "supply": 23406.879,
+   "price": 8.585,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 200948.05621500002
+  },
+  {
+   "symbol": "DDOG",
+   "name": "Datadog",
+   "address": "0x27c99fBde9D0d2AA4f4Bfb4943f237843DdF6958",
+   "supply": 866.92,
+   "price": 208.75,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 180969.55
+  },
+  {
+   "symbol": "ADBE",
+   "name": "Adobe",
+   "address": "0x232B8ed6377BE97813853B0Ac104c4Cda8378d1B",
+   "supply": 596.901,
+   "price": 261.345,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 155997.09184500002
+  },
+  {
+   "symbol": "RKLB",
+   "name": "Rocket Lab Corporation",
+   "address": "0x3b14C39E89D60D627b42a1A4CA45b5bb45Fc12e2",
+   "supply": 2342.426,
+   "price": 65.25999999999999,
+   "priceSource": 0.995,
+   "feed": "DataFeeds",
+   "usd": 152866.72075999997
+  },
+  {
+   "symbol": "LMT",
+   "name": "Lockheed",
+   "address": "0x329fcACEb9AD6F9580DD5F643fed0646900D043c",
+   "supply": 268.117,
+   "price": 532.915,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 142883.571055
+  },
+  {
+   "symbol": "HPE",
+   "name": "HP Enterprise",
+   "address": "0x59dd09d4900C2E4B5F75b7c0d4E6796fcc234Cb1",
+   "supply": 2543.9900000000002,
+   "price": 52.2,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 132796.27800000002
+  },
+  {
+   "symbol": "ZM",
+   "name": "Zoom",
+   "address": "0x44c4F142009036cF477eD2d09932051843137CF1",
+   "supply": 1261.472,
+   "price": 100.11500000000001,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 126292.26928000001
+  },
+  {
+   "symbol": "AMAT",
+   "name": "Applied Materials",
+   "address": "0x36046893810a7E7fCE501229d57dc3FC8c8716d0",
+   "supply": 266.824,
+   "price": 465.395,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 124178.55548
+  },
+  {
+   "symbol": "SMH",
+   "name": "VanEck Semiconductor ETF",
+   "address": "0x072f979c2CAc8e1391B0162a87Fee094bF8744a0",
+   "supply": 211.811,
+   "price": 578.505,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 122533.722555
+  },
+  {
+   "symbol": "WDAY",
+   "name": "Workday",
+   "address": "0x82DA4646242e1D962e96e932269Dc644c94a9CaA",
+   "supply": 637.5830000000001,
+   "price": 191.685,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 122215.09735500002
+  },
+  {
+   "symbol": "CCL",
+   "name": "Carnival Corporation",
+   "address": "0x9651342CeA770aE9a2969Ba2A52611523146aef9",
+   "supply": 5198.894226140001,
+   "price": 23.49,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 122122.02537202861
+  },
+  {
+   "symbol": "ASTS",
+   "name": "AST SpaceMobile",
+   "address": "0x1AF6446f07eb1d97c546AFC8c9544cBDF3AD5137",
+   "supply": 1831.437,
+   "price": 63.075,
+   "priceSource": 0.9,
+   "feed": null,
+   "usd": 115517.888775
+  },
+  {
+   "symbol": "ON",
+   "name": "ON Semiconductor",
+   "address": "0xbBD09F72b025360FeE5C928053Dca6248d35be54",
+   "supply": 1523.15,
+   "price": 75.6,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 115150.14
+  },
+  {
+   "symbol": "WDC",
+   "name": "Western Digital",
+   "address": "0xF52597345A8Edf418bc4071b4a35112472277D3e",
+   "supply": 228.70237231000002,
+   "price": 476.78999999999996,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 109043.0040936849
+  },
+  {
+   "symbol": "GE",
+   "name": "General Electric",
+   "address": "0x63b814DDBd6BF339f25Fed8c36158a008D5B373e",
+   "supply": 320.948,
+   "price": 339.25,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 108881.609
+  },
+  {
+   "symbol": "CEG",
+   "name": "Constellation Energy",
+   "address": "0xaE517A2903E68bd929Dfd15be875F8369D53e94a",
+   "supply": 343.872,
+   "price": 301.935,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 103826.99232
+  },
+  {
+   "symbol": "RUN",
+   "name": "Sunrun",
+   "address": "0x756Bc80af765C82da966a788858d65aDF14f3793",
+   "supply": 10912.964,
+   "price": 9.085,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 99144.27794000001
+  },
+  {
+   "symbol": "CBRS",
+   "name": "Cerebras Systems",
+   "address": "0x5c90450Bbb4273D7b2f17CF6917AEB237A569679",
+   "supply": 460.03900000000004,
+   "price": 215.03,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 98922.18617000002
+  },
+  {
+   "symbol": "SOFI",
+   "name": "SoFi Technologies",
+   "address": "0x98E75885157C80992A8D41b696D8c9C6Fb30A926",
+   "supply": 5416.581,
+   "price": 18.215,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 98663.02291500001
+  },
+  {
+   "symbol": "P",
+   "name": "Everpure",
+   "address": "0x1Cdad396DB64BDa184d5182A97Dd9B3C62100b7D",
+   "supply": 897.3059999999999,
+   "price": 101.245,
+   "priceSource": 0.9,
+   "feed": null,
+   "usd": 90847.74597
+  },
+  {
+   "symbol": "XOM",
+   "name": "ExxonMobil Holdings Corporation",
+   "address": "0xf9B46d3D1B22199D4D1025a9cEDB540A33F1a2d5",
+   "supply": 562.7769999999999,
+   "price": 160.775,
+   "priceSource": 0.995,
+   "feed": "DataStreams",
+   "usd": 90480.47217499999
+  },
+  {
+   "symbol": "UNH",
+   "name": "UnitedHealth",
+   "address": "0xcF364ea52787e289De6F32077834056E3E70D6A8",
+   "supply": 224.878,
+   "price": 393.46000000000004,
+   "priceSource": 0.995,
+   "feed": "DataStreams",
+   "usd": 88480.49788000001
+  },
+  {
+   "symbol": "TE",
+   "name": "T1 Energy",
+   "address": "0xb1969f6604CA1AE7a2cD3F1827876e914594CA2D",
+   "supply": 16092.948,
+   "price": 4.725,
+   "priceSource": 0.9,
+   "feed": null,
+   "usd": 76039.17929999999
+  },
+  {
+   "symbol": "FLY",
+   "name": "Firefly Aerospace Inc.",
+   "address": "0x03BC731Ffb162cdd7B98D3C6542bFC291126075d",
+   "supply": 3330.2019999999998,
+   "price": 21.89,
+   "priceSource": 0.9,
+   "feed": null,
+   "usd": 72898.12178
+  },
+  {
+   "symbol": "AAOI",
+   "name": "Applied Optoelectronics",
+   "address": "0x521Cf887E6531c6F667b5BC4D896E5d9bfE8EB2E",
+   "supply": 665.0350000000001,
+   "price": 107.8,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 71690.773
+  },
+  {
+   "symbol": "FIX",
+   "name": "Comfort Systems",
+   "address": "0x93Dbb1d2Dc5D63F4abACFF30485273f538Df68Ac",
+   "supply": 43.471,
+   "price": 1640.26,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 71303.74246
+  },
+  {
+   "symbol": "NOW",
+   "name": "ServiceNow",
+   "address": "0x0C3260aF4B8f13a69c4c2dFb84fD667890CDFa14",
+   "supply": 505.31100000000004,
+   "price": 138.37,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 69919.88307000001
+  },
+  {
+   "symbol": "CRM",
+   "name": "Salesforce",
+   "address": "0xd95B44124e475743a7589e68F3D74008A5536D44",
+   "supply": 258.138,
+   "price": 256.025,
+   "priceSource": 0.995,
+   "feed": "DataStreams",
+   "usd": 66089.78145
+  },
+  {
+   "symbol": "SMCI",
+   "name": "Super Micro Computer",
+   "address": "0xc01aA1fECeC0605b13bc84874ff7256C0f5F562a",
+   "supply": 1650.078,
+   "price": 39.76,
+   "priceSource": 0.9,
+   "feed": null,
+   "usd": 65607.10128
+  },
+  {
+   "symbol": "ELF",
+   "name": "e.l.f. Beauty",
+   "address": "0x39EC44Bee4F6A116c6F9B8De566848a985C53C60",
+   "supply": 589.678,
+   "price": 109.53,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 64587.43134
+  },
+  {
+   "symbol": "SCHD",
+   "name": "Schwab US Dividend Equity ETF",
+   "address": "0xd63ABB2C13d7a8421a8017a712802053568e3C1D",
+   "supply": 1841.688,
+   "price": 34.655,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 63823.697640000006
+  },
+  {
+   "symbol": "CSCO",
+   "name": "Cisco Systems",
+   "address": "0xF543967EEBB6f1917992eF0E68De63ab07a5a0dA",
+   "supply": 573.153,
+   "price": 109.245,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 62614.099485000006
+  },
+  {
+   "symbol": "WULF",
+   "name": "TeraWulf",
+   "address": "0x348Be1A8663f15edDe5CDf8A96BB69078f7aB6Fd",
+   "supply": 3662.193,
+   "price": 16.78,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 61451.598540000006
+  },
+  {
+   "symbol": "FUTU",
+   "name": "Futu Holdings",
+   "address": "0xeB30663bDFf0622Ef4e4E5cBb4E975F19f33f51D",
+   "supply": 507.43699999999995,
+   "price": 120.77,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 61283.166489999996
+  },
+  {
+   "symbol": "XLK",
+   "name": "State Street Technology Select Sector SPDR ETF",
+   "address": "0x15Cd20759CE7F3285c29A319dE2D1A2e098c6f43",
+   "supply": 317.85900000000004,
+   "price": 188.64,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 59960.921760000005
+  },
+  {
+   "symbol": "NNE",
+   "name": "Nano Nuclear Energy",
+   "address": "0xBEF75684C43c4ea7BD18Dd532a2244674Ee8b926",
+   "supply": 3261.859,
+   "price": 18.045,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 58860.245655000006
+  },
+  {
+   "symbol": "TER",
+   "name": "Teradyne",
+   "address": "0x2778C5024D5cA2CdB0f8eAD671ffc69963AdCD9C",
+   "supply": 151.875,
+   "price": 367.275,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 55779.890625
+  },
+  {
+   "symbol": "SPMO",
+   "name": "Invesco S&P 500 Momentum ETF",
+   "address": "0xAd622320e520de39e72d41EF07438C3Fd3354875",
+   "supply": 363.882,
+   "price": 150.765,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 54860.669729999994
+  },
+  {
+   "symbol": "AUR",
+   "name": "Aurora Innovation",
+   "address": "0x373C06c4f7BDe527D7Dae4BA169E42b55E393CeD",
+   "supply": 8632.59,
+   "price": 6.3149999999999995,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 54514.80585
+  },
+  {
+   "symbol": "KSS",
+   "name": "Kohls Corporation",
+   "address": "0x12e3c047bf9AeCAF9dDC98c05C31BFD1dd043993",
+   "supply": 2726.0829999999996,
+   "price": 19.14,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 52177.228619999994
+  },
+  {
+   "symbol": "TTD",
+   "name": "Trade Desk",
+   "address": "0x0b5fb4031cae9163db10B169Ee72685F0EdC8545",
+   "supply": 3638.108,
+   "price": 14.33,
+   "priceSource": 0.9,
+   "feed": null,
+   "usd": 52134.087640000005
+  },
+  {
+   "symbol": "HII",
+   "name": "Huntington Ingalls",
+   "address": "0xEB61c0Ed490A367d4E3631cCf8a74B3bfc7E775D",
+   "supply": 174.844,
+   "price": 288.6,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 50459.9784
+  },
+  {
+   "symbol": "INFQ",
+   "name": "Infleqtion",
+   "address": "0xB853bC83a753342a4f8320ea680b4B1E84118D21",
+   "supply": 3775.5910000000003,
+   "price": 13.315000000000001,
+   "priceSource": 0.9,
+   "feed": null,
+   "usd": 50271.99416500001
+  },
+  {
+   "symbol": "VRT",
+   "name": "Vertiv",
+   "address": "0xFA78C12E6488814A0262E4e802749a4a737d5fB7",
+   "supply": 174.841,
+   "price": 287.21500000000003,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 50216.95781500001
+  },
+  {
+   "symbol": "MDB",
+   "name": "MongoDB",
+   "address": "0xDdf2266b79abf0B48898959B0ed6E6adf512be74",
+   "supply": 137.062,
+   "price": 363.62,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 49838.48444000001
+  },
+  {
+   "symbol": "SIMO",
+   "name": "Silicon Motion",
+   "address": "0x77E655E37F4d913fB9540e0d541D824171a60e81",
+   "supply": 181.339,
+   "price": 266.105,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 48255.214595000005
+  },
+  {
+   "symbol": "POET",
+   "name": "POET Technologies",
+   "address": "0xcf6B2D875361be807EAfa57458c80f28521F9333",
+   "supply": 5979.224999999999,
+   "price": 8,
+   "priceSource": 0.9,
+   "feed": null,
+   "usd": 47833.799999999996
+  },
+  {
+   "symbol": "PL",
+   "name": "Planet Labs",
+   "address": "0xAA4d64474c172010aB57719cb9951E6142a100d3",
+   "supply": 2658.251,
+   "price": 17.925,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 47649.149175000006
+  },
+  {
+   "symbol": "APP",
+   "name": "AppLovin",
+   "address": "0xA249BAF1063Af884807C1E1400AEf7784836917E",
+   "supply": 149.562,
+   "price": 318.275,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 47601.84555
+  },
+  {
+   "symbol": "INTU",
+   "name": "Intuit",
+   "address": "0x56d23beE5f41A7120170b0c603Dae30128e460e9",
+   "supply": 141.944,
+   "price": 326.1,
+   "priceSource": 0.995,
+   "feed": "DataStreams",
+   "usd": 46287.9384
+  },
+  {
+   "symbol": "PATH",
+   "name": "UiPath",
+   "address": "0xfb2664f07B6Aadd29ea7a59D8859b1AeB8645cDa",
+   "supply": 3016.152,
+   "price": 15.190000000000001,
+   "priceSource": 0.9,
+   "feed": null,
+   "usd": 45815.348880000005
+  },
+  {
+   "symbol": "LUNR",
+   "name": "Intuitive Machines",
+   "address": "0xa5D4968421bA94814Be3B136b15cf422101aC1a3",
+   "supply": 3026.6470000000004,
+   "price": 14.920000000000002,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 45157.57324000001
+  },
+  {
+   "symbol": "APLD",
+   "name": "Applied Digital",
+   "address": "0xb8DBf92F9741c9ac1c32115E78581f23509916FD",
+   "supply": 1660.08,
+   "price": 27.175,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 45112.674
+  },
+  {
+   "symbol": "JOBY",
+   "name": "Joby Aviation",
+   "address": "0xb334C5cE741B80B5B671F47F5C269Cb193fe8E24",
+   "supply": 6564.0869999999995,
+   "price": 6.775,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 44471.689425
+  },
+  {
+   "symbol": "QCOM",
+   "name": "Qualcomm",
+   "address": "0x0f17206447090e464C277571124dD2688E48AEA9",
+   "supply": 245.333,
+   "price": 180.255,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 44222.499915
+  },
+  {
+   "symbol": "ALAB",
+   "name": "Astera Labs, Inc.",
+   "address": "0x748c32c3ca24eDf31ea597Db1F3d330a7a6DA3Dc",
+   "supply": 142.97,
+   "price": 307.08000000000004,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 43903.227600000006
+  },
+  {
+   "symbol": "FTNT",
+   "name": "Fortinet",
+   "address": "0x3FB8976980d486084b2eb4a404BD12e72823958f",
+   "supply": 279.993,
+   "price": 154.5,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 43258.9185
+  },
+  {
+   "symbol": "SMR",
+   "name": "NuScale Power",
+   "address": "0x1Eebee7F74517e0279dFb09d25B0407bEEc3FDd6",
+   "supply": 4143.3,
+   "price": 9.870000000000001,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 40894.37100000001
+  },
+  {
+   "symbol": "IBRX",
+   "name": "ImmunityBio,",
+   "address": "0x7c148F74ac7445D1F28366b7FcDC6792a9Fcd0Cf",
+   "supply": 5005.514999999999,
+   "price": 8.13,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 40694.83695
+  },
+  {
+   "symbol": "CELH",
+   "name": "Celsius",
+   "address": "0x8cF07C5A878945185d327aAa6e33FAa95F95e7bF",
+   "supply": 1318.45,
+   "price": 30.29,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 39935.8505
+  },
+  {
+   "symbol": "RGTI",
+   "name": "Rigetti Computing",
+   "address": "0x284358abc07F9359f19f4b5b4aC91901Be2597Ba",
+   "supply": 2410.1940000000004,
+   "price": 16.285,
+   "priceSource": 0.9,
+   "feed": "DataFeeds",
+   "usd": 39250.00929000001
+  },
+  {
+   "symbol": "TSEM",
+   "name": "Tower Semiconductor",
+   "address": "0x89776d4Cd68193597A2fC132cfaC1fDe36CCeA8a",
+   "supply": 168.763,
+   "price": 225.365,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 38033.273495
+  },
+  {
+   "symbol": "QBTS",
+   "name": "D-Wave Quantum Inc. Common Stock",
+   "address": "0xC583c60aeF9Dc401Da72cEC1B404743a93cea1Cc",
+   "supply": 2158.143,
+   "price": 17.595,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 37972.526085
+  },
+  {
+   "symbol": "IREN",
+   "name": "IREN Limited",
+   "address": "0xF0AB0c93bE6F41369d302e55db1A96b3c430212D",
+   "supply": 823.479,
+   "price": 45.545,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 37505.35105500001
+  },
+  {
+   "symbol": "VST",
+   "name": "Vistra",
+   "address": "0x561e2a49212b7cCF47f2744Ccb83e200722fADBc",
+   "supply": 244.797,
+   "price": 152.64,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 37365.81408
+  },
+  {
+   "symbol": "PWR",
+   "name": "Quanta",
+   "address": "0x9Ab02Ead789b6903c3c44d0ED32F9c707CDF12FD",
+   "supply": 58.168,
+   "price": 634.575,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 36911.958600000005
+  },
+  {
+   "symbol": "IONQ",
+   "name": "IonQ",
+   "address": "0x558378E000D634A36593E338eBacdd6207640EfE",
+   "supply": 865.194,
+   "price": 41.955,
+   "priceSource": 0.9,
+   "feed": "DataFeeds",
+   "usd": 36299.21427
+  },
+  {
+   "symbol": "HWM",
+   "name": "Howmet Aerospace",
+   "address": "0xAEa445c5F3DB1a462998ccC422A875A361ee5d99",
+   "supply": 147.548,
+   "price": 245.005,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 36149.99774
+  },
+  {
+   "symbol": "UMC",
+   "name": "United Microelectronics",
+   "address": "0x0E6e67Ba88e7b5d9B67636A215c76779B948dE79",
+   "supply": 1643.565,
+   "price": 21.965,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 36100.905225
+  },
+  {
+   "symbol": "ABCL",
+   "name": "Abcellera Biologics",
+   "address": "0x3139D77Ace0cbAA5bDfD38bD1F1911a794AF0B0e",
+   "supply": 3144.267,
+   "price": 11.285,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 35483.053094999996
+  },
+  {
+   "symbol": "CLOV",
+   "name": "Clover Health Investments",
+   "address": "0x62200915e7DEab1eC7f79fb246daDbB80eACdDd0",
+   "supply": 8245.287,
+   "price": 4.22,
+   "priceSource": 0.9,
+   "feed": null,
+   "usd": 34795.11114
+  },
+  {
+   "symbol": "FISV",
+   "name": "Fiserv",
+   "address": "0x9ECe29A4A2397C0a35fb5fA8EE2b9509130a98cc",
+   "supply": 646.287,
+   "price": 52.59,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 33988.23333
+  },
+  {
+   "symbol": "TEAM",
+   "name": "Atlassian Corporation",
+   "address": "0x5B97476b922F3305131B8f0B9D333172E87f4aaE",
+   "supply": 182.353,
+   "price": 185,
+   "priceSource": 0.9,
+   "feed": null,
+   "usd": 33735.305
+  },
+  {
+   "symbol": "LHX",
+   "name": "L3Harris",
+   "address": "0x48d60243c66437c6ac3c2495Be94747aEd5Dfe25",
+   "supply": 131.886,
+   "price": 255.24,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 33662.58264
+  },
+  {
+   "symbol": "AMBA",
+   "name": "Ambarella",
+   "address": "0x99D9D8663545151603863C5AcbD6FC3218899009",
+   "supply": 524.803,
+   "price": 64.01,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 33592.64003
+  },
+  {
+   "symbol": "FICO",
+   "name": "Fair Isaac",
+   "address": "0xa48F22A46C0F1C46CA7D111CB6c137c271987180",
+   "supply": 35.951,
+   "price": 925,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 33254.675
+  },
+  {
+   "symbol": "FLNC",
+   "name": "Fluence Energy",
+   "address": "0x282e87451E10fA6679BC7D76C69BE44cD3fC777C",
+   "supply": 3097.9449999999997,
+   "price": 10.71,
+   "priceSource": 0.9,
+   "feed": null,
+   "usd": 33178.99095
+  },
+  {
+   "symbol": "PANW",
+   "name": "Palo Alto Networks",
+   "address": "0xB039597eD45CBa7B6E2fb9E8BE51802969CEe5Be",
+   "supply": 100.359,
+   "price": 329.865,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 33104.921535
+  },
+  {
+   "symbol": "MXL",
+   "name": "MaxLinear",
+   "address": "0x48961813349333209994750ffA89b3c5C22eC969",
+   "supply": 503.03900000000004,
+   "price": 65.065,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 32730.232535000003
+  },
+  {
+   "symbol": "AEIS",
+   "name": "Advanced Energy",
+   "address": "0xfAf9cb261B5FCC1f404Bb10CD39C5c6C1974E612",
+   "supply": 111.465,
+   "price": 293.20500000000004,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 32682.095325000006
+  },
+  {
+   "symbol": "EWT",
+   "name": "iShares MSCI Taiwan Capped ETF",
+   "address": "0x1c690498150252222C275A5CEd69d3A6b1f52D5E",
+   "supply": 292.677,
+   "price": 111.63499999999999,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 32672.996895
+  },
+  {
+   "symbol": "LRCX",
+   "name": "Lam Research Corp",
+   "address": "0x57b0030166DB0C31690d1A5aA167e2e26e2C29a4",
+   "supply": 102.615,
+   "price": 315.345,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 32359.127175
+  },
+  {
+   "symbol": "INOD",
+   "name": "Innodata",
+   "address": "0xf1953DAB6FaD537488d5A022361FfAa8B4c95eC6",
+   "supply": 567.087,
+   "price": 56.019999999999996,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 31768.213739999996
+  },
+  {
+   "symbol": "ONTO",
+   "name": "Onto Innovation",
+   "address": "0x8ff63eAeEe3fE54Ba450c4F5538064Ec5A893Aef",
+   "supply": 114.578,
+   "price": 276.25,
+   "priceSource": 0.9,
+   "feed": null,
+   "usd": 31652.1725
+  },
+  {
+   "symbol": "KTOS",
+   "name": "Kratos Defense & Security Solutions",
+   "address": "0x7FD06a4d81cCfA3F351394E144d5191874C31313",
+   "supply": 652.4689999999999,
+   "price": 48.28,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 31501.203319999997
+  },
+  {
+   "symbol": "SHY",
+   "name": "iShares 1-3 Year Treasury Bond ETF",
+   "address": "0xBE274710Bf3d9567e1B290eF6a5F9f90ca016FD8",
+   "supply": 376.46,
+   "price": 81.695,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 30754.899699999994
+  },
+  {
+   "symbol": "RDW",
+   "name": "Redwire",
+   "address": "0x92Ef19E82bD8fF36661DE838D5eaE7e5CEF0EfFE",
+   "supply": 2843.3269999999998,
+   "price": 10.780000000000001,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 30651.06506
+  },
+  {
+   "symbol": "SLS",
+   "name": "SELLAS Life Sciences",
+   "address": "0x285b231728c7E4333799183DF1094d775246a535",
+   "supply": 2225,
+   "price": 13.73,
+   "priceSource": 0.9,
+   "feed": null,
+   "usd": 30549.25
+  },
+  {
+   "symbol": "GLW",
+   "name": "Corning",
+   "address": "0x7c04E6A3368F2A1DE3874f0e80d2e0A1a9915da6",
+   "supply": 191.825,
+   "price": 157.7,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 30250.802499999994
+  },
+  {
+   "symbol": "KLAC",
+   "name": "KLA",
+   "address": "0x96b933C74eCB4A0926b9210cef7b743EF46be2E9",
+   "supply": 159.926,
+   "price": 188.815,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 30196.427689999997
+  },
+  {
+   "symbol": "CLSK",
+   "name": "CleanSpark",
+   "address": "0xcBB95BBF36099d34dA091dc6Fa6F49EfA257Cee3",
+   "supply": 2328.0519999999997,
+   "price": 12.825,
+   "priceSource": 0.995,
+   "feed": "DataFeeds",
+   "usd": 29857.266899999995
+  },
+  {
+   "symbol": "ANET",
+   "name": "Arista",
+   "address": "0x28bABD556b60E53663B8615036479a29c2CDd1Bf",
+   "supply": 146.909,
+   "price": 197.77499999999998,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 29054.927474999997
+  },
+  {
+   "symbol": "VSAT",
+   "name": "ViaSat",
+   "address": "0x26dCbfb34FC83CAbD6990f449674efDc6097fF85",
+   "supply": 382.86899999999997,
+   "price": 75.41,
+   "priceSource": 0.9,
+   "feed": null,
+   "usd": 28872.151289999998
+  },
+  {
+   "symbol": "ZS",
+   "name": "Zscaler",
+   "address": "0x7dc013eB55e436f30d7ED1AFE4E36d6e45e3c3f7",
+   "supply": 171.561,
+   "price": 167.255,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 28694.435055
+  },
+  {
+   "symbol": "GEV",
+   "name": "GE Vernova",
+   "address": "0x94B8AAE43A1cCc08Aa64B7D1F29b4D920aF4a0C9",
+   "supply": 29.874,
+   "price": 956,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 28559.543999999998
+  },
+  {
+   "symbol": "DOCN",
+   "name": "DigitalOcean",
+   "address": "0xc02f12B9fe9E707079EC0d546f3050d3F6C1F8bD",
+   "supply": 242.962,
+   "price": 114.015,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 27701.312429999998
+  },
+  {
+   "symbol": "COHR",
+   "name": "Coherent",
+   "address": "0x92F9F459F1a9a5AD266b182BE7Bffd1C6c666894",
+   "supply": 98.276,
+   "price": 281.5,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 27664.694
+  },
+  {
+   "symbol": "PR",
+   "name": "Permian Resources",
+   "address": "0x4189F0c66EBBB0bfeF1C31f763131361EF32f77C",
+   "supply": 1166.275,
+   "price": 23.695,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 27634.886125
+  },
+  {
+   "symbol": "JBL",
+   "name": "Jabil Inc.",
+   "address": "0xEAf2512dFC1bEAc608F8794B3793CD4E02894Aa6",
+   "supply": 86.936,
+   "price": 313,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 27210.968
+  },
+  {
+   "symbol": "POWL",
+   "name": "Powell Industries",
+   "address": "0x237c16D66590F67B886d978ACD362EAeaD8B18c7",
+   "supply": 146.283,
+   "price": 185.04000000000002,
+   "priceSource": 0.9,
+   "feed": null,
+   "usd": 27068.20632
+  },
+  {
+   "symbol": "OKLO",
+   "name": "Oklo",
+   "address": "0x8B2f88497f15A18E9D4FFa1a8fFB8538399aE774",
+   "supply": 637.683,
+   "price": 41.91,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 26725.29453
+  },
+  {
+   "symbol": "CRDO",
+   "name": "Credo Technology Group",
+   "address": "0x4D67253bc223e6b0e104F1084c1fb2b669dDC41b",
+   "supply": 153.936,
+   "price": 170.635,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 26266.86936
+  },
+  {
+   "symbol": "AVAV",
+   "name": "AeroVironment",
+   "address": "0xF6290b5e7C26502e2dA514C31509849718EA76A5",
+   "supply": 177.864,
+   "price": 147.175,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 26177.134200000004
+  },
+  {
+   "symbol": "CLS",
+   "name": "Celestica",
+   "address": "0xBf449977089c718C004a66C554B26B94ef3Ad4De",
+   "supply": 81.695,
+   "price": 318.45,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 26015.772749999996
+  },
+  {
+   "symbol": "MOD",
+   "name": "Modine",
+   "address": "0xc6Cbad1016b38B797610c25E1dc7D95988B1f362",
+   "supply": 129.574,
+   "price": 198.74,
+   "priceSource": 0.9,
+   "feed": null,
+   "usd": 25751.536760000003
+  },
+  {
+   "symbol": "MPWR",
+   "name": "Monolithic Power Systems",
+   "address": "0x52D50D0280AD1054b43f052bD70a49a212A1b128",
+   "supply": 20.342,
+   "price": 1250.3400000000001,
+   "priceSource": 0.9,
+   "feed": null,
+   "usd": 25434.41628
+  },
+  {
+   "symbol": "TEM",
+   "name": "Tempus AI",
+   "address": "0xB1CC0EC7Db69Cf43539119814df40071b9d61793",
+   "supply": 389.54,
+   "price": 64.47,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 25113.6438
+  },
+  {
+   "symbol": "OUST",
+   "name": "Ouster",
+   "address": "0x40E7a279850e443f582059ae5dC1c3b6563E6395",
+   "supply": 652.6899999999999,
+   "price": 37.475,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 24459.55775
+  },
+  {
+   "symbol": "NVTS",
+   "name": "Navitas Semiconductor",
+   "address": "0xbE6702d7b70315376dC48a3293f24f0982F86386",
+   "supply": 1942.451,
+   "price": 12.075,
+   "priceSource": 0.9,
+   "feed": null,
+   "usd": 23455.095825
+  },
+  {
+   "symbol": "AXTI",
+   "name": "AXT",
+   "address": "0x141eEa040c2250eEc0314e336975e81f85f6585e",
+   "supply": 359.316,
+   "price": 63.43,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 22791.41388
+  },
+  {
+   "symbol": "AMKR",
+   "name": "Amkor Technology",
+   "address": "0xDd356AA38F40A7b7076755aC854B6FBb1F0D305B",
+   "supply": 453.662,
+   "price": 49.425,
+   "priceSource": 0.9,
+   "feed": null,
+   "usd": 22422.244349999997
+  },
+  {
+   "symbol": "CIEN",
+   "name": "Ciena",
+   "address": "0x44f6D488021f8233B9416294d1FE9b1fEe28382d",
+   "supply": 67.031,
+   "price": 328.21500000000003,
+   "priceSource": 0.9,
+   "feed": null,
+   "usd": 22000.579665000005
+  },
+  {
+   "symbol": "NAVN",
+   "name": "Navan",
+   "address": "0xf7181b63Fdb858558A74ba96BC42732684cd7965",
+   "supply": 789.721,
+   "price": 27.7,
+   "priceSource": 0.9,
+   "feed": null,
+   "usd": 21875.2717
+  },
+  {
+   "symbol": "MTSI",
+   "name": "MACOM",
+   "address": "0xC93f4d80e268AB922e871bd169156C3CC41894e6",
+   "supply": 78.618,
+   "price": 274.025,
+   "priceSource": 0.9,
+   "feed": null,
+   "usd": 21543.29745
+  },
+  {
+   "symbol": "XNDU",
+   "name": "Xanadu Quantum",
+   "address": "0xA8eB3BCcbf2017eE7CBfb652eB51CF2E1B153289",
+   "supply": 2095,
+   "price": 9.934999999999999,
+   "priceSource": 0.9,
+   "feed": null,
+   "usd": 20813.824999999997
+  },
+  {
+   "symbol": "CTSH",
+   "name": "Cognizant",
+   "address": "0x63D5a3b6939a33f1e75d8Bcd85759858239600DB",
+   "supply": 327.609,
+   "price": 63.285000000000004,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 20732.735565
+  },
+  {
+   "symbol": "AXON",
+   "name": "Axon",
+   "address": "0xC27dBD474aF5181c5A8777903690D8D262D12648",
+   "supply": 40.185,
+   "price": 512.505,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 20595.013425
+  },
+  {
+   "symbol": "VICR",
+   "name": "Vicor",
+   "address": "0x6006ed4B2F94110851ff7509D97D034f0EeD9226",
+   "supply": 101.742,
+   "price": 195.01,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 19840.70742
+  },
+  {
+   "symbol": "VTI",
+   "name": "Vanguard Morningstar Total Stock Market ETF",
+   "address": "0x0594134DF3f171a354D9C85eBD65b7A6148F6D09",
+   "supply": 49.681,
+   "price": 381.35,
+   "priceSource": 0.995,
+   "feed": "DataStreams",
+   "usd": 18945.84935
+  },
+  {
+   "symbol": "AEHR",
+   "name": "Aehr",
+   "address": "0x5F604fBA1162193A4388A5DFa56F556f3E133cC2",
+   "supply": 177.368,
+   "price": 90.1,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 15980.856799999998
+  },
+  {
+   "symbol": "CRWD",
+   "name": "CrowdStrike Holdings",
+   "address": "0xea72Ecca2d0f6bFA1394DBBCff85b52CD4233931",
+   "supply": 52.86175,
+   "price": 210.255,
+   "priceSource": 0.995,
+   "feed": null,
+   "usd": 11114.44724625
+  },
+  {
+   "symbol": "SATS",
+   "name": "EchoStar",
+   "address": "0x95052ddcd5DC25641657424A8Cf04834997E1730",
+   "supply": 0.103,
+   "price": 93.565,
+   "priceSource": 0.9,
+   "feed": null,
+   "usd": 9.637194999999998
+  },
+  {
+   "symbol": "BND",
+   "name": "Vanguard Total Bond Market ETF",
+   "address": "0x2F62fC9fAbb470C690f141c28340eD832bB27020",
+   "supply": 0,
+   "price": 71.965,
+   "priceSource": 0.9,
+   "feed": null,
+   "usd": 0
+  },
+  {
+   "symbol": "SOUN",
+   "name": "SoundHound AI",
+   "address": "0x6E3Dfd9f7e1649BaA14D25cac18C94d62dB10A54",
+   "supply": 16521.11,
+   "price": null,
+   "priceSource": null,
+   "feed": null,
+   "usd": null
+  }
+ ]
+}
