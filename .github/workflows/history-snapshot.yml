@@ -1,0 +1,39 @@
+name: Index price history snapshot
+
+# Samples index price / NAV / supply / pool price every 15 minutes and commits it to the
+# `data` branch (history.json), which the frontend chart reads from raw.githubusercontent.com.
+# Cron minimum on GitHub is 5 min but runs are often delayed; 15 min keeps it reliable and small.
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: history-snapshot
+  cancel-in-progress: false
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          ref: data
+          path: data-branch
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Append sample
+        run: node script/analytics/snapshot-history.js data-branch/history.json
+      - name: Commit
+        working-directory: data-branch
+        run: |
+          git config user.name "history-bot"
+          git config user.email "history-bot@users.noreply.github.com"
+          git add history.json
+          git diff --cached --quiet && echo "no change" || (git commit -m "snapshot $(date -u +%Y-%m-%dT%H:%M)Z" && git push)
