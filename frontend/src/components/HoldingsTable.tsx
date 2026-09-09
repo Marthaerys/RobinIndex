@@ -21,8 +21,11 @@ interface Row {
 /// drives the mint/redeem discount or penalty in the trade panel — sortable by
 /// "Discount / penalty" so the biggest opportunity is a click away.
 export function HoldingsTable({ assets }: { assets: AssetRow[] }) {
-  const [sortKey, setSortKey] = useState<SortKey | null>(null);
-  const [sortDir, setSortDir] = useState<SortDir>("asc");
+  // Opens sorted by position size, biggest first: the registry's own order is
+  // an implementation detail, and it used to bury the largest holding
+  // somewhere down the table.
+  const [sortKey, setSortKey] = useState<SortKey | null>("value");
+  const [sortDir, setSortDir] = useState<SortDir>("desc");
 
   const rows: Row[] = useMemo(
     () =>

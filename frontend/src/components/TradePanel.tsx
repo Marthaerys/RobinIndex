@@ -1,8 +1,10 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { formatUnits } from "viem";
 import { useAccount, useWriteContract, useWaitForTransactionReceipt } from "wagmi";
 import type { VaultData } from "../hooks/useVaultData";
 import { useUserAsset } from "../hooks/useUserAsset";
+import { useWalletHoldings } from "../hooks/useWalletHoldings";
+import { AssetPicker } from "./AssetPicker";
 import { useRbdxBalance } from "../hooks/useRbdxBalance";
 import { useRedeemCooldown } from "../hooks/useRedeemCooldown";
 import { previewMint, previewRedeem } from "../lib/math";
@@ -23,6 +25,47 @@ export function TradePanel({ data, onRefetch }: { data: VaultData; onRefetch: ()
 
   const asset = data.assets[assetIndex];
   const amount = parseTokenAmount(amountStr) ?? 0n;
+
+  const { holdings, refetch: refetchHoldings } = useWalletHoldings(data.assets, address);
+
+  // Land on the position the user is most likely to deposit -- their largest
+  // Stock Token holding -- instead of whichever ticker happens to be first in
+  // the registry. Runs once, and never after they've chosen an asset
+  // themselves, so a later balance refresh can't move the selection out from
+  // under a half-typed amount.
+  const pickedManually = useRef(false);
+  const autoPicked = useRef(false);
+  const largestHoldingIndex = useMemo(() => {
+    let best = -1;
+    let bestValue = 0n;
+    let bestBalance = 0n;
+    data.assets.forEach((a, i) => {
+      const held = holdings.get(a.address);
+      const value = held?.valueUsd ?? 0n;
+      const balance = held?.balance ?? 0n;
+      // Value ranks first; balance only breaks ties, which in practice means
+      // "every holding's feed is stale" (all values 0n, e.g. market closed) —
+      // an arbitrary held asset still beats whatever the registry lists first.
+      if (value > bestValue || (value === bestValue && balance > bestBalance)) {
+        best = i;
+        bestValue = value;
+        bestBalance = balance;
+      }
+    });
+    return best;
+  }, [data.assets, holdings]);
+
+  useEffect(() => {
+    if (pickedManually.current || autoPicked.current) return;
+    if (largestHoldingIndex < 0) return;
+    autoPicked.current = true;
+    setAssetIndex(largestHoldingIndex);
+  }, [largestHoldingIndex]);
+
+  function handleAssetChange(index: number) {
+    pickedManually.current = true;
+    setAssetIndex(index);
+  }
 
   const vaultParams = {
     devFeeBps: data.devFeeBps,
@@ -68,6 +111,7 @@ export function TradePanel({ data, onRefetch }: { data: VaultData; onRefetch: ()
     if (actionReceipt.isSuccess) {
       onRefetch();
       userAsset.refetch();
+      refetchHoldings();
       rbdx.refetch();
       cooldown.refetch();
       setAmountStr("");
@@ -120,13 +164,14 @@ export function TradePanel({ data, onRefetch }: { data: VaultData; onRefetch: ()
 
       <div className="trade-body">
         <label className="field-label">Asset</label>
-        <select className="select" value={assetIndex} onChange={(e) => setAssetIndex(Number(e.target.value))}>
-          {data.assets.map((a, i) => (
-            <option key={a.address} value={i}>
-              {a.symbol} — {a.priceAvailable ? fmtUsd(a.price) : "price unavailable"}
-            </option>
-          ))}
-        </select>
+        <AssetPicker
+          assets={data.assets}
+          value={assetIndex}
+          onChange={handleAssetChange}
+          mode={mode}
+          holdings={holdings}
+          isConnected={isConnected}
+        />
 
         <label className="field-label">
           {mode === "mint" ? `Amount of ${asset.symbol} to deposit` : `Amount of ${RBDX_SYMBOL} to burn`}
