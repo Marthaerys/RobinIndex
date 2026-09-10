@@ -42,6 +42,7 @@ export default function App() {
           <a href="https://github.com/Marthaerys/RobinIndex/blob/main/docs/DESIGN.md" target="_blank" rel="noopener noreferrer">Mechanism design</a>
           <a href="https://robinhoodchain.blockscout.com/address/0xc3ce9C84E9E012A32dFf7B7B0E2d44A30A96477e?tab=contract" target="_blank" rel="noopener noreferrer">Vault contract (verified)</a>
           <a href="https://www.geckoterminal.com/robinhood/pools/0x6975ffdff6e01409d44c51a9fec2bb955f3d0cb3de32b2545d46cc99d190aa4b" target="_blank" rel="noopener noreferrer">RBDX/USDG pool (Uniswap v4)</a>
+          <a href="https://defillama.com/protocol/robinindex" target="_blank" rel="noopener noreferrer">DefiLlama</a>
           <a href="https://x.com/DefiNPCMan" target="_blank" rel="noopener noreferrer">X</a>
         </nav>
         RobinIndex ($RBDX) — Robinhood Chain (4663). Experimental,
