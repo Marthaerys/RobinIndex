@@ -4,3 +4,6 @@
 - Publieke RPC is geen archive-node (historische eth_call faalt na ~1000 blokken), wel eth_getLogs over 1M blokken. Oplossing: GitHub Action elke 15 min → `history.json` op branch `data` (aangemaakt en gevuld) → frontend leest via raw.githubusercontent. Backfill uit Transfer/mint-burn/AnswerUpdated-events + GeckoTerminal-candles: 264 punten sinds 06-09 18:00 UTC, indexprijs $1,0000 → $1,0077 (08-09) → $0,990 (nu).
 - RPC rate-limit ("reset in 60 seconds") → retry/backoff in history-lib.js. Eerste render crashte op lege data (pts[0]) → guard. Build + headless-screenshot gecontroleerd.
 - PR: https://github.com/Marthaerys/RobinIndex/pull/5. Cron start pas na merge (default branch). Scripts in script/analytics/ (README bijgewerkt).
+
+### 17:00 UTC — Snapshot-script zelfherstellend gemaakt → PR #7
+- `gapFill()` in history-lib.js reconstrueert ontbrekende kwartierpunten uit events (balans = huidig − transfers erna; prijs = laatste AnswerUpdated ≤ t; pool = laatste 15-min close). Lokaal getest: 11 punten voor 14:00–16:30 UTC, sluit aan op de live meting. PR: https://github.com/Marthaerys/RobinIndex/pull/7. Na merge is de grafiek weer per kwartier, ongeacht GitHub's cron-vertraging.
